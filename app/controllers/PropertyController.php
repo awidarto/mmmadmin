@@ -415,7 +415,7 @@ class PropertyController extends AdminController {
 
     public function getImport(){
 
-        $this->importkey = 'propertyId';
+        $this->importkey = 'sourceId';
 
         return parent::getImport();
     }
