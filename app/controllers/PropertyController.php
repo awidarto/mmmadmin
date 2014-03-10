@@ -422,7 +422,7 @@ class PropertyController extends AdminController {
 
     public function postUploadimport()
     {
-        $this->importkey = 'propertyId';
+        $this->importkey = 'sourceId';
 
         return parent::postUploadimport();
     }
