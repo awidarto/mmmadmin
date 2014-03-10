@@ -1124,9 +1124,9 @@ class AdminController extends Controller {
 
         $firstdata = Input::get('firstdata');
 
-        //$importkey = (!is_null($this->importkey))?Input::get('importkey'):$this->importkey;
+        $importkey = (!is_null($this->importkey))?Input::get('importkey'):$this->importkey;
 
-        $importkey = $this->importkey;
+        //$importkey = $this->importkey;
 
         $rstring = str_random(15);
 
