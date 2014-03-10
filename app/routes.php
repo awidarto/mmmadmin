@@ -68,15 +68,17 @@ Route::get('regenerate',function(){
 
         $_id = new MongoId($p['_id']);
 
-        $nseq = $seq->getNewId('property');
+        if($p['propertyId'] == ''){
+            $nseq = $seq->getNewId('property');
 
-        $sdata = array(
-            'sequence'=>$nseq,
-            'propertyId' => Config::get('ia.property_id_prefix').$nseq
-            );
+            $sdata = array(
+                'sequence'=>$nseq,
+                'propertyId' => Config::get('ia.property_id_prefix').$nseq
+                );
 
-        if( $property->where('_id','=', $_id )->update( $sdata ) ){
-            print $p['_id'].'->'.$sdata['propertyId'].'<br />';
+            if( $property->where('_id','=', $_id )->update( $sdata ) ){
+                print $p['_id'].'->'.$sdata['propertyId'].'<br />';
+            }
         }
 
     }
