@@ -433,14 +433,17 @@ class PropertyController extends AdminController {
 
         $files = array();
 
+        if($data['propertyId'] == ''){
+            $sequence = new Sequence();
+
+            $seq = $sequence->getNewId('property');
+
+            $data['sequence'] = $seq;
+
+            $data['propertyId'] = Config::get('ia.property_id_prefix').$seq;
+
+        }
         // set new sequential ID
-        $sequence = new Sequence();
-
-        $seq = $sequence->getNewId('property');
-
-        $data['sequence'] = $seq;
-
-        $data['propertyId'] = Config::get('ia.property_id_prefix').$seq;
 
         if($data['propertyStatus'] == 'available'){
             $data['publishDate'] = $data['lastUpdate'];
