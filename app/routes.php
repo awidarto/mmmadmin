@@ -231,6 +231,8 @@ Route::get('tonumber',function(){
 
 });
 
+
+
 Route::get('defpic',function(){
     $property = new Property();
 
@@ -246,8 +248,12 @@ Route::get('defpic',function(){
 
 
         if( !empty($defaultpictures) ){
+
+            if(!isset($p->files[$defaultpic]['full_url'])){
+                $p->files[$defaultpic]['full_url'] = str_replace('lrg_', 'full_', $p->files[$defaultpic]['full_url']);
+            }
+
             if(!isset($defaultpictures['full_url'])){
-                print_r($defaultpictures);
 
                 $defaultpictures['full_url'] = $p->files[$defaultpic]['full_url'];
 
@@ -264,6 +270,66 @@ Route::get('defpic',function(){
 
 });
 
+Route::get('regeneratepic',function(){
+    $property = new Property();
+
+    $props = $property->get();
+
+    $seq = new Sequence();
+
+    foreach($props as $p){
+
+        $large_wm = public_path().'/wm/wm_lrg.png';
+        $med_wm = public_path().'/wm/wm_med.png';
+        $sm_wm = public_path().'/wm/wm_sm.png';
+
+        $files = $p->files;
+
+        foreach($files as $folder=>$files){
+
+            $dir = public_path().'/storage/media/'.$folder;
+
+            if (is_dir($dir) && file_exists($dir)) {
+                if ($dh = opendir($dir)) {
+                    while (($file = readdir($dh)) !== false) {
+                        if($file != '.' && $file != '..'){
+                            if(!preg_match('/^lrg_|med_|th_|full_/', $file)){
+                                echo $dir.'/'.$file."\n";
+
+                                $destinationPath = $dir;
+                                $filename = $file;
+
+                                $thumbnail = Image::make($destinationPath.'/'.$filename)
+                                    ->grab(100,74)
+                                    //->insert($sm_wm,0,0, 'bottom-right')
+                                    ->save($destinationPath.'/th_'.$filename);
+
+                                $medium = Image::make($destinationPath.'/'.$filename)
+                                    ->grab(270,200)
+                                    //->insert($med_wm,0,0, 'bottom-right')
+                                    ->save($destinationPath.'/med_'.$filename);
+
+                                $large = Image::make($destinationPath.'/'.$filename)
+                                    ->grab(870,420)
+                                    ->insert($large_wm,15,15, 'bottom-right')
+                                    ->save($destinationPath.'/lrg_'.$filename);
+
+                                $full = Image::make($destinationPath.'/'.$filename)
+                                    ->insert($large_wm,15,15, 'bottom-right')
+                                    ->save($destinationPath.'/full_'.$filename);
+
+                            }
+                        }
+                    }
+                    closedir($dh);
+                }
+            }
+        }
+
+
+    }
+
+});
 
 Route::get('brochure/dl/{id}',function($id){
 
