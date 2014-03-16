@@ -218,6 +218,7 @@ class PropertyController extends AdminController {
                     $defaults['thumbnail_url'] = $data['thumbnail_url'][$i];
                     $defaults['large_url'] = $data['large_url'][$i];
                     $defaults['medium_url'] = $data['medium_url'][$i];
+                    $defaults['full_url'] = $data['full_url'][$i];
                 }
 
                 if($data['brchead'] == $data['file_id'][$i]){

@@ -231,6 +231,40 @@ Route::get('tonumber',function(){
 
 });
 
+Route::get('defpic',function(){
+    $property = new Property();
+
+    $props = $property->get();
+
+    $seq = new Sequence();
+
+    foreach($props as $p){
+
+        $defaultpic = $p->defaultpic;
+
+        $defaultpictures = $p->defaultpictures;
+
+
+        if( !empty($defaultpictures) ){
+            if(!isset($defaultpictures['full_url'])){
+                print_r($defaultpictures);
+
+                $defaultpictures['full_url'] = $p->files[$defaultpic]['full_url'];
+
+                print_r($defaultpictures);
+
+                $p->defaultpictures = $defaultpictures;
+
+                $p->save();
+            }
+        }
+
+
+    }
+
+});
+
+
 Route::get('brochure/dl/{id}',function($id){
 
     $prop = Property::find($id)->toArray();
