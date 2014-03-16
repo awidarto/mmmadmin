@@ -250,9 +250,9 @@ Route::get('defpic',function(){
         if( !empty($defaultpictures) ){
 
             if(!isset($p->files[$defaultpic]['full_url'])){
-                $def = $p->files[$defaultpic];
-                $def['full_url'] = str_replace('lrg_', 'full_', $def['large_url']);
-                $p->files[$defaultpic] = $def;
+                $df = $p->files;
+                $df[$defaultpic]['full_url'] = str_replace('lrg_', 'full_', $df[$defaultpic]['large_url']);
+                $p->files = $df;
             }
 
             if(!isset($defaultpictures['full_url'])){
