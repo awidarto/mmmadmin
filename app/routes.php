@@ -273,6 +273,9 @@ Route::get('defpic',function(){
 });
 
 Route::get('regeneratepic',function(){
+
+    set_time_limit(0);
+
     $property = new Property();
 
     $props = $property->get();
