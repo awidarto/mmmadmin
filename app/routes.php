@@ -272,6 +272,20 @@ Route::get('defpic',function(){
 
 });
 
+Route::get('leasedate',function(){
+    set_time_limit(0);
+
+    $property = new Property();
+
+    $props = $property->distinct('leaseStartDate')->get()->toArray();
+
+    foreach($props as $p){
+        print $p[0]. "\r\n" ;
+    }
+
+
+});
+
 Route::get('regeneratepic',function(){
 
     set_time_limit(0);
