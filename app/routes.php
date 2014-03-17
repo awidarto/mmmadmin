@@ -288,7 +288,7 @@ Route::get('leasedate',function(){
                 print $p[0]."-> valid date\r\n";
             }else{
                 if($p[0] < 40000){
-                    print $p[0]."-> too old";
+                    print $p[0]."-> too old\r\n";
                 }else{
                     print $p[0]."-> integer";
 
