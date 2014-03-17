@@ -281,33 +281,40 @@ Route::get('leasedate',function(){
 
     foreach($props as $p){
         //print $p[0]. "\r\n" ;
-        if(strripos( strtolower($p->leaseStartDate) , 'marketing') > 0){
-            print $p->leaseStartDate."-> -\r\n";
-            $p->leaseStartDate = '';
+
+        if( $p->leaseStartDate instanceOf MongoDate ){
+            print "already a date\r\n";
         }else{
-            if(strtotime($p->leaseStartDate)){
-                print $p->leaseStartDate."-> valid date\r\n";
-                $p->leaseStartDate = new MongoDate( strtotime($p->leaseStartDate) );
-                print_r($p->leaseStartDate);
+
+            if(strripos( strtolower($p->leaseStartDate) , 'marketing') > 0){
+                print $p->leaseStartDate."-> -\r\n";
+                $p->leaseStartDate = '';
             }else{
-                if($p->leaseStartDate < 40000){
-                    print $p->leaseStartDate."-> too old\r\n";
-                    $p->leaseStartDate = '';
-                }else{
-                    print $p->leaseStartDate."-> integer";
-
-                    print PHPExcel_Shared_Date::ExcelToPHP($p->leaseStartDate)."->";
-
-                    print date('Y-m-d H:i:s',PHPExcel_Shared_Date::ExcelToPHP($p->leaseStartDate))."\r\n";
-
-                    $p->leaseStartDate = new MongoDate( PHPExcel_Shared_Date::ExcelToPHP($p->leaseStartDate) );
+                if(strtotime($p->leaseStartDate)){
+                    print $p->leaseStartDate."-> valid date\r\n";
+                    $p->leaseStartDate = new MongoDate( strtotime($p->leaseStartDate) );
                     print_r($p->leaseStartDate);
+                }else{
+                    if($p->leaseStartDate < 40000){
+                        print $p->leaseStartDate."-> too old\r\n";
+                        $p->leaseStartDate = '';
+                    }else{
+                        print $p->leaseStartDate."-> integer";
 
+                        print PHPExcel_Shared_Date::ExcelToPHP($p->leaseStartDate)."->";
+
+                        print date('Y-m-d H:i:s',PHPExcel_Shared_Date::ExcelToPHP($p->leaseStartDate))."\r\n";
+
+                        $p->leaseStartDate = new MongoDate( PHPExcel_Shared_Date::ExcelToPHP($p->leaseStartDate) );
+                        print_r($p->leaseStartDate);
+
+                    }
                 }
             }
-        }
 
-        $p->save();
+            $p->save();
+
+        }
 
 
         /*
