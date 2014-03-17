@@ -288,6 +288,8 @@ Route::get('leasedate',function(){
                 print $p[0]."-> valid date\r\n";
             }else{
                 print $p[0]."-> integer\r\n";
+
+                print PHPExcel_Shared_Date::ExcelToPHP($p[0])."\r\n";
             }
         }
 
