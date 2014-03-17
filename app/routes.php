@@ -307,6 +307,8 @@ Route::get('leasedate',function(){
             }
         }
 
+        $p->save();
+
 
         /*
         if(strripos( strtolower($p[0]) , '/') > 0 || strripos( strtolower($p[0]) , '-') > 0){
