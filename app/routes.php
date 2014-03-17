@@ -287,11 +287,16 @@ Route::get('leasedate',function(){
             if(strtotime($p[0])){
                 print $p[0]."-> valid date\r\n";
             }else{
-                print $p[0]."-> integer";
+                if($p[0] < 40000){
+                    print $p[0]."-> too old";
+                }else{
+                    print $p[0]."-> integer";
 
-                print PHPExcel_Shared_Date::ExcelToPHP($p[0])."->";
+                    print PHPExcel_Shared_Date::ExcelToPHP($p[0])."->";
 
-                print date('Y-m-d H:i:s',PHPExcel_Shared_Date::ExcelToPHP($p[0]))."\r\n";
+                    print date('Y-m-d H:i:s',PHPExcel_Shared_Date::ExcelToPHP($p[0]))."\r\n";
+
+                }
             }
         }
 
