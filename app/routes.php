@@ -277,24 +277,24 @@ Route::get('leasedate',function(){
 
     $property = new Property();
 
-    $props = $property->distinct('leaseStartDate')->get()->toArray();
+    $props = $property->get();
 
     foreach($props as $p){
         //print $p[0]. "\r\n" ;
-        if(strripos( strtolower($p[0]) , 'marketing') > 0){
-            print $p[0]."-> -\r\n";
+        if(strripos( strtolower($p->leaseStartDate) , 'marketing') > 0){
+            print $p->leaseStartDate."-> -\r\n";
         }else{
-            if(strtotime($p[0])){
-                print $p[0]."-> valid date\r\n";
+            if(strtotime($p->leaseStartDate)){
+                print $p->leaseStartDate."-> valid date\r\n";
             }else{
-                if($p[0] < 40000){
-                    print $p[0]."-> too old\r\n";
+                if($p->leaseStartDate < 40000){
+                    print $p->leaseStartDate."-> too old\r\n";
                 }else{
-                    print $p[0]."-> integer";
+                    print $p->leaseStartDate."-> integer";
 
-                    print PHPExcel_Shared_Date::ExcelToPHP($p[0])."->";
+                    print PHPExcel_Shared_Date::ExcelToPHP($p->leaseStartDate)."->";
 
-                    print date('Y-m-d H:i:s',PHPExcel_Shared_Date::ExcelToPHP($p[0]))."\r\n";
+                    print date('Y-m-d H:i:s',PHPExcel_Shared_Date::ExcelToPHP($p->leaseStartDate))."\r\n";
 
                 }
             }
