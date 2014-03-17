@@ -280,7 +280,23 @@ Route::get('leasedate',function(){
     $props = $property->distinct('leaseStartDate')->get()->toArray();
 
     foreach($props as $p){
-        print $p[0]. "\r\n" ;
+        //print $p[0]. "\r\n" ;
+        if(strripos( strtolower($p[0]) , 'marketing') > 0){
+            print $p[0]."-> -\r\n";
+        }else{
+            if(strtotime($p[0])){
+                print $p[0]."-> valid date\r\n";
+            }else{
+                print $p[0]."-> integer\r\n";
+            }
+        }
+
+
+        /*
+        if(strripos( strtolower($p[0]) , '/') > 0 || strripos( strtolower($p[0]) , '-') > 0){
+            print $p[0]."->". str ."\r\n";
+        }
+        */
     }
 
 
