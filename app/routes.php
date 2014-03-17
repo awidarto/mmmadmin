@@ -291,7 +291,7 @@ Route::get('leasedate',function(){
 
                 print PHPExcel_Shared_Date::ExcelToPHP($p[0])."->";
 
-                print strtotime(PHPExcel_Shared_Date::ExcelToPHP($p[0]))."\r\n";
+                print date('Y-m-d H:i:s',PHPExcel_Shared_Date::ExcelToPHP($p[0]))."\r\n";
             }
         }
 
