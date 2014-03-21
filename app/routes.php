@@ -138,6 +138,7 @@ Route::get('propman',function(){
     }
 
     //print_r($propManArr);
+    return Response::json(array('result'=>'OK:GENERATED'));
 
 });
 
@@ -193,13 +194,13 @@ Route::get('tofin',function(){
 
         $p->yearBuilt = new MongoInt32($p->yearBuilt);
 
-
-        print_r($p->toArray());
+        //print_r($p->toArray());
 
         $p->save();
 
-
     }
+
+    return Response::json(array('result'=>'OK:GENERATED'));
 
 });
 

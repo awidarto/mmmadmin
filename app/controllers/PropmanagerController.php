@@ -54,6 +54,12 @@ class PropmanagerController extends AdminController {
 
         $this->can_add = false;
 
+        $this->is_report = true;
+
+        $this->report_action = View::make('propmanager.action_button')->render();
+
+        //$this->report_action = 'test';
+
         return parent::getIndex();
 
     }

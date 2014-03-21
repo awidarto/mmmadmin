@@ -65,6 +65,10 @@ class FinancialController extends AdminController {
 
         $this->can_add = false;
 
+        $this->is_report = true;
+
+        $this->report_action = View::make('financial.action_button')->render();
+
         return parent::getIndex();
 
     }
