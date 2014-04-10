@@ -81,20 +81,27 @@ $(document).ready(function() {
             $('.au').show();
             $('.us').hide();
             $('.outside').hide();
-            $('select').select2({
-              width : 'resolve'
-            });
+
+            $('select.au').removeProp('disabled');
+            $('select.us').prop('disabled','disabled');
+            $('input.outside').prop('disabled','disabled');
+
         }else if(country == 'United States of America'){
             $('.au').hide();
             $('.us').show();
             $('.outside').hide();
-            $('select').select2({
-              width : 'resolve'
-            });
+
+            $('select.au').prop('disabled','disabled');
+            $('select.us').removeProp('disabled');
+            $('input.outside').prop('disabled','disabled');
         }else{
             $('.au').hide();
             $('.us').hide();
             $('.outside').show();
+
+            $('select.au').prop('disabled','disabled');
+            $('select.us').prop('disabled','disabled');
+            $('input.outside').removeProp('disabled');
         }
     });
 

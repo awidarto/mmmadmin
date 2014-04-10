@@ -17,14 +17,23 @@
         {{ Former::text('address_2','') }}
         {{ Former::text('city','City')->required() }}
         {{ Former::text('zipCode','ZIP / Postal Code')->id('zip')->class('span2')->maxlength(5)->required() }}
-        <div class="us" style="display:none;">
-            {{ Former::select('state')->class('us')->options(Config::get('country.us_states'))->label('State')->style('display:none;')->id('us_states') }}
+        <div class="us" style="{{ ($formdata['countryOfOrigin'] == 'United States of America')?'':'display:none;' }}">
+            {{ Former::select('state')->class('us')->options(Config::get('country.us_states'))->label('State')->id('us_states')
+                ->style(($formdata['countryOfOrigin'] == 'United States of America')?false:true)
+                ->disabled(($formdata['countryOfOrigin'] == 'United States of America')?false:true)
+            }}
         </div>
-        <div class="au" style="display:none;">
-            {{ Former::select('state')->class('au')->options(Config::get('country.aus_states'))->label('State')->style('display:none;')->id('au_states') }}
+        <div class="au" style="{{ ($formdata['countryOfOrigin'] == 'Australia')?'':'display:none;' }}">
+            {{ Former::select('state')->class('au')->options(Config::get('country.aus_states'))->label('State')->id('au_states')
+                ->style(($formdata['countryOfOrigin'] == 'Australia')?'':'display:none;')
+                ->disabled(($formdata['countryOfOrigin'] == 'Australia')?false:true)
+            }}
         </div>
-        <div class="outside">
-            {{ Former::text('state','State / Province')->class('outside span3')->id('other_state') }}
+        <div class="outside" style="{{ ($formdata['countryOfOrigin'] == 'Australia' || $formdata['countryOfOrigin'] == 'United States of America' )?'display:none':''; }}">
+            {{ Former::text('state','State / Province')->class('outside span3')->id('other_state')
+                ->style(($formdata['countryOfOrigin'] == 'Australia' || $formdata['countryOfOrigin'] == 'United States of America')?'display:none;':'')
+                ->disabled(($formdata['countryOfOrigin'] == 'Australia' || $formdata['countryOfOrigin'] == 'United States of America')?true:false)
+            }}
         </div>
 
         {{ Former::select('countryOfOrigin')->id('country')->options(Config::get('country.countries'))->label('Country of Origin') }}
@@ -50,29 +59,6 @@
 
 $(document).ready(function() {
 
-    function setVisibleOptions(){
-        var mc = $('#mainCategory').val();
-
-        console.log(mc);
-
-        if( mc == 'Structure'){
-            $('#productFunction').hide();
-            $('#productSystem').show();
-            $('#productApplication').hide();
-        }else if( mc == 'Furniture'){
-            $('#productFunction').show();
-            $('#productSystem').hide();
-            $('#productApplication').hide();
-        }else{
-            $('#productFunction').hide();
-            $('#productSystem').hide();
-            $('#productApplication').show();
-        }
-
-    }
-
-    setVisibleOptions();
-
     $('#country').on('change',function(){
         var country = $('#country').val();
 
@@ -80,28 +66,30 @@ $(document).ready(function() {
             $('.au').show();
             $('.us').hide();
             $('.outside').hide();
-            $('select').select2({
-              width : 'resolve'
-            });
+
+            $('select.au').removeProp('disabled');
+            $('select.us').prop('disabled','disabled');
+            $('input.outside').prop('disabled','disabled');
+
         }else if(country == 'United States of America'){
             $('.au').hide();
             $('.us').show();
             $('.outside').hide();
-            $('select').select2({
-              width : 'resolve'
-            });
+
+            $('select.au').prop('disabled','disabled');
+            $('select.us').removeProp('disabled');
+            $('input.outside').prop('disabled','disabled');
         }else{
             $('.au').hide();
             $('.us').hide();
             $('.outside').show();
+
+            $('select.au').prop('disabled','disabled');
+            $('select.us').prop('disabled','disabled');
+            $('input.outside').removeProp('disabled');
         }
 
 
-    });
-
-
-    $('select').select2({
-      width : 'resolve'
     });
 
     var url = '{{ URL::to('upload') }}';
@@ -163,38 +151,6 @@ $(document).ready(function() {
         var title = $('#name').val();
         var slug = string_to_slug(title);
         $('#permalink').val(slug);
-    });
-
-    //$('#color_input').colorPicker();
-
-    // dynamic tables
-    $('#add_btn').click(function(){
-        //alert('click');
-        addTableRow($('#variantTable'));
-        return false;
-    });
-
-    // custom field table
-    $('#custom_add_btn').click(function(){
-        //alert('click');
-        addTableRow($('#customTable'));
-        return false;
-    });
-
-    $('#related_add_btn').click(function(){
-        //alert('click');
-        addTableRow($('#relatedTable'));
-        return false;
-    });
-
-    $('#component_add_btn').click(function(){
-        //alert('click');
-        addTableRow($('#componentTable'));
-        return false;
-    });
-
-    $('#mainCategory').change(function(){
-        setVisibleOptions();
     });
 
 });

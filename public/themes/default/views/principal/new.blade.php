@@ -58,20 +58,27 @@ $(document).ready(function() {
             $('.au').show();
             $('.us').hide();
             $('.outside').hide();
-            $('select').select2({
-              width : 'resolve'
-            });
+
+            $('select.au').removeProp('disabled');
+            $('select.us').prop('disabled','disabled');
+            $('input.outside').prop('disabled','disabled');
+
         }else if(country == 'United States of America'){
             $('.au').hide();
             $('.us').show();
             $('.outside').hide();
-            $('select').select2({
-              width : 'resolve'
-            });
+
+            $('select.au').prop('disabled','disabled');
+            $('select.us').removeProp('disabled');
+            $('input.outside').prop('disabled','disabled');
         }else{
             $('.au').hide();
             $('.us').hide();
             $('.outside').show();
+
+            $('select.au').prop('disabled','disabled');
+            $('select.us').prop('disabled','disabled');
+            $('input.outside').removeProp('disabled');
         }
     });
 
@@ -118,10 +125,6 @@ $(document).ready(function() {
     .prop('disabled', !$.support.fileInput)
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
 
-    $('select').select2({
-      width : 'resolve'
-    });
-
 
     $('#field_role').change(function(){
         //alert($('#field_role').val());
@@ -144,38 +147,6 @@ $(document).ready(function() {
         var title = $('#name').val();
         var slug = string_to_slug(title);
         $('#permalink').val(slug);
-    });
-
-    //$('#color_input').colorPicker();
-
-    // dynamic tables
-    $('#add_btn').click(function(){
-        //alert('click');
-        addTableRow($('#variantTable'));
-        return false;
-    });
-
-    // custom field table
-    $('#custom_add_btn').click(function(){
-        //alert('click');
-        addTableRow($('#customTable'));
-        return false;
-    });
-
-    $('#related_add_btn').click(function(){
-        //alert('click');
-        addTableRow($('#relatedTable'));
-        return false;
-    });
-
-    $('#component_add_btn').click(function(){
-        //alert('click');
-        addTableRow($('#componentTable'));
-        return false;
-    });
-
-    $('#mainCategory').change(function(){
-        setVisibleOptions();
     });
 
 });
