@@ -86,7 +86,7 @@ Route::get('regenerate',function(){
 
 });
 
-Route::get('fillprin/{$prid}',function($prid){
+Route::get('fillprin/{prid}',function($prid){
     //$principal = '5344ea11ccae5b6f13000004';
     $principal = $prid;
     $pr = Principal::find($principal);
