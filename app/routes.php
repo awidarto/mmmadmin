@@ -15,6 +15,7 @@ Route::controller('property', 'PropertyController');
 Route::controller('user', 'UserController');
 Route::controller('agent', 'AgentController');
 Route::controller('buyer', 'BuyerController');
+Route::controller('principal', 'PrincipalController');
 Route::controller('potential', 'PotentialController');
 Route::controller('report', 'ReportController');
 Route::controller('pages', 'PagesController');
@@ -81,6 +82,22 @@ Route::get('regenerate',function(){
             }
         }
 
+    }
+
+});
+
+Route::get('fillprin/{$prid}',function($prid){
+    //$principal = '5344ea11ccae5b6f13000004';
+    $principal = $prid;
+    $pr = Principal::find($principal);
+
+    if($pr){
+        $props = Property::get();
+        foreach($props as $p){
+            $p->principal = $pr->_id;
+            $p->principalName = $pr->company;
+            $p->save();
+        }
     }
 
 });

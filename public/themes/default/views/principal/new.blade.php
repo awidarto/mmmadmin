@@ -10,10 +10,7 @@
 <div class="row-fluid">
     <div class="span6">
 
-        {{ Former::select('salutation')->options(Config::get('kickstart.salutation'))->label('Salutation')->class('span1') }}
-        {{ Former::text('firstname','First Name')->required() }}
-        {{ Former::text('lastname','Last Name')->required() }}
-        {{ Former::text('mobile','Mobile')->class('span3')->maxlength(15) }}
+        {{ Former::text('company','Company Name')->required() }}
 
         {{ Former::text('address_1','Address')->required() }}
         {{ Former::text('address_2','') }}
@@ -33,26 +30,6 @@
         {{ Former::select('countryOfOrigin')->id('country')->options(Config::get('country.countries'))->label('Country of Origin')->required() }}
     </div>
     <div class="span6">
-        {{ Former::text('email','Email')->required() }}
-
-        {{ Former::password('pass','Password')->required() }}
-        {{ Former::password('repass','Repeat Password')->required() }}
-
-        <hr>
-        <h5>Access to Property Setting</h5>
-
-        {{ Former::select('prop_access', 'Access to Property')->options(array('all_access'=>'All access','filtered'=>'Filtered'))
-            ->help('User can see all properties, this setting override filters below') }}
-
-        <h6>Filter Setting ( only effective for filtered property access )</h6>
-
-        {{ Former::select('filter_principal', 'Filter by Principal')->options(Prefs::getPrincipal()->principalToSelection('_id','company'))->id('assigned-agent')->help('User can only see properties from particular Principal') }}
-
-        <?php
-            $state_select = array_merge(array(''=>'All'),Config::get('country.us_states') );
-        ?>
-
-        {{ Former::select('filter_state', 'Filter by State')->class('us')->options($state_select)->id('filter_states')->help('User can only see properties in particular state') }}
 
     </div>
 </div>

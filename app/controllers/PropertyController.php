@@ -55,6 +55,10 @@ class PropertyController extends AdminController {
 
         $this->can_add = true;
 
+        $this->is_additional_action = true;
+
+        $this->additional_action = '<a class="btn" id="assign-prop">Assign Properties to Agent</a>';
+
         return parent::getIndex();
 
     }

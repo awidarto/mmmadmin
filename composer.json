@@ -4,7 +4,7 @@
 	"keywords": ["framework", "laravel"],
 	"license": "MIT",
 	"require": {
-		"laravel/framework": "4.0.*",
+		"laravel/framework": "4.1.*",
         "jenssegers/mongodb": "*",
         "noherczeg/breadcrumb": "dev-master",
         "anahkiasen/former": "dev-master",
@@ -12,9 +12,6 @@
         "intervention/imagecache": "dev-master",
         "intervention/helper": "dev-master",
         "intervention/validation": "dev-master",
-        "robin-malfait/formgenerator": "dev-master",
-        "way/generators": "1.0.*@dev",
-        "pieter/yaml": "dev-master",
         "maatwebsite/excel": "dev-master",
         "alexwhitman/view-themes": "dev-master",
         "barryvdh/laravel-dompdf": "dev-master"

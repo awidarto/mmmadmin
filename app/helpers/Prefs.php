@@ -4,6 +4,9 @@ class Prefs {
 
     public static $category;
     public static $faqcategory;
+    public static $principal;
+    public static $agent;
+
 
     public function __construct()
     {
@@ -36,6 +39,66 @@ class Prefs {
     public function catToArray()
     {
         return self::$category;
+    }
+
+    public static function getPrincipal(){
+        $c = Principal::get();
+
+        self::$principal = $c;
+        return new self;
+    }
+
+    public function principalToSelection($value, $label, $all = true)
+    {
+        if($all){
+            $ret = array(''=>'All');
+        }else{
+            $ret = array();
+        }
+
+        foreach (self::$principal as $c) {
+            $ret[$c->{$value}] = $c->{$label};
+        }
+
+
+        return $ret;
+    }
+
+    public function principalToArray()
+    {
+        return self::$principal;
+    }
+
+
+    public static function getAgent(){
+        $c = Agent::get();
+
+        self::$agent = $c;
+        return new self;
+    }
+
+    public function agentToSelection($value, $label, $all = true)
+    {
+        if($all){
+            $ret = array(''=>'All');
+        }else{
+            $ret = array();
+        }
+
+        foreach (self::$agent as $c) {
+            if($label == 'fullname'){
+                $ret[$c->{$value}] = $c->firstname.' '.$c->lastname;
+            }else{
+                $ret[$c->{$value}] = $c->{$label};
+            }
+        }
+
+        return $ret;
+    }
+
+    public function agentToArray()
+    {
+        return self::$agent;
     }
 
 

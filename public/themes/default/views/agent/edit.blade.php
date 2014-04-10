@@ -37,6 +37,22 @@
 
         {{ Former::password('pass','Password')->help('Leave blank for no changes') }}
         {{ Former::password('repass','Repeat Password') }}
+        <hr>
+        <h5>Access to Property Setting</h5>
+
+        {{ Former::select('prop_access', 'Access to Property')->options(array('all_access'=>'All access','filtered'=>'Filtered'))
+            ->help('User can see all properties, this setting override filters below') }}
+
+        <h6>Filter Setting ( only effective for filtered property access )</h6>
+
+        {{ Former::select('filter_principal', 'Filter by Principal')->options(Prefs::getPrincipal()->principalToSelection('_id','company'))->id('assigned-agent')->help('User can only see properties from particular Principal') }}
+
+        <?php
+            $state_select = array_merge(array(''=>'All'),Config::get('country.us_states') );
+        ?>
+
+        {{ Former::select('filter_state', 'Filter by State')->class('us')->options($state_select)->id('filter_states')->help('User can only see properties in particular state') }}
+
 
     </div>
 </div>
@@ -57,28 +73,6 @@
 
 $(document).ready(function() {
 
-    function setVisibleOptions(){
-        var mc = $('#mainCategory').val();
-
-        console.log(mc);
-
-        if( mc == 'Structure'){
-            $('#productFunction').hide();
-            $('#productSystem').show();
-            $('#productApplication').hide();
-        }else if( mc == 'Furniture'){
-            $('#productFunction').show();
-            $('#productSystem').hide();
-            $('#productApplication').hide();
-        }else{
-            $('#productFunction').hide();
-            $('#productSystem').hide();
-            $('#productApplication').show();
-        }
-
-    }
-
-    setVisibleOptions();
 
     $('#country').on('change',function(){
         var country = $('#country').val();
@@ -104,11 +98,6 @@ $(document).ready(function() {
         }
 
 
-    });
-
-
-    $('select').select2({
-      width : 'resolve'
     });
 
     var url = '{{ URL::to('upload') }}';

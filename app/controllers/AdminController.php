@@ -58,6 +58,10 @@ class AdminController extends Controller {
 
     public $report_action = '';
 
+    public $is_additional_action = false;
+
+    public $additional_action = '';
+
 
 	public function __construct(){
 
@@ -157,6 +161,8 @@ class AdminController extends Controller {
             ->with('can_add', $this->can_add )
             ->with('is_report',$this->is_report)
             ->with('report_action',$this->report_action)
+            ->with('is_additional_action',$this->is_additional_action)
+            ->with('additional_action',$this->additional_action)
 			->with('heads',$heads )
 			->with('row',$this->rowdetail );
 
@@ -1231,7 +1237,7 @@ class AdminController extends Controller {
 		\Laravel\CLI\Command::run(array('notify'));
 	}
 
-    public function missingMethod($param)
+    public function missingMethod($param = array())
     {
         //print_r($param);
     }

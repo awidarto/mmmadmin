@@ -607,5 +607,26 @@ class AjaxController extends BaseController {
 
     }
 
+    public function postAssign(){
+        $in = Input::get();
+
+        $user_id = $in['user_id'];
+
+        $prop_ids = $in['prop_ids'];
+
+        foreach($prop_ids as $p){
+            $prop = Property::find($p);
+
+            if($prop){
+                $prop->push('assigned_user',$user_id,true);
+                $prop->save();
+            }
+
+        }
+
+        return Response::json(array('result'=>'OK'));
+
+    }
+
 }
 

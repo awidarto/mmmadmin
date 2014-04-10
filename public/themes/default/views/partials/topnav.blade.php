@@ -14,6 +14,7 @@
 
         @if(Auth::user()->role == 'root' || Auth::user()->role == 'admin')
         <li><a href="{{ URL::to('agent') }}" {{ sa('agent') }} >Agents</a></li>
+        <li><a href="{{ URL::to('principal') }}" {{ sa('principal') }} >Principal</a></li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 Buyers

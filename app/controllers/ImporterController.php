@@ -95,7 +95,7 @@ class ImporterController extends BaseController {
         return Response::json(array('status'=>'OK'));
     }
 
-    public function missingMethod($param)
+    public function missingMethod($param = array())
     {
         //print_r($param);
     }

@@ -34,14 +34,14 @@ class PropmanagerController extends AdminController {
 
             array('Min Lease Term',array('search'=>true,'sort'=>true)),
             array('Max Lease Term',array('search'=>true,'sort'=>true)),
-            array('Avg Lease Term',array('search'=>true,'sort'=>false)),
-            array('Sum of Lease Term',array('search'=>true,'sort'=>false)),
+            //array('Avg Lease Term',array('search'=>true,'sort'=>false)),
+            //array('Sum of Lease Term',array('search'=>true,'sort'=>false)),
 
-            array('Min Monthly Rental',array('search'=>true,'sort'=>true)),
-            array('Max Monthly Rental',array('search'=>true,'sort'=>true)),
-            array('Avg Monthly Rental',array('search'=>true,'sort'=>false)),
-            array('Sum of Monthly Rental',array('search'=>true,'sort'=>false)),
-            array('Total Annual Rental',array('search'=>true,'sort'=>false)),
+            //array('Min Monthly Rental',array('search'=>true,'sort'=>true)),
+            //array('Max Monthly Rental',array('search'=>true,'sort'=>true)),
+            //array('Avg Monthly Rental',array('search'=>true,'sort'=>false)),
+            //array('Sum of Monthly Rental',array('search'=>true,'sort'=>false)),
+            //array('Total Annual Rental',array('search'=>true,'sort'=>false)),
 
 
             array('Created',array('search'=>true,'sort'=>true,'date'=>true)),

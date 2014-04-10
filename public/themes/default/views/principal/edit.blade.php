@@ -7,19 +7,16 @@
 
 {{Former::open_for_files($submit,'POST',array('class'=>'custom addAttendeeForm'))}}
 
+{{ Former::hidden('id')->value($formdata['_id']) }}
 <div class="row-fluid">
     <div class="span6">
 
-        {{ Former::select('salutation')->options(Config::get('kickstart.salutation'))->label('Salutation')->class('span1') }}
-        {{ Former::text('firstname','First Name')->required() }}
-        {{ Former::text('lastname','Last Name')->required() }}
-        {{ Former::text('mobile','Mobile')->class('span3')->maxlength(15) }}
+        {{ Former::text('company','Company Name')->required() }}
 
         {{ Former::text('address_1','Address')->required() }}
         {{ Former::text('address_2','') }}
         {{ Former::text('city','City')->required() }}
         {{ Former::text('zipCode','ZIP / Postal Code')->id('zip')->class('span2')->maxlength(5)->required() }}
-
         <div class="us" style="display:none;">
             {{ Former::select('state')->class('us')->options(Config::get('country.us_states'))->label('State')->style('display:none;')->id('us_states') }}
         </div>
@@ -27,32 +24,12 @@
             {{ Former::select('state')->class('au')->options(Config::get('country.aus_states'))->label('State')->style('display:none;')->id('au_states') }}
         </div>
         <div class="outside">
-            {{ Former::text('state','State / Province')->class('outside span6')->id('other_state')->class('span3') }}
+            {{ Former::text('state','State / Province')->class('outside span3')->id('other_state') }}
         </div>
 
-        {{ Former::select('countryOfOrigin')->id('country')->options(Config::get('country.countries'))->label('Country of Origin')->required() }}
+        {{ Former::select('countryOfOrigin')->id('country')->options(Config::get('country.countries'))->label('Country of Origin') }}
     </div>
     <div class="span6">
-        {{ Former::text('email','Email')->required() }}
-
-        {{ Former::password('pass','Password')->required() }}
-        {{ Former::password('repass','Repeat Password')->required() }}
-
-        <hr>
-        <h5>Access to Property Setting</h5>
-
-        {{ Former::select('prop_access', 'Access to Property')->options(array('all_access'=>'All access','filtered'=>'Filtered'))
-            ->help('User can see all properties, this setting override filters below') }}
-
-        <h6>Filter Setting ( only effective for filtered property access )</h6>
-
-        {{ Former::select('filter_principal', 'Filter by Principal')->options(Prefs::getPrincipal()->principalToSelection('_id','company'))->id('assigned-agent')->help('User can only see properties from particular Principal') }}
-
-        <?php
-            $state_select = array_merge(array(''=>'All'),Config::get('country.us_states') );
-        ?>
-
-        {{ Former::select('filter_state', 'Filter by State')->class('us')->options($state_select)->id('filter_states')->help('User can only see properties in particular state') }}
 
     </div>
 </div>
@@ -65,14 +42,36 @@
 </div>
 {{Former::close()}}
 
+{{ HTML::script('js/wysihtml5-0.3.0.min.js') }}
+{{ HTML::script('js/parser_rules/advanced.js') }}
+
 <script type="text/javascript">
+
 
 $(document).ready(function() {
 
+    function setVisibleOptions(){
+        var mc = $('#mainCategory').val();
 
-    $('select').select2({
-      width : 'copy'
-    });
+        console.log(mc);
+
+        if( mc == 'Structure'){
+            $('#productFunction').hide();
+            $('#productSystem').show();
+            $('#productApplication').hide();
+        }else if( mc == 'Furniture'){
+            $('#productFunction').show();
+            $('#productSystem').hide();
+            $('#productApplication').hide();
+        }else{
+            $('#productFunction').hide();
+            $('#productSystem').hide();
+            $('#productApplication').show();
+        }
+
+    }
+
+    setVisibleOptions();
 
     $('#country').on('change',function(){
         var country = $('#country').val();
@@ -96,6 +95,13 @@ $(document).ready(function() {
             $('.us').hide();
             $('.outside').show();
         }
+
+
+    });
+
+
+    $('select').select2({
+      width : 'resolve'
     });
 
     var url = '{{ URL::to('upload') }}';
@@ -104,6 +110,11 @@ $(document).ready(function() {
         url: url,
         dataType: 'json',
         done: function (e, data) {
+            $('#progress .bar').css(
+                'width',
+                '0%'
+            );
+
             $.each(data.result.files, function (index, file) {
                 var thumb = '<li><img src="' + file.thumbnail_url + '" /><br /><input type="radio" name="defaultpic" value="' + file.name + '"> Default<br /><span class="img-title">' + file.name + '</span>' +
                 '<label for="colour">Colour</label><input type="text" name="colour[]" />' +
@@ -122,6 +133,7 @@ $(document).ready(function() {
                 upl += '<input type="hidden" name="fileurl[]" value="' + file.url + '">';
 
                 $(upl).appendTo('#uploadedform');
+
             });
         },
         progressall: function (e, data) {
@@ -130,21 +142,10 @@ $(document).ready(function() {
                 'width',
                 progress + '%'
             );
-
-            /*
-            if(progress == 100){
-                $('#progress .bar').css('width','0%');
-            }
-            */
         }
     })
     .prop('disabled', !$.support.fileInput)
         .parent().addClass($.support.fileInput ? undefined : 'disabled');
-
-    $('select').select2({
-      width : 'resolve'
-    });
-
 
     $('#field_role').change(function(){
         //alert($('#field_role').val());
@@ -152,12 +153,7 @@ $(document).ready(function() {
     });
 
     /*
-
-    $('#ecoFriendly').summernote({
-        height: 300px
-    });
-
-    var editor = new wysihtml5.Editor('ecoFriendly', { // id of textarea element
+    var editor = new wysihtml5.Editor('ecofriendly', { // id of textarea element
       toolbar:      'wysihtml5-toolbar', // id of toolbar element
       parserRules:  wysihtml5ParserRules // defined in parser rules set
     });

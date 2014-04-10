@@ -1,6 +1,6 @@
 <?php
 
-class AgentController extends AdminController {
+class PrincipalController extends AdminController {
 
     public function __construct()
     {
@@ -12,7 +12,7 @@ class AgentController extends AdminController {
         $this->crumb->append('Home','left',true);
         $this->crumb->append(strtolower($this->controller_name));
 
-        $this->model = new Agent();
+        $this->model = new Principal();
         //$this->model = DB::collection('documents');
 
     }
@@ -27,45 +27,19 @@ class AgentController extends AdminController {
 
     public function getIndex()
     {
-        /*
-'activeCart' => '5260f68b8dfa19da49000000',
-'address_1' => 'jl cibaduyut lama komplek sauyunan mas 1 no 19',
-'address_2' => '',
-'agreetnc' => 'Yes',
-'bankname' => 'bca',
-'branch' => 'bandung',
-'city' => 'bandung',
-'country' => 'Indonesia',
-'createdDate' => new MongoDate(1382086083, 795000),
-'email' => 'emptyshalu@gmail.com',
-'firstname' => 'shalu',
-'fullname' => 'shalu hz',
-'lastUpdate' => new MongoDate(1382086083, 795000),
-'lastname' => 'shalu',
-'mobile' => '0818229096',
-'pass' => '$2a$08$9XwvZZVLsHSzu4MIX1ro3.X3cdhK0btglG7qqLGPgOA6/yYz5a51C',
-'role' => 'shopper',
-'salutation' => 'Ms',
-'saveinfo' => 'No',
-'shippingphone' => '02285447649',
-'shopperseq' => '0000000019',
-'zip' => '40235',
-        */
-
 
         $this->heads = array(
-            array('Salutation',array('search'=>true,'sort'=>false)),
-            array('First Name',array('search'=>true,'sort'=>true)),
-            array('Last Name',array('search'=>true,'sort'=>true)),
-            array('Email',array('search'=>true,'sort'=>true)),
-            array('Mobile',array('search'=>true,'sort'=>true)),
+            array('Company Name',array('search'=>true,'sort'=>true)),
             array('Address',array('search'=>true,'sort'=>true)),
+            array('City',array('search'=>true,'sort'=>true)),
+            array('State',array('search'=>true,'sort'=>true)),
+            array('ZIP',array('search'=>true,'sort'=>true)),
             array('Created',array('search'=>true,'sort'=>true,'date'=>true)),
             array('Last Update',array('search'=>true,'sort'=>true,'date'=>true)),
         );
 
         //print $this->model->where('docFormat','picture')->get()->toJSON();
-        $this->title = 'Agents';
+        $this->title = 'Principals';
 
         return parent::getIndex();
 
@@ -75,12 +49,11 @@ class AgentController extends AdminController {
     {
 
         $this->fields = array(
-            array('salutation',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
-            array('firstname',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
-            array('lastname',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
-            array('email',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true,'attr'=>array('class'=>'expander'))),
-            array('mobile',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
+            array('company',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('address_1',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
+            array('city',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
+            array('state',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
+            array('zipCode',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('createdDate',array('kind'=>'datetime','query'=>'like','pos'=>'both','show'=>true)),
             array('lastUpdate',array('kind'=>'datetime','query'=>'like','pos'=>'both','show'=>true)),
         );
@@ -92,48 +65,18 @@ class AgentController extends AdminController {
     {
 
         $this->validator = array(
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email'=> 'required|unique:agents',
-            'pass'=>'required|same:repass'
+            'company' => 'required',
+            'address_1' => 'required',
         );
 
         return parent::postAdd($data);
     }
 
-    public function beforeSave($data)
-    {
-        unset($data['repass']);
-        $data['pass'] = Hash::make($data['pass']);
-        return $data;
-    }
-
-    public function beforeUpdate($id,$data)
-    {
-        //print_r($data);
-
-        if(isset($data['pass']) && $data['pass'] != ''){
-            unset($data['repass']);
-            $data['pass'] = Hash::make($data['pass']);
-
-        }else{
-            unset($data['pass']);
-            unset($data['repass']);
-        }
-
-        //print_r($data);
-
-        //exit();
-
-        return $data;
-    }
-
     public function postEdit($id,$data = null)
     {
         $this->validator = array(
-            'firstname' => 'required',
-            'lastname' => 'required',
-            'email'=> 'required'
+            'company' => 'required',
+            'address_1' => 'required',
         );
 
         if($data['pass'] == ''){
@@ -142,15 +85,29 @@ class AgentController extends AdminController {
         }else{
             $this->validator['pass'] = 'required|same:repass';
         }
-        //$data['prop_access'] = (isset($data['prop_access']))?$data['prop_access']:'filtered';
 
         return parent::postEdit($id,$data);
+    }
+
+    public function beforeSave($data)
+    {
+        return $data;
+    }
+
+    public function beforeUpdate($id,$data)
+    {
+        //print_r($data);
+        //print_r($data);
+
+        //exit();
+
+        return $data;
     }
 
     public function makeActions($data)
     {
         $delete = '<span class="del" id="'.$data['_id'].'" ><i class="icon-trash"></i>Delete</span>';
-        $edit = '<a href="'.URL::to('agent/edit/'.$data['_id']).'"><i class="icon-edit"></i>Update</a>';
+        $edit = '<a href="'.URL::to('principal/edit/'.$data['_id']).'"><i class="icon-edit"></i>Update</a>';
 
         $actions = $edit.'<br />'.$delete;
         return $actions;

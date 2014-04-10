@@ -43,6 +43,11 @@
         @if(isset($is_report) && $is_report == true)
         	{{ $report_action }}
        	@endif
+
+        @if(isset($is_additional_action) && $is_additional_action == true)
+        	{{ $additional_action }}
+       	@endif
+
 	       	<a class="btn" id="download-xls">Download Excel</a>
 	       	<a class="btn" id="download-csv">Download CSV</a>
 	 </div>
@@ -243,6 +248,20 @@
   </div>
 </div>
 
+<div id="assign-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Assign Selected to</span></h3>
+  </div>
+  <div class="modal-body" >
+	  	<h4 id="upload-title-id"></h4>
+	  	{{ Former::select('assigned', 'Assigned to')->options(Prefs::getAgent()->agentToSelection('_id','fullname',false))->id('assigned-agent')}}
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+    <button class="btn btn-primary" id="do-assign">Assign</button>
+  </div>
+</div>
 
 
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
@@ -885,6 +904,32 @@
 
 		$('#prop-chg-modal').on('hidden', function () {
 			oTable.fnDraw();
+		});
+
+		$('#assign-prop').on('click',function(e){
+			$('#assign-modal').modal();
+			e.preventDefault();
+		});
+
+		$('#do-assign').on('click',function(){
+			var props = $('.selector:checked');
+			var ids = [];
+			$.each(props, function(index){
+				ids.push( $(this).val() );
+			});
+
+			console.log(ids);
+
+			$.post('{{ URL::to('ajax/assign')}}',
+				{
+					user_id : $('#assigned-agent').val(),
+					prop_ids : ids
+				},
+				function(data){
+					$('#assign-modal').modal('hide');
+				}
+				,'json');
+
 		});
 
 		function dateFormat(indate) {
