@@ -168,9 +168,9 @@ class EnquiryController extends AdminController {
     public function makeActions($data)
     {
         $delete = '<span class="del" id="'.$data['_id'].'" ><i class="icon-trash"></i>Delete</span>';
-        $edit = '<a href="'.URL::to('event/edit/'.$data['_id']).'"><i class="icon-edit"></i>Update</a>';
+        $edit = '<a href="'.URL::to('enquiry/edit/'.$data['_id']).'"><i class="icon-edit"></i>Update</a>';
 
-        $actions = $edit.'<br />'.$delete;
+        $actions = $delete;
         return $actions;
     }
 

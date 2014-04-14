@@ -117,6 +117,7 @@ return array(
         'Maatwebsite\Excel\ExcelServiceProvider',
         'AlexWhitman\ViewThemes\ViewThemesServiceProvider',
         'Barryvdh\DomPDF\ServiceProvider',
+        'Barryvdh\Snappy\ServiceProvider',
 	),
 
 	/*
@@ -193,7 +194,7 @@ return array(
         'Excel'           => 'Maatwebsite\Excel\Facades\Excel',
         'Theme'           => 'AlexWhitman\ViewThemes\ThemeFacade',
         'Carbon'          => 'Carbon\Carbon',
-        'PDF'             => 'Barryvdh\DomPDF\Facade',
+        'PDF'             => 'Barryvdh\Snappy\Facades\SnappyPdf',
 	),
 
 );

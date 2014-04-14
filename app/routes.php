@@ -393,7 +393,7 @@ Route::get('regeneratepic',function(){
                                     ->save($destinationPath.'/med_'.$filename);
 
                                 $large = Image::make($destinationPath.'/'.$filename)
-                                    ->grab(870,420)
+                                    ->grab(900,550)
                                     ->insert($large_wm,15,15, 'bottom-right')
                                     ->save($destinationPath.'/lrg_'.$filename);
 
@@ -414,18 +414,31 @@ Route::get('regeneratepic',function(){
 
 });
 
-Route::get('brochure/dl/{id}',function($id){
+Route::get('brochure/dl/{id}/{d?}',function($id, $d = null){
 
     $prop = Property::find($id)->toArray();
 
     //return View::make('print.brochure')->with('prop',$prop)->render();
 
-    $content = View::make('print.brochure')->with('prop',$prop)->render();
+    if(!is_null($d)){
+        $content = View::make('print.brochure')->with('prop',$prop)->render();
 
-    //return $content;
+        return $content;
+    }else{
+        //return PDF::loadView('print.brochure',array('prop'=>$prop))
+        //    ->stream('download.pdf');
 
-    return PDF::loadView('print.brochure',array('prop'=>$prop))
-        ->stream('download.pdf');
+        return PDF::loadView('print.brochure', array('prop'=>$prop))
+                    ->setOption('margin-top', 0)
+                    ->setOption('margin-left', 0)
+                    ->setOption('margin-right', 0)
+                    ->setOption('margin-bottom', 0)
+                    ->setOption('dpi',200)
+                    ->setPaper('A4')
+                    ->stream($prop['propertyId'].'.pdf');
+
+        //return PDF::html('print.brochure',array('prop' => $prop), 'download.pdf');
+    }
 });
 
 Route::post('brochure/mail/{id}',function($id){

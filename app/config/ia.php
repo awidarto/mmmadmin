@@ -4,6 +4,7 @@ return array(
     'property_access' => array(
             'all_access'=>'All access',
             'filtered'=>'Filtered Only',
+            'individual'=>'Individual Selection Only',
             'filtered_and_individual'=>'Filtered AND Individual Selection',
             'filtered_or_individual'=>'Filtered OR Individual Selection'
         ),
