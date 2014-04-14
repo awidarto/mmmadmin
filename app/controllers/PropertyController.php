@@ -169,6 +169,15 @@ class PropertyController extends AdminController {
             $data['brc3'] = '';
         }
 
+        $pr = Principal::find($data['principal']);
+
+        if($pr){
+            $data['principalName'] = $pr->company;
+        }else{
+            $data['principalName'] = '';
+        }
+
+
         $data['defaultpictures'] = $defaults;
         $data['files'] = $files;
 
@@ -265,6 +274,14 @@ class PropertyController extends AdminController {
             $data['brc1'] = '';
             $data['brc2'] = '';
             $data['brc3'] = '';
+        }
+
+        $pr = Principal::find($data['principal']);
+
+        if($pr){
+            $data['principalName'] = $pr->company;
+        }else{
+            $data['principalName'] = '';
         }
 
 

@@ -23,6 +23,11 @@ Route::controller('posts', 'PostsController');
 Route::controller('category', 'CategoryController');
 Route::controller('menu', 'MenuController');
 
+Route::controller('enquiry', 'EnquiryController');
+
+Route::controller('order', 'OrderController');
+
+
 Route::controller('propmanager', 'PropmanagerController');
 Route::controller('promocode', 'PromocodeController');
 Route::controller('transaction', 'TransactionController');

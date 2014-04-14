@@ -11,7 +11,7 @@
 <div class="row-fluid">
     <div class="span6">
 
-        {{ Former::select('salutation')->options(Config::get('kickstart.salutation'))->label('Salutation')->class('span1') }}
+        {{ Former::select('salutation')->options(Config::get('kickstart.salutation'))->label('Salutation')->class('span2') }}
         {{ Former::text('firstname','First Name')->required() }}
         {{ Former::text('lastname','Last Name')->required() }}
         {{ Former::text('mobile','Mobile')->class('span3')->maxlength(15) }}
@@ -49,12 +49,17 @@
         <hr>
         <h5>Access to Property Setting</h5>
 
-        {{ Former::select('prop_access', 'Access to Property')->options(array('all_access'=>'All access','filtered'=>'Filtered'))
+        {{ Former::select('prop_access', 'Access to Property')->options(Config::get('ia.property_access'))
             ->help('User can see all properties, this setting override filters below') }}
 
         <h6>Filter Setting ( only effective for filtered property access )</h6>
 
-        {{ Former::select('filter_principal', 'Filter by Principal')->options(Prefs::getPrincipal()->principalToSelection('_id','company'))->id('assigned-agent')->help('User can only see properties from particular Principal') }}
+        <?php
+            $principal_select = Prefs::getPrincipal()->principalToSelection('_id','company',Config::get('ia.default_principal_name'));
+            $principal_select = array_merge(array(''=>'All'),$principal_select );
+        ?>
+
+        {{ Former::select('filter_principal', 'Filter by Principal')->options($principal_select)->id('assigned-agent')->help('User can only see properties from particular Principal') }}
 
         <?php
             $state_select = array_merge(array(''=>'All'),Config::get('country.us_states') );

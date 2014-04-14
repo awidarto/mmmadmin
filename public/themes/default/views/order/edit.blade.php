@@ -2,15 +2,25 @@
 
 
 @section('content')
-
 <script src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
 
-<h3>{{$title}}</h3>
+<h3>{{$title}} : {{ $formdata['propertyId'] }}</h3>
 
 {{Former::open_for_files($submit,'POST',array('class'=>'custom addAttendeeForm'))}}
 
+{{ Former::hidden('id')->value($formdata['_id']) }}
+
+
 <div class="row-fluid">
+    <div class="span12">
+        {{ Form::submit('Save',array('name'=>'submit','class'=>'btn primary'))}}&nbsp;&nbsp;
+        {{ HTML::link($back,'Cancel',array('class'=>'btn'))}}
+    </div>
+</div>
+<div class="row-fluid">
+
     <div class="span6">
+
 
         <div class="row-fluid form-vertical">
             <div class="span4">
@@ -161,17 +171,17 @@
             </div>
         </div>
 
-        {{ Former::select('principal')->options(Prefs::getPrincipal()->principalToSelection('_id','company', Config::get('ia.default_principal_name') ))->label('Principal')->required() }}
-
-        {{ Former::text('propertyManager','Property Manager')->required() }}
+        {{ Former::text('propertyManager','Property Manager') }}
 
         {{ Former::textarea('specialConditionRemarks','Special Condition Remarks (Admin Only)')->class('span10')->rows(8) }}
 
         <?php
             $fupload = new Fupload();
+
+            $ref = ($formdata['sourceID'] == '')?'':'<br />Src. Ref. :'.$formdata['sourceID'];
         ?>
 
-        {{ $fupload->id('imageupload')->title('Select Images')->label('Upload Images')->make() }}
+        {{ $fupload->id('imageupload')->title('Select Images')->label('Upload Images'.$ref)->make($formdata) }}
 
     </div>
 </div>
@@ -186,13 +196,34 @@
 
 {{ HTML::script('js/jquery-gmaps-latlon-picker.js')}}
 
+
 <script type="text/javascript">
+
 
 $(document).ready(function() {
 
     $('select').select2({
       width : 'copy'
     });
+
+    $('#field_role').change(function(){
+        //alert($('#field_role').val());
+        // load default permission here
+    });
+
+    /*
+    var editor = new wysihtml5.Editor('ecofriendly', { // id of textarea element
+      toolbar:      'wysihtml5-toolbar', // id of toolbar element
+      parserRules:  wysihtml5ParserRules // defined in parser rules set
+    });
+    */
+
+    $('#name').keyup(function(){
+        var title = $('#name').val();
+        var slug = string_to_slug(title);
+        $('#permalink').val(slug);
+    });
+
 
 });
 

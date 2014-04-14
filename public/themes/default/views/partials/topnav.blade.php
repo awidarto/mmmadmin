@@ -17,6 +17,24 @@
         <li><a href="{{ URL::to('principal') }}" {{ sa('principal') }} >Principal</a></li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Inbox
+                <b class="caret"></b>
+              </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ URL::to('enquiry') }}" {{ sa('enquiry') }} >Enquiries</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Outbox
+                <b class="caret"></b>
+              </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ URL::to('newsletter') }}" {{ sa('newsletter') }} >Newsletter</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 Buyers
                 <b class="caret"></b>
               </a>

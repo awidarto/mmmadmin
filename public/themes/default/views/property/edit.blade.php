@@ -171,6 +171,8 @@
             </div>
         </div>
 
+        {{ Former::select('principal')->options(Prefs::getPrincipal()->principalToSelection('_id','company', Config::get('ia.default_principal_name') ))->label('Principal')->required() }}
+
         {{ Former::text('propertyManager','Property Manager') }}
 
         {{ Former::textarea('specialConditionRemarks','Special Condition Remarks (Admin Only)')->class('span10')->rows(8) }}

@@ -137,7 +137,7 @@
       </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top:25px;">
       <div class="row-fluid">
         <div class="span12">
             @yield('content')

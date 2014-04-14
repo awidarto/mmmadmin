@@ -45,19 +45,41 @@ class Prefs {
         $c = Principal::get();
 
         self::$principal = $c;
+
         return new self;
     }
 
     public function principalToSelection($value, $label, $all = true)
     {
+        $nodup = false;
+
         if($all){
-            $ret = array(''=>'All');
+            if(is_bool($all)){
+                $ret = array('internal'=>'Internal');
+            }else{
+
+                $ic = Principal::where('company', $all)->first();
+
+                if($ic){
+                    $ret = array($ic->_id=>$ic->company);
+                    $nodup = true;
+                    $def_id = $ic->_id;
+                }else{
+                    $ret = array('internal'=>'Internal');
+                }
+            }
         }else{
             $ret = array();
         }
 
         foreach (self::$principal as $c) {
-            $ret[$c->{$value}] = $c->{$label};
+            if($nodup == true){
+                if($def_id != $c->_id){
+                    $ret[$c->{$value}] = $c->{$label};
+                }
+            }else{
+                $ret[$c->{$value}] = $c->{$label};
+            }
         }
 
 

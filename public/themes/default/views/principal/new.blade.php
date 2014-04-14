@@ -47,10 +47,6 @@
 $(document).ready(function() {
 
 
-    $('select').select2({
-      width : 'copy'
-    });
-
     $('#country').on('change',function(){
         var country = $('#country').val();
 

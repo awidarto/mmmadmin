@@ -1,5 +1,12 @@
 <?php
 return array(
+    'default_principal_name'=>'Investors Alliance',
+    'property_access' => array(
+            'all_access'=>'All access',
+            'filtered'=>'Filtered Only',
+            'filtered_and_individual'=>'Filtered AND Individual Selection',
+            'filtered_or_individual'=>'Filtered OR Individual Selection'
+        ),
     'category'=>array(
             'TENANTED'=>'TENANTED',
             'VACANT - RENT READY'=>'VACANT - RENT READY'
