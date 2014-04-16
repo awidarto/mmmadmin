@@ -430,7 +430,7 @@ Route::get('brochure/dl/{id}/{d?}',function($id, $d = null){
 
         return PDF::loadView('print.brochure', array('prop'=>$prop))
                     ->setOption('margin-top', '0mm')
-                    ->setOption('margin-left', '-10mm')
+                    ->setOption('margin-left', '0mm')
                     ->setOption('margin-right', '0mm')
                     ->setOption('margin-bottom', '0mm')
                     ->setOption('dpi',200)
