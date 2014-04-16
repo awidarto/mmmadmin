@@ -13,7 +13,7 @@
         background-image: url({{ URL::to('/') }}/images/broc-bg-bottom.png);
         background-repeat: no-repeat;
         background-position: right bottom;
-        width:1076px;
+        /*width:1076px;*/
     }
 
     #side-bar{
@@ -56,7 +56,7 @@
 
 </style>
     {{-- print_r($prop['defaultpictures']) --}}
-    <div class="row-fluid">
+    <div class="row">
         <div class="span2" id="side-bar">
             {{ HTML::image('images/v-ialogo-med.png')}}
         </div>
