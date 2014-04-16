@@ -13,6 +13,7 @@
         background-image: url({{ URL::to('/') }}/images/broc-bg-bottom.png);
         background-repeat: no-repeat;
         background-position: right bottom;
+        width:1076px;
     }
 
     #side-bar{
