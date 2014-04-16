@@ -56,7 +56,7 @@
 
 </style>
     {{-- print_r($prop['defaultpictures']) --}}
-    <div class="row">
+    <div class="row-fluid">
         <div class="span2" id="side-bar">
             {{ HTML::image('images/v-ialogo-med.png')}}
         </div>
