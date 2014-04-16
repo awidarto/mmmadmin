@@ -41,7 +41,7 @@
         <hr>
         <h5>Access to Property Setting</h5>
 
-        {{ Former::select('prop_access', 'Access to Property')->options(aConfig::get('ia.property_access'))
+        {{ Former::select('prop_access', 'Access to Property')->options(Config::get('ia.property_access'))
             ->help('User can see all properties, this setting override filters below') }}
 
         <h6>Filter Setting ( only effective for filtered property access )</h6>
