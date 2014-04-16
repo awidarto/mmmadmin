@@ -429,10 +429,10 @@ Route::get('brochure/dl/{id}/{d?}',function($id, $d = null){
         //    ->stream('download.pdf');
 
         return PDF::loadView('print.brochure', array('prop'=>$prop))
-                    ->setOption('margin-top', 0)
-                    ->setOption('margin-left', 0)
-                    ->setOption('margin-right', 0)
-                    ->setOption('margin-bottom', 0)
+                    ->setOption('margin-top', '0mm')
+                    ->setOption('margin-left', '0mm')
+                    ->setOption('margin-right', '0mm')
+                    ->setOption('margin-bottom', '0mm')
                     ->setOption('dpi',200)
                     ->setPaper('A4')
                     ->stream($prop['propertyId'].'.pdf');
@@ -448,10 +448,10 @@ Route::post('brochure/mail/{id}',function($id){
     //$content = View::make('print.brochure')->with('prop',$prop)->render();
 
     $brochurepdf = PDF::loadView('print.brochure', array('prop'=>$prop))
-                    ->setOption('margin-top', 0)
-                    ->setOption('margin-left', 0)
-                    ->setOption('margin-right', 0)
-                    ->setOption('margin-bottom', 0)
+                    ->setOption('margin-top', '0mm')
+                    ->setOption('margin-left', '0mm')
+                    ->setOption('margin-right', '0mm')
+                    ->setOption('margin-bottom', '0mm')
                     ->setOption('dpi',200)
                     ->setPaper('A4')
                     ->output();
@@ -515,8 +515,19 @@ Route::get('pr/dl/{id}',function($id){
 
     //return $content;
 
-    return PDF::loadView('print.pr',array('prop'=>$prop, 'trx'=>$trx, 'agent'=>$agent))
-        ->stream('download.pdf');
+    //return PDF::loadView('print.pr',array('prop'=>$prop, 'trx'=>$trx, 'agent'=>$agent))
+    //    ->stream('download.pdf');
+
+    return PDF::loadView('print.pr', array('prop'=>$prop, 'trx'=>$trx, 'agent'=>$agent))
+            ->setOption('margin-top', '0mm')
+            ->setOption('margin-left', '0mm')
+            ->setOption('margin-right', '0mm')
+            ->setOption('margin-bottom', '0mm')
+            ->setOption('dpi',200)
+            ->setPaper('A4')
+            ->stream($prop['propertyId'].'_pr.pdf');
+
+
 });
 
 Route::post('pr/mail/{id}',function($id){
@@ -525,7 +536,16 @@ Route::post('pr/mail/{id}',function($id){
 
     //$content = View::make('print.brochure')->with('prop',$prop)->render();
 
-    $brochurepdf =  PDF::loadView('print.brochure',array('prop'=>$prop))->output();
+    //$brochurepdf =  PDF::loadView('print.brochure',array('prop'=>$prop))->output();
+
+    $brochurepdf = PDF::loadView('print.pr', array('prop'=>$prop, 'trx'=>$trx, 'agent'=>$agent))
+        ->setOption('margin-top', '0mm')
+        ->setOption('margin-left', '0mm')
+        ->setOption('margin-right', '0mm')
+        ->setOption('margin-bottom', '0mm')
+        ->setOption('dpi',200)
+        ->setPaper('A4')
+        ->output();
 
     file_put_contents(public_path().'/storage/pdf/'.$prop['propertyId'].'.pdf', $brochurepdf);
 
