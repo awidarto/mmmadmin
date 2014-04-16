@@ -95,7 +95,9 @@
 
         {{ Former::text('parcelNumber','Parcel Number')->class('span5') }}
 
-        {{ Former::textarea('description','Property Description')->class('span10 editor')->rows(8)->required() }}
+        {{ Former::textarea('description','Property Description')->class('span10 editor')->rows(8)
+            //->required()
+        }}
 
         {{ Former::text('tags','Tags')->class('tag_keyword') }}
 
@@ -155,7 +157,9 @@
             <div class="span5">
                 {{ Former::text('leaseStartDate','Lease Start Date')->class('span12 datepicker')
                     ->data_format('dd-mm-yyyy')
-                    ->append('<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>')->required() }}
+                    ->append('<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>')
+                    //->required()
+                }}
             </div>
         </div>
 

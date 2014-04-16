@@ -177,6 +177,7 @@ class PropertyController extends AdminController {
             $data['principalName'] = '';
         }
 
+        $data['leaseStartDate'] = ($data['leaseStartDate'] == '')?'':$data['leaseStartDate'];
 
         $data['defaultpictures'] = $defaults;
         $data['files'] = $files;
@@ -285,6 +286,8 @@ class PropertyController extends AdminController {
         }
 
 
+        $data['leaseStartDate'] = ($data['leaseStartDate'] == '')?'':$data['leaseStartDate'];
+
         $data['defaultpictures'] = $defaults;
         $data['files'] = $files;
 
@@ -316,10 +319,10 @@ class PropertyController extends AdminController {
             'bed' =>'required',
             'category' =>'required',
             'city' =>'required',
-            'description' =>'required',
+            //'description' =>'required',
             'houseSize' =>'required',
             'insurance' =>'required',
-            'leaseStartDate' =>'required',
+            //'leaseStartDate' =>($data['category'] == 'TENANTED')?'required':'',
             'leaseTerms' =>'required',
             'listingPrice' =>'required',
             'lotSize' =>'required',
@@ -350,10 +353,10 @@ class PropertyController extends AdminController {
             'bed' =>'required',
             'category' =>'required',
             'city' =>'required',
-            'description' =>'required',
+            //'description' =>'required',
             'houseSize' =>'required',
             'insurance' =>'required',
-            'leaseStartDate' =>'required',
+            //'leaseStartDate' =>($data['category'] == 'TENANTED')?'required':'',
             'leaseTerms' =>'required',
             'listingPrice' =>'required',
             'lotSize' =>'required',
@@ -504,6 +507,14 @@ class PropertyController extends AdminController {
         return $data;
     }
 
+    public function validDate($str){
+        $date = date_parse($someString);
+        if ($date["error_count"] == 0 && checkdate($date["month"], $date["day"], $date["year"])){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public function makeActions($data)
     {
