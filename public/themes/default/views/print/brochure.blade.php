@@ -141,12 +141,14 @@
                                 <th class="item">Property Management</th>
                                 <td>{{ ucwords( strtolower($prop['propertyManager'] ) ) }}</td>
                             </tr>
-                            <tr>
-                                <th colspan="2" class="item">Description</th>
-                            </tr>
-                            <tr>
-                                <td colspan="2">{{ $prop['description']}}</td>
-                            </tr>
+                            {{--
+                                <tr>
+                                    <th colspan="2" class="item">Description</th>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">{{ $prop['description']}}</td>
+                                </tr>
+                            --}}
                         </tbody>
                     </table>
                 </div>
