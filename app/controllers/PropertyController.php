@@ -114,6 +114,7 @@ class PropertyController extends AdminController {
         }
 
         $data['listingPrice'] = new MongoInt32($data['listingPrice']);
+        $data['FMV'] = new MongoInt32($data['FMV']);
 
         if( isset($data['file_id']) && count($data['file_id'])){
 
@@ -192,6 +193,7 @@ class PropertyController extends AdminController {
         $files = array();
 
         $data['listingPrice'] = new MongoInt32($data['listingPrice']);
+        $data['FMV'] = new MongoInt32($data['FMV']);
 
         if($data['propertyStatus'] == 'available'){
             $data['publishDate'] = $data['lastUpdate'];
