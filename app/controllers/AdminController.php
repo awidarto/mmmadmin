@@ -776,6 +776,8 @@ class AdminController extends Controller {
         $infilters = Input::get('filter');
         $insorting = Input::get('sort');
 
+        //print_r($infilters);
+        //print_r($fields);
 
         $defsort = 1;
         $defdir = -1;
@@ -967,6 +969,8 @@ class AdminController extends Controller {
 
         }
 
+        $lastQuery = $q;
+
         //print_r($results->toArray());
 
         $aadata = array();
@@ -1091,7 +1095,8 @@ class AdminController extends Controller {
             'status'=>'OK',
             'filename'=>$fname,
             'urlxls'=>URL::to(strtolower($this->controller_name).'/dl/'.$fname.'.xls'),
-            'urlcsv'=>URL::to(strtolower($this->controller_name).'/csv/'.$fname.'.csv')
+            'urlcsv'=>URL::to(strtolower($this->controller_name).'/csv/'.$fname.'.csv'),
+            'q'=>$lastQuery
         );
 
         print json_encode($result);

@@ -386,6 +386,7 @@ class PropertyController extends AdminController {
 
         $this->fields = array(
                 array('propertyId',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
+                array('propertyId',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
                 array('sourceID',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
                 array('number',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
                 array('address',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
