@@ -32,9 +32,11 @@
         </div>
 
         <div class="row-fluid form-vertical">
-            <div class="span4">
+            <div class="span9">
                 {{ Former::text('city','City')->class('span12')->required() }}
             </div>
+        </div>
+        <div class="row-fluid form-vertical">
             <div class="span4">
                 {{ Former::select('state')->options(Config::get('country.us_states'))->label('States')->required() }}
             </div>

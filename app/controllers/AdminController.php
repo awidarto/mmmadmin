@@ -754,7 +754,7 @@ class AdminController extends Controller {
     public function postDlxl()
     {
 
-        $fields = $this->fields;
+        $fields = $this->fields; // fields set must align with search column index
 
         if(is_null($this->heads)){
             $titles = array();

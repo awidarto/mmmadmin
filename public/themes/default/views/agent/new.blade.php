@@ -51,6 +51,8 @@
             $principal_select = array_merge(array(''=>'All'),$principal_select );
         ?>
 
+        {{ Former::select('filter_status', 'Filter by Property Status')->options(Config::get('ia.search_publishing'))->id('assigned-agent')->help('User can only see properties with particular status') }}
+
 
         {{ Former::select('filter_principal', 'Filter by Principal')->options($principal_select)->id('assigned-agent')->help('User can only see properties from particular Principal') }}
 
@@ -58,7 +60,8 @@
             $state_select = array_merge(array(''=>'All'),Config::get('country.us_states') );
         ?>
 
-        {{ Former::select('filter_state', 'Filter by State')->class('us')->options($state_select)->id('filter_states')->help('User can only see properties in particular state') }}
+        {{ Former::select('filter_state', 'Filter by State')->options($state_select)->id('filter_states')->help('User can only see properties in particular state') }}
+
 
     </div>
 </div>
