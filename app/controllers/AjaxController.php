@@ -563,17 +563,19 @@ class AjaxController extends BaseController {
 
         $property = Property::find($trx_id);
 
-        $trx = Transaction::where('propObjectId','=',$trx_id)->first();
-
         $property->propertyStatus = $status;
         $property->save();
 
-        if($status == 'sold' || $status == 'pending'){
-            $trx->orderStatus = $status;
-            $trx->save();
-        }else{
-            $trx->orderStatus = 'canceled';
-            $trx->save();
+        $trx = Transaction::where('propObjectId','=',$trx_id)->first();
+
+        if($trx){
+            if($status == 'sold' || $status == 'pending'){
+                $trx->orderStatus = $status;
+                $trx->save();
+            }else{
+                $trx->orderStatus = 'canceled';
+                $trx->save();
+            }
         }
 
         return Response::json(array('result'=>'OK'));

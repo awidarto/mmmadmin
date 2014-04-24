@@ -77,5 +77,11 @@ return array(
     'property_id_prefix'=>'IA',
     'agent_id_prefix'=>'TA',
     'buyer_id_prefix'=>'TB',
+    'status_filter'=>array(
+            ''=>'All',
+            'sold'=>'Sold',
+            'available'=>'Available',
+            'both'=>'Sold & Available'
+        )
 
 );

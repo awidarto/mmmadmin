@@ -51,7 +51,7 @@
             $principal_select = array_merge(array(''=>'All'),$principal_select );
         ?>
 
-        {{ Former::select('filter_status', 'Filter by Property Status')->options(Config::get('ia.search_publishing'))->id('assigned-agent')->help('User can only see properties with particular status') }}
+        {{ Former::select('filter_status', 'Filter by Property Status')->options(Config::get('ia.status_filter'))->id('assigned-agent')->help('User can only see properties with particular status') }}
 
 
         {{ Former::select('filter_principal', 'Filter by Principal')->options($principal_select)->id('assigned-agent')->help('User can only see properties from particular Principal') }}
