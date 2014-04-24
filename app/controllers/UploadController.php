@@ -40,12 +40,12 @@ class UploadController extends Controller {
             ->save($destinationPath.'/th_'.$filename);
 
         $medium = Image::make($destinationPath.'/'.$filename)
-            ->grab(270,200)
+            ->grab(640,480)
             //->insert($med_wm,0,0, 'bottom-right')
             ->save($destinationPath.'/med_'.$filename);
 
         $large = Image::make($destinationPath.'/'.$filename)
-            ->grab(870,420)
+            ->grab(800,600)
             ->insert($large_wm,15,15, 'bottom-right')
             ->save($destinationPath.'/lrg_'.$filename);
 
