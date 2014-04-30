@@ -62,6 +62,12 @@ class AdminController extends Controller {
 
     public $additional_action = '';
 
+    public $additional_filter = '';
+
+    public $js_additional_param = '';
+
+    public $additional_query = false;
+
 
 	public function __construct(){
 
@@ -163,6 +169,8 @@ class AdminController extends Controller {
             ->with('report_action',$this->report_action)
             ->with('is_additional_action',$this->is_additional_action)
             ->with('additional_action',$this->additional_action)
+            ->with('additional_filter',$this->additional_filter)
+            ->with('js_additional_param', $this->js_additional_param)
 			->with('heads',$heads )
 			->with('row',$this->rowdetail );
 
@@ -325,6 +333,10 @@ class AdminController extends Controller {
 			}
 
 		}
+
+        if($this->additional_query){
+            $q = array_merge( $q, $this->additional_query );
+        }
 
 		//print_r($q);
 

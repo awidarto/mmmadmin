@@ -51,13 +51,15 @@ class PropertyController extends AdminController {
 
         //print $this->model->where('docFormat','picture')->get()->toJSON();
 
+
+
         $this->title = 'Property';
 
         $this->can_add = true;
 
-        $this->is_additional_action = true;
+        $this->additional_filter = View::make('property.addfilter')->render();
 
-        $this->additional_action = '<a class="btn" id="assign-prop">Assign Properties to Agent</a>';
+        $this->js_additional_param = "aoData.push( { 'name':'agentFilter', 'value': $('#assigned-agent-filter').val() } );";
 
         return parent::getIndex();
 
@@ -86,6 +88,12 @@ class PropertyController extends AdminController {
             array('createdDate',array('kind'=>'datetime','query'=>'like','pos'=>'both','show'=>true)),
             array('lastUpdate',array('kind'=>'datetime','query'=>'like','pos'=>'both','show'=>true)),
         );
+
+        $agentFilter = Input::get('agentFilter');
+
+        if($agentFilter != ''){
+            $this->additional_query = array('assigned_user'=>$agentFilter);
+        }
 
         return parent::postIndex();
     }
