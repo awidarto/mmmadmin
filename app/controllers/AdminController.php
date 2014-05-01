@@ -68,6 +68,9 @@ class AdminController extends Controller {
 
     public $additional_query = false;
 
+    public $def_order_by = 'lastUpdate';
+
+    public $def_order_dir = 'desc';
 
 	public function __construct(){
 
@@ -348,9 +351,9 @@ class AdminController extends Controller {
 		$fidx = ($fidx == -1 )?0:$fidx;
 
         if(Input::get('iSortCol_0') == 0){
-            $sort_col = 'lastUpdate';
+            $sort_col = $this->def_order_by;
 
-            $sort_dir = 'desc';
+            $sort_dir = $this->def_order_dir;
         }else{
             $sort_col = $fields[$fidx][0];
 

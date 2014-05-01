@@ -95,6 +95,11 @@ class PropertyController extends AdminController {
             $this->additional_query = array('assigned_user'=>$agentFilter);
         }
 
+        $this->def_order_by = 'propertyId';
+
+        $this->def_order_dir = 'desc';
+
+
         return parent::postIndex();
     }
 
