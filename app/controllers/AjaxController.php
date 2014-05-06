@@ -418,6 +418,45 @@ class AjaxController extends BaseController {
         return Response::json($result);
     }
 
+    public function getState()
+    {
+        $q = Input::get('term');
+
+        $states = Config::get('country.us_states');
+
+        $res = array_search($q, $states);
+
+        //print_r($states);
+
+        $result = array();
+
+        foreach($states as $k=>$v){
+            if(preg_match('/'.$q.'/i', $v) ){
+                $result[] = array('id'=>$k,'label'=>$k);
+            }
+        }
+
+        return Response::json($result);
+    }
+
+    public function getPropman()
+    {
+        $q = Input::get('term');
+
+        $proj = new Propman();
+
+        $res = Propman::where('name','like','%'.$q.'%')->get();
+
+        $result = array();
+
+        foreach($res as $r){
+            $result[] = array('id'=>$r->name,'label'=>$r->name);
+        }
+
+        return Response::json($result);
+    }
+
+
     public function getProject()
     {
         $q = Input::get('term');

@@ -17,7 +17,7 @@
         <li><a href="{{ URL::to('principal') }}" {{ sa('principal') }} >Principal</a></li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                Inbox
+                Incoming
                 <b class="caret"></b>
               </a>
             <ul class="dropdown-menu">
@@ -26,11 +26,12 @@
         </li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                Outbox
+                Newsletter
                 <b class="caret"></b>
               </a>
             <ul class="dropdown-menu">
-                <li><a href="{{ URL::to('newsletter') }}" {{ sa('newsletter') }} >Newsletter</a></li>
+                <li><a href="{{ URL::to('edition') }}" {{ sa('edition') }} >Editions</a></li>
+                <li><a href="{{ URL::to('template') }}" {{ sa('template') }} >Templates</a></li>
             </ul>
         </li>
         <li class="dropdown">

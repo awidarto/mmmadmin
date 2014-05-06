@@ -39,11 +39,11 @@ class PropertyController extends AdminController {
             array('State',array('search'=>true,'sort'=>true)),
             array('Bed',array('search'=>true,'sort'=>false)),
             array('Bath',array('search'=>true,'sort'=>true)),
+            array('Price',array('search'=>true,'sort'=>true)),
             //array('Pool',array('search'=>true,'sort'=>true)),
             //array('Garage',array('search'=>true,'sort'=>true)),
             //array('Basement',array('search'=>true,'sort'=>true)),
             array('Category',array('search'=>true,'sort'=>true)),
-            array('Tags',array('search'=>true,'sort'=>true)),
             array('Status',array('search'=>true,'sort'=>true, 'select'=>Config::get('ia.search_publishing'))),
             array('Created',array('search'=>true,'sort'=>true,'date'=>true)),
             array('Last Update',array('search'=>true,'sort'=>true,'date'=>true)),
@@ -51,7 +51,7 @@ class PropertyController extends AdminController {
 
         //print $this->model->where('docFormat','picture')->get()->toJSON();
 
-
+        $this->place_action = 'first';
 
         $this->title = 'Property';
 
@@ -79,11 +79,11 @@ class PropertyController extends AdminController {
             array('state',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('bed',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('bath',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
+            array('listingPrice',array('kind'=>'currency','query'=>'like','pos'=>'both','callback'=>'usd','show'=>true)),
             //array('pool',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             //array('garage',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             //array('basement',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('category',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
-            array('tags',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('propertyStatus',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('createdDate',array('kind'=>'datetime','query'=>'like','pos'=>'both','show'=>true)),
             array('lastUpdate',array('kind'=>'datetime','query'=>'like','pos'=>'both','show'=>true)),
@@ -571,6 +571,10 @@ class PropertyController extends AdminController {
         }else{
             return $data['docShare'];
         }
+    }
+
+    public function usd($data){
+        return Ks::usd($data['listingPrice']);
     }
 
     public function namePic($data)

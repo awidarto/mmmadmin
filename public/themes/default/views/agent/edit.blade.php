@@ -68,6 +68,10 @@
 
         {{ Former::select('filter_state', 'Filter by State')->options($state_select)->id('filter_states')->help('User can only see properties in particular state') }}
 
+        {{-- Former::text('filter_state','Filter by State')->class('auto_state') --}}
+
+        {{ Former::text('filter_propmanager','Filter by Property Manager')->class('tag_propman') }}
+
 
     </div>
 </div>
@@ -87,7 +91,6 @@
 
 
 $(document).ready(function() {
-
 
     $('#country').on('change',function(){
         var country = $('#country').val();

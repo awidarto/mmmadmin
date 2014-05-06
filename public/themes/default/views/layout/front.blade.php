@@ -97,7 +97,7 @@
     {{-- HTML::script('js/jquery.ui.addresspicker.js') --}}
 
     <script type="text/javascript">
-        var base = '{{ URL::to('/') }}';
+        var base = '{{ URL::to('/') }}/';
     </script>
 
 

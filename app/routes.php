@@ -27,6 +27,9 @@ Route::controller('enquiry', 'EnquiryController');
 
 Route::controller('order', 'OrderController');
 
+Route::controller('template', 'TemplateController');
+Route::controller('edition', 'EditionController');
+
 
 Route::controller('propmanager', 'PropmanagerController');
 Route::controller('promocode', 'PromocodeController');

@@ -254,6 +254,51 @@
 		   'placeholderColor' : '#666666'
 		});
 
+        $('.tag_state').tagsInput({
+            'autocomplete_url': base + 'ajax/state',
+           'height':'100px',
+           'width':'100%',
+           'interactive':true,
+           'onChange' : function(c){
+
+                },
+           'onAddTag' : function(t){
+                    console.log(t);
+                },
+           'onRemoveTag' : function(t){
+                    console.log(t);
+                },
+           'defaultText':'add tag',
+           'removeWithBackspace' : true,
+           'minChars' : 0,
+           'maxChars' : 0, //if not provided there is no limit,
+           'placeholderColor' : '#666666'
+        });
+
+
+        $('.tag_propman').tagsInput({
+            'autocomplete_url': base + 'ajax/propman',
+           'height':'100px',
+           'width':'100%',
+           'interactive':true,
+           'onChange' : function(c){
+
+                },
+           'onAddTag' : function(t){
+                    console.log(t);
+                },
+           'onRemoveTag' : function(t){
+                    console.log(t);
+                },
+           'defaultText':'add tag',
+           'removeWithBackspace' : true,
+           'minChars' : 0,
+           'maxChars' : 0, //if not provided there is no limit,
+           'placeholderColor' : '#666666'
+        });
+
+
+
 		$('.tag_project').autocomplete({
 			source: base + 'ajax/project'
 		});

@@ -72,6 +72,8 @@ class AdminController extends Controller {
 
     public $def_order_dir = 'desc';
 
+    public $place_action = 'both'; // first, both
+
 	public function __construct(){
 
 		date_default_timezone_set('Asia/Jakarta');
@@ -138,9 +140,11 @@ class AdminController extends Controller {
 		array_unshift($heads, array('#',array('sort'=>false)));
 
 		// add action column
-		array_push($heads,
-			array('Actions',array('search'=>false,'sort'=>false,'clear'=>true,'class'=>'action'))
-		);
+        if($this->place_action == 'both'){
+            array_push($heads,
+                array('Actions',array('search'=>false,'sort'=>false,'clear'=>true,'class'=>'action'))
+            );
+        }
 
 		$disablesort = array();
 
