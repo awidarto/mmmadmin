@@ -80,6 +80,8 @@ class ActivityController extends AdminController {
             array('result',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
         );
 
+        $this->def_order_by = 'createdDate';
+
         return parent::postIndex();
     }
 
