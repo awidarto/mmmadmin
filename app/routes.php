@@ -45,9 +45,10 @@ Route::controller('activity', 'ActivityController');
 Route::controller('access', 'AccessController');
 
 Route::controller('inprop', 'InpropController');
+Route::controller('homeslide', 'HomeslideController');
+
 
 Route::controller('music', 'MusicController');
-Route::controller('video', 'VideoController');
 Route::controller('event', 'EventController');
 
 

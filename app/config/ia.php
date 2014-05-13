@@ -82,6 +82,21 @@ return array(
             'sold'=>'Sold',
             'available'=>'Available',
             'both'=>'Sold & Available'
-        )
+        ),
+    'slidetype'=>array(
+            'imageonly'=>'Image Only',
+            'videoonly'=>'Video Only',
+            'contentonly'=>'Content Only',
+            'imagecontent'=>'Image and Content',
+            'videocontent'=>'Video and Content'
+        ),
+    'search_slidetype'=>array(
+            ''=>'All',
+            'imageonly'=>'Image Only',
+            'videoonly'=>'Video Only',
+            'contentonly'=>'Content Only',
+            'imagecontent'=>'Image and Content',
+            'videocontent'=>'Video and Content'
+        ),
 
 );
