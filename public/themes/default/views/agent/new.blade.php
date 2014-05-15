@@ -60,7 +60,47 @@
             $state_select = array_merge(array(''=>'All'),Config::get('country.us_states') );
         ?>
 
-        {{ Former::select('filter_state', 'Filter by State')->options($state_select)->id('filter_states')->help('User can only see properties in particular state') }}
+        {{-- Former::select('filter_state', 'Filter by State')->options($state_select)->id('filter_states')->help('User can only see properties in particular state') --}}
+
+        {{ Former::text('filter_state','Filter by State')->class('tag_state') }}
+
+        {{ Former::text('filter_propmanager','Filter by Property Manager')->class('tag_propman') }}
+
+        <?php
+            $price_sign = array(
+                    ''=>'All',
+                    '='=>'=',
+                    '$gt'=>'>',
+                    '$gte'=>'>=',
+                    '$lt'=>'<',
+                    '$lte'=>'<=',
+                    );
+            $bool = array(
+                    '-'=>'none',
+                    'OR'=>'OR',
+                    'AND'=>'AND'
+                );
+        ?>
+
+        <div class="row-fluid form-horizontal">
+            <div class="span4">
+                {{ Former::select('price_sign', 'Filter by Price')->options($price_sign)->class('span12') }}
+            </div>
+            <div class="span8 no-label">
+                {{ Former::text('filter_price','')->class('span6') }}
+            </div>
+        </div>
+
+        {{ Former::select('price_sign2', '')->options($bool)->class('span2')->help('relationship between two price conditions (optional)') }}
+
+        <div class="row-fluid form-horizontal">
+            <div class="span4">
+                {{ Former::select('price_sign2', '')->options($price_sign)->class('span12') }}
+            </div>
+            <div class="span8 no-label">
+                {{ Former::text('filter_price2','')->class('span6')->help('second price condition (optional)') }}
+            </div>
+        </div>
 
 
     </div>

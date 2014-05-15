@@ -49,7 +49,6 @@
         <li><a href="{{ URL::to('event') }}" {{ sa('event') }} >Events</a></li>
         <li><a href="{{ URL::to('promocode') }}" {{ sa('promocode') }} >Promo Code</a></li>
 
-        <li><a href="{{ URL::to('user') }}" {{ sa('user') }} >Admins</a></li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 Reports
@@ -66,16 +65,6 @@
         @if(Auth::user()->role == 'root' || Auth::user()->role == 'admin' || Auth::user()->role == 'editor')
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                FAQ
-                <b class="caret"></b>
-              </a>
-            <ul class="dropdown-menu">
-                <li><a href="{{ URL::to('faq') }}" {{ sa('faq') }} >FAQ Entries</a></li>
-                <li><a href="{{ URL::to('faqcat') }}" {{ sa('faqcat') }} >Category</a></li>
-            </ul>
-        </li>
-        <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 Site Content
                 <b class="caret"></b>
               </a>
@@ -85,6 +74,18 @@
                 <li><a href="{{ URL::to('content/category') }}" {{ sa('content/category') }} >Category</a></li>
                 <li><a href="{{ URL::to('content/menu') }}" {{ sa('content/menu') }} >Menu</a></li>
                 <li><a href="{{ URL::to('homeslide') }}" {{ sa('homeslide') }} >Home Page</a></li>
+                <li><a href="{{ URL::to('faq') }}" {{ sa('faq') }} >FAQ Entries</a></li>
+                <li><a href="{{ URL::to('faqcat') }}" {{ sa('faqcat') }} >FAQ Category</a></li>
+            </ul>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                System
+                <b class="caret"></b>
+              </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ URL::to('user') }}" {{ sa('user') }} >Admins</a></li>
+                <li><a href="{{ URL::to('settings') }}" {{ sa('settings') }} >Settings</a></li>
             </ul>
         </li>
         @endif

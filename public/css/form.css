@@ -177,3 +177,7 @@ legend{
 span.file_del{
     font-size: 16px;
 }
+
+.form-horizontal .no-label  .controls {
+    margin-left: 0px;
+}

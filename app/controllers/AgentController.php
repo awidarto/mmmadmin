@@ -156,7 +156,7 @@ class AgentController extends AdminController {
         return $actions;
     }
 
-    public function splitTag($data){
+    public function splitTag($data, $delim = ','){
         $tags = explode(',',$data['docTag']);
         if(is_array($tags) && count($tags) > 0 && $data['docTag'] != ''){
             $ts = array();

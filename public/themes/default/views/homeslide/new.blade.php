@@ -18,7 +18,7 @@
         {{ Former::text('youtubeUrl','Youtube ID') }}
 
         <h6>Content</h6>
-        {{ Former::textarea('content','HTML Content')->class('span10')->rows(8)->help('Use HTML tags to format content') }}
+        {{ Former::textarea('content','HTML Content')->class('span10 editor')->rows(8)->help('Use HTML tags to format content') }}
 
     </div>
     <div class="span6">

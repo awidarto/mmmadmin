@@ -156,6 +156,19 @@
 
         <div class="row-fluid form-vertical">
             <div class="span4">
+                {{ Former::text('lastSoldPrice','Last Sold Price')->class('span12') }}
+            </div>
+            <div class="span5">
+                {{ Former::text('lastSoldDate','Last Sold Date')->class('span12 datepicker')
+                    ->data_format('dd-mm-yyyy')
+                    ->append('<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>')
+                    //->required()
+                }}
+            </div>
+        </div>
+
+        <div class="row-fluid form-vertical">
+            <div class="span4">
                 {{ Former::text('HOA','HOA')->class('span12')->required() }}
             </div>
             <div class="span4">

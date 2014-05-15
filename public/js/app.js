@@ -268,7 +268,7 @@
            'onRemoveTag' : function(t){
                     console.log(t);
                 },
-           'defaultText':'add tag',
+           'defaultText':'add state',
            'removeWithBackspace' : true,
            'minChars' : 0,
            'maxChars' : 0, //if not provided there is no limit,
@@ -290,7 +290,8 @@
            'onRemoveTag' : function(t){
                     console.log(t);
                 },
-           'defaultText':'add tag',
+           'defaultText':'add manager',
+           'delimiter':';',
            'removeWithBackspace' : true,
            'minChars' : 0,
            'maxChars' : 0, //if not provided there is no limit,

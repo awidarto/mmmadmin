@@ -432,7 +432,7 @@ class AjaxController extends BaseController {
 
         foreach($states as $k=>$v){
             if(preg_match('/'.$q.'/i', $v) ){
-                $result[] = array('id'=>$k,'label'=>$k);
+                $result[] = array('id'=>$k,'label'=>$k.' - '.$v, 'value'=>$k);
             }
         }
 
