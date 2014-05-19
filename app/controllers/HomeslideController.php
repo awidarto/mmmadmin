@@ -43,7 +43,7 @@ class HomeslideController extends AdminController {
             array('sequence',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('sequence',array('kind'=>'text','callback'=>'namePic','query'=>'like','pos'=>'both','show'=>true)),
             array('youtubeUrl',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
-            array('publishing',array('kind'=>'text','query'=>'like','pos'=>'both','callback'=>'splitTag','show'=>true)),
+            array('publishing',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('lastUpdate',array('kind'=>'date','query'=>'like','pos'=>'both','show'=>true)),
         );
 
