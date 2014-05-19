@@ -97,7 +97,7 @@
             </div>
         </div>
 
-        {{ Former::select('price_sign2', '')->options($bool)->class('span2')->help('relationship between two price conditions (optional)') }}
+        {{ Former::select('price_rel', '')->options($bool)->class('span2')->help('relationship between two price conditions (optional)') }}
 
         <div class="row-fluid form-horizontal">
             <div class="span4">

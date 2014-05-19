@@ -95,7 +95,7 @@
 
         <div class="row-fluid form-horizontal">
             <div class="span4">
-                {{ Former::select('price_sign2', '')->options($price_sign)->class('span12') }}
+                {{ Former::select('price_rel', '')->options($price_sign)->class('span12') }}
             </div>
             <div class="span8 no-label">
                 {{ Former::text('filter_price2','')->class('span6')->help('second price condition (optional)') }}
