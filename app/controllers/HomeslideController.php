@@ -43,7 +43,7 @@ class HomeslideController extends AdminController {
             array('sequence',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('sequence',array('kind'=>'text','callback'=>'namePic','query'=>'like','pos'=>'both','show'=>true)),
             array('youtubeUrl',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
-            array('status',array('kind'=>'text','query'=>'like','pos'=>'both','callback'=>'splitTag','show'=>true)),
+            array('publishing',array('kind'=>'text','query'=>'like','pos'=>'both','callback'=>'splitTag','show'=>true)),
             array('lastUpdate',array('kind'=>'date','query'=>'like','pos'=>'both','show'=>true)),
         );
 
@@ -232,9 +232,13 @@ class HomeslideController extends AdminController {
     public function namePic($data)
     {
         $name = HTML::link('products/view/'.$data['_id'],$data['productName']);
+        if($data['slidetype'] == 'videoonly' || $data['slidetype'] == 'videocontent'){
+            return $data['videoTitle'];
+        }
+
         if(isset($data['thumbnail_url']) && count($data['thumbnail_url'])){
             $display = HTML::image($data['thumbnail_url'][0].'?'.time(), $data['filename'][0], array('id' => $data['_id']));
-            return $display.'<br />'.$name;
+            return $display;
         }else{
             return $name;
         }
