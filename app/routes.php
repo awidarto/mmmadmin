@@ -23,12 +23,20 @@ Route::controller('posts', 'PostsController');
 Route::controller('category', 'CategoryController');
 Route::controller('menu', 'MenuController');
 
+Route::controller('picture','PictureController');
+
 Route::controller('enquiry', 'EnquiryController');
 
 Route::controller('order', 'OrderController');
 
 Route::controller('template', 'TemplateController');
 Route::controller('edition', 'EditionController');
+Route::controller('newsletter', 'NewsletterController');
+Route::controller('campaign', 'CampaignController');
+Route::controller('contactgroup', 'ContactgroupController');
+
+Route::controller('brochure', 'BrochureController');
+Route::controller('option', 'OptionController');
 
 
 Route::controller('propmanager', 'PropmanagerController');
@@ -387,17 +395,17 @@ Route::get('regeneratepic',function(){
                                 $filename = $file;
 
                                 $thumbnail = Image::make($destinationPath.'/'.$filename)
-                                    ->grab(100,74)
+                                    ->fit(100,74)
                                     //->insert($sm_wm,0,0, 'bottom-right')
                                     ->save($destinationPath.'/th_'.$filename);
 
                                 $medium = Image::make($destinationPath.'/'.$filename)
-                                    ->grab(320,240)
+                                    ->fit(320,240)
                                     //->insert($med_wm,0,0, 'bottom-right')
                                     ->save($destinationPath.'/med_'.$filename);
 
                                 $large = Image::make($destinationPath.'/'.$filename)
-                                    ->grab(800,600)
+                                    ->fit(800,600)
                                     ->insert($large_wm,15,15, 'bottom-right')
                                     ->save($destinationPath.'/lrg_'.$filename);
 
@@ -418,9 +426,16 @@ Route::get('regeneratepic',function(){
 
 });
 
+/*
 Route::get('brochure/dl/{id}/{d?}',function($id, $d = null){
 
     $prop = Property::find($id)->toArray();
+
+    $tmpl = Template::where('type','brochure')->where('status','active')->first();
+
+    print_r($tmpl->toArray());
+
+    die();
 
     //return View::make('print.brochure')->with('prop',$prop)->render();
 
@@ -485,6 +500,7 @@ Route::post('brochure/mail/{id}',function($id){
     print json_encode(array('result'=>'OK'));
 
 });
+*/
 
 Route::get('pr/print/{id}',function($id){
 
@@ -606,9 +622,11 @@ Route::get('brochure/dl/{id}',function($id){
         ->stream('download.pdf');
 });
 
+/*
 Route::get('brochure',function(){
     View::make('print.brochure');
 });
+*/
 
 Route::get('inc/{entity}',function($entity){
 

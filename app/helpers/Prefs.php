@@ -6,7 +6,7 @@ class Prefs {
     public static $faqcategory;
     public static $principal;
     public static $agent;
-
+    public static $contactgroup;
 
     public function __construct()
     {
@@ -14,7 +14,7 @@ class Prefs {
     }
 
     public static function getCategory(){
-        $c = Category::get();
+        $c = Contactgroup::get();
 
         self::$category = $c;
         return new self;
@@ -40,6 +40,36 @@ class Prefs {
     {
         return self::$category;
     }
+
+    //contact group
+    public static function getContactGroup(){
+        $c = Category::get();
+
+        self::$category = $c;
+        return new self;
+    }
+
+    public function contactGroupToSelection($value, $label, $all = true)
+    {
+        if($all){
+            $ret = array(''=>'All');
+        }else{
+            $ret = array();
+        }
+
+        foreach (self::$category as $c) {
+            $ret[$c->{$value}] = $c->{$label};
+        }
+
+
+        return $ret;
+    }
+
+    public function contactGroupToArray()
+    {
+        return self::$category;
+    }
+
 
     public static function getPrincipal(){
         $c = Principal::get();

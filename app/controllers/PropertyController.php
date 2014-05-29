@@ -9,8 +9,8 @@ class PropertyController extends AdminController {
         $this->controller_name = str_replace('Controller', '', get_class());
 
         //$this->crumb = new Breadcrumb();
-        $this->crumb->append('Home','left',true);
-        $this->crumb->append(strtolower($this->controller_name));
+        //$this->crumb->append('Home','left',true);
+        //$this->crumb->append(strtolower($this->controller_name));
 
         $this->model = new Property();
         //$this->model = DB::collection('documents');
@@ -57,7 +57,7 @@ class PropertyController extends AdminController {
 
         $this->can_add = true;
 
-        $this->additional_filter = View::make('property.addfilter')->render();
+        $this->additional_filter = View::make( strtolower($this->controller_name).'.addfilter')->render();
 
         $this->js_additional_param = "aoData.push( { 'name':'agentFilter', 'value': $('#assigned-agent-filter').val() } );";
 
@@ -595,7 +595,9 @@ class PropertyController extends AdminController {
                 $glinks .= '<input type="hidden" class="g_'.$data['_id'].'" data-caption="'.$g['caption'].'" value="'.$g['full_url'].'" >';
             }
 
-            $display = HTML::image($thumbnail_url.'?'.time(), $thumbnail_url, array('class'=>'thumbnail img-polaroid','style'=>'cursor:pointer;','id' => $data['_id'])).$glinks;
+            $pic_edit = '<a href="'.URL::to('picture/edit/'.$data['defaultpic']).'">edit</a>' ;
+
+            $display = HTML::image($thumbnail_url.'?'.time(), $thumbnail_url, array('class'=>'thumbnail img-polaroid','style'=>'cursor:pointer;','id' => $data['_id'])).$glinks.'<br />'.$pic_edit;
             return $display;
         }else{
             return $name;

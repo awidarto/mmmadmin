@@ -6,9 +6,9 @@
 	"require": {
 		"laravel/framework": "4.1.*",
         "jenssegers/mongodb": "*",
-        "noherczeg/breadcrumb": "dev-master",
+        "mj/breadcrumb": "dev-master",
         "anahkiasen/former": "dev-master",
-        "intervention/image": "dev-master",
+        "intervention/image": "2.0.0",
         "intervention/imagecache": "dev-master",
         "intervention/helper": "dev-master",
         "intervention/validation": "dev-master",

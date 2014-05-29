@@ -109,7 +109,7 @@ return array(
 
         'Jenssegers\Mongodb\MongodbServiceProvider',
         'Former\FormerServiceProvider',
-        'Noherczeg\Breadcrumb\BreadcrumbServiceProvider',
+        'Mj\Breadcrumb\BreadcrumbServiceProvider',
         'Intervention\Validation\ValidationServiceProvider',
         'Intervention\Image\ImageServiceProvider',
         'Intervention\Helper\DateServiceProvider',
@@ -185,7 +185,7 @@ return array(
         'View'            => 'Illuminate\Support\Facades\View',
 
         'Former'          => 'Former\Facades\Former',
-        'Breadcrumb'      => 'Noherczeg\Breadcrumb\Facades\Breadcrumb',
+        'Breadcrumb'      => 'Mj\Breadcrumb\Facades\breadcrumb',
         'Date'            => 'Intervention\Helper\Facades\Date',
         'String'          => 'Intervention\Helper\Facades\String',
         'Image'           => 'Intervention\Image\Facades\Image',

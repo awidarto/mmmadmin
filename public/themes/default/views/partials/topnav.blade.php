@@ -21,17 +21,19 @@
                 <b class="caret"></b>
               </a>
             <ul class="dropdown-menu">
+                <li><a href="{{ URL::to('order') }}" {{ sa('order') }} >Orders</a></li>
                 <li><a href="{{ URL::to('enquiry') }}" {{ sa('enquiry') }} >Enquiries</a></li>
             </ul>
         </li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                Newsletter
+                Publication
                 <b class="caret"></b>
               </a>
             <ul class="dropdown-menu">
-                <li><a href="{{ URL::to('edition') }}" {{ sa('edition') }} >Editions</a></li>
-                <li><a href="{{ URL::to('template') }}" {{ sa('template') }} >Templates</a></li>
+                <li><a href="{{ URL::to('campaign') }}" {{ sa('campaign') }} >Campaign</a></li>
+                <li><a href="{{ URL::to('newsletter') }}" {{ sa('newsletter') }} >Newsletter</a></li>
+                <li><a href="{{ URL::to('brochure') }}" {{ sa('brochure') }} >Brochure</a></li>
             </ul>
         </li>
         <li class="dropdown">
@@ -42,9 +44,9 @@
             <ul class="dropdown-menu">
                 <li><a href="{{ URL::to('buyer') }}" {{ sa('buyer') }} >Buyers</a></li>
                 <li><a href="{{ URL::to('potential') }}" {{ sa('potential') }} >Potential Buyers</a></li>
+                <li><a href="{{ URL::to('contactgroup') }}" {{ sa('contactgroup') }} >Contact Groups</a></li>
             </ul>
         </li>
-        <li><a href="{{ URL::to('transaction') }}" {{ sa('transaction') }} >Transactions</a></li>
 
         <li><a href="{{ URL::to('event') }}" {{ sa('event') }} >Events</a></li>
         <li><a href="{{ URL::to('promocode') }}" {{ sa('promocode') }} >Promo Code</a></li>
@@ -85,7 +87,7 @@
               </a>
             <ul class="dropdown-menu">
                 <li><a href="{{ URL::to('user') }}" {{ sa('user') }} >Admins</a></li>
-                <li><a href="{{ URL::to('settings') }}" {{ sa('settings') }} >Settings</a></li>
+                <li><a href="{{ URL::to('option') }}" {{ sa('option') }} >Options</a></li>
             </ul>
         </li>
         @endif

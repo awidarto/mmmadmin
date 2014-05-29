@@ -24,8 +24,14 @@
 	color:white;
 }
 
-.del,.upload{
+.del,.upload, .active{
 	cursor:pointer;
+}
+
+.red{
+	background-color: red;
+	color: white;
+	padding: 2px 6px;
 }
 
 </style>
@@ -249,7 +255,7 @@
   </div>
 </div>
 
-
+{{ $modal_sets }}
 
 <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls">
     <div class="slides"></div>
@@ -656,6 +662,9 @@
 					alert("Deletion cancelled");
 				}
 		   	}
+
+
+		   	{{ $js_table_event }}
 
 			if ($(e.target).is('.pbadge')) {
 				var _id = e.target.id;

@@ -9,8 +9,8 @@ class BuyerController extends AdminController {
         $this->controller_name = str_replace('Controller', '', get_class());
 
         //$this->crumb = new Breadcrumb();
-        $this->crumb->append('Home','left',true);
-        $this->crumb->append(strtolower($this->controller_name));
+        //$this->crumb->append('Home','left',true);
+        //$this->crumb->append(strtolower($this->controller_name));
 
         $this->model = new Buyer();
         //$this->model = DB::collection('documents');
@@ -39,6 +39,14 @@ class BuyerController extends AdminController {
             array('Created',array('search'=>true,'sort'=>true,'date'=>true)),
             array('Last Update',array('search'=>true,'sort'=>true,'date'=>true)),
         );
+
+        $controller_name = $this->controller_name;
+
+        $this->can_add = true;
+
+        $this->additional_filter = View::make(strtolower($controller_name).'.addfilter')->render();
+
+        $this->js_additional_param = "aoData.push( { 'name':'groupFilter', 'value': $('#assigned-group-filter').val() } );";
 
         //print $this->model->where('docFormat','picture')->get()->toJSON();
         $this->title = 'Buyers';

@@ -64,6 +64,10 @@ class AdminController extends Controller {
 
     public $additional_filter = '';
 
+    public $modal_sets = '';
+
+    public $js_table_event = '';
+
     public $js_additional_param = '';
 
     public $additional_query = false;
@@ -80,7 +84,7 @@ class AdminController extends Controller {
 
 		Former::framework($this->form_framework);
 
-        $this->crumb = new \Noherczeg\Breadcrumb\Breadcrumb(URL::to('/'));
+        //$this->crumb = new \Noherczeg\Breadcrumb\Breadcrumb(URL::to('/'));
 
 		$this->beforeFilter('auth', array('on'=>'get', 'only'=>array('getIndex','getAdd','getEdit') ));
 
@@ -178,6 +182,8 @@ class AdminController extends Controller {
             ->with('additional_action',$this->additional_action)
             ->with('additional_filter',$this->additional_filter)
             ->with('js_additional_param', $this->js_additional_param)
+            ->with('modal_sets', $this->modal_sets)
+            ->with('js_table_event', $this->js_table_event)
 			->with('heads',$heads )
 			->with('row',$this->rowdetail );
 
