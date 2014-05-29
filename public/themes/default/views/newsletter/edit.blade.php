@@ -13,10 +13,10 @@
 
 <div class="row-fluid">
     <div class="span9">
-        <a href="{{ URL::to('brochure/preview/'.$formdata['template'].'/pdf')}}" target="blank">PDF Preview</a>
         {{ Former::textarea('body','Body')->name('body')->class('code')->style('min-height:600px;') }}
     </div>
     <div class="span3">
+        <a href="{{ URL::to('brochure/preview/'.$formdata['template'].'/pdf')}}" class="btn" target="blank">PDF Preview</a>
         {{ Former::select('status')->options(array('inactive'=>'Inactive','active'=>'Active'))->label('Status') }}
         {{ Former::text('title','Title') }}
         {{ Former::text('slug','Permalink')->id('permalink') }}

@@ -5,10 +5,13 @@
 
 <h3>{{$title}}</h3>
 
-{{Former::open_for_files($submit,'POST',array('class'=>''))}}
+{{Former::open_for_files_vertical($submit,'POST',array('class'=>''))}}
 
 <div class="row-fluid">
-    <div class="span4">
+    <div class="span9">
+        {{ Former::textarea('body','Body')->name('body')->class('code')->style('min-height:600px;') }}
+    </div>
+    <div class="span3">
         {{ Former::select('status')->options(array('inactive'=>'Inactive','active'=>'Active'))->label('Status') }}
         {{ Former::text('title','Title') }}
         {{ Former::text('slug','Permalink')->id('permalink') }}
@@ -20,9 +23,6 @@
         ?>
 
         {{ $fupload->id('imageupload')->title('Select Images')->label('Upload Images')->make() }}
-    </div>
-    <div class="span8">
-        {{ Former::textarea('body','Body')->name('body') }}
     </div>
 </div>
 
@@ -46,15 +46,24 @@
 
 </style>
 
+{{ HTML::script('js/ace/ace.js') }}
+{{ HTML::script('js/ace/theme-twilight.js') }}
+{{ HTML::script('js/ace/mode-php.js') }}
+{{ HTML::script('js/jquery-ace.min.js') }}
+
 <script type="text/javascript">
 
+
 $(document).ready(function() {
+
 
     $('#title').keyup(function(){
         var title = $('#title').val();
         var slug = string_to_slug(title);
         $('#permalink').val(slug);
     });
+
+    $('.code').ace({ theme: 'twilight', lang: 'php' });
 
 });
 
