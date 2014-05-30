@@ -43,7 +43,7 @@ class Prefs {
 
     //contact group
     public static function getContactGroup(){
-        $c = Category::get();
+        $c = Contactgroup::get();
 
         self::$category = $c;
         return new self;

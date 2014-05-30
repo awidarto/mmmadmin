@@ -1,5 +1,5 @@
 {{ Former::select('assigned', 'Show only contact assigned to')
-        ->options(Prefs::getContactGroup()->contactGroupToSelection('_id','fullname',true))
+        ->options(Prefs::getContactGroup()->contactGroupToSelection('_id','title',true))
         ->id('assigned-group-filter');
 }}&nbsp;&nbsp;
 <a class="btn" id="refresh_filter">Refresh</a>
@@ -13,7 +13,7 @@
   </div>
   <div class="modal-body" >
         <h4 id="upload-title-id"></h4>
-        {{ Former::select('assigned', 'Assigned to')->options(Prefs::getContactGroup()->contactGroupToSelection('_id','fullname',false))->id('assigned-group')}}
+        {{ Former::select('assigned', 'Assigned to')->options(Prefs::getContactGroup()->contactGroupToSelection('_id','title',false))->id('assigned-group')}}
   </div>
   <div class="modal-footer">
     <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
@@ -23,6 +23,10 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        $('#assigned-group-filter').on('change',function(){
+            oTable.fnDraw();
+        });
+
         $('#refresh_filter').on('click',function(){
             oTable.fnDraw();
         });

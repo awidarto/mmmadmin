@@ -70,6 +70,16 @@ class BuyerController extends AdminController {
             array('lastUpdate',array('kind'=>'datetime','query'=>'like','pos'=>'both','show'=>true)),
         );
 
+        $groupFilter = Input::get('groupFilter');
+
+        if($groupFilter != ''){
+            $this->additional_query = array('assigned_group'=>$groupFilter);
+        }
+
+        //$this->def_order_by = 'propertyId';
+
+        //$this->def_order_dir = 'desc';
+
         return parent::postIndex();
     }
 
@@ -79,8 +89,7 @@ class BuyerController extends AdminController {
         $this->validator = array(
             'firstname' => 'required',
             'lastname' => 'required',
-            'email'=> 'required|unique:agents',
-            'pass'=>'required|same:repass'
+            'email'=> 'required',
         );
 
         return parent::postAdd($data);

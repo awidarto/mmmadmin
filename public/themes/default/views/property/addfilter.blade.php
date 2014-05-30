@@ -23,6 +23,10 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        $('#assigned-agent-filter').on('change',function(){
+            oTable.fnDraw();
+        });
+
         $('#refresh_filter').on('click',function(){
             oTable.fnDraw();
         });

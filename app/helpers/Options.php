@@ -22,12 +22,24 @@ class Options {
         }
     }
 
-    public function set($varname, $value){
-
+    public static function set($varname, $value){
+        $opt = Option::where('varname', $varname)->first();
+        if($opt){
+            $option->value = $value;
+            $option->save();
+            return $value;
+        }else{
+            return '';//return empty string
+        }
     }
 
-    public function get($varname, $value){
-
+    public static function get($varname, $defvalue = null){
+        $opt = Option::where('varname', $varname)->first();
+        if($opt){
+            return $opt->value;
+        }else{
+            return (is_null($value))?'':$defvalue;//return specified default value
+        }
     }
 
 }

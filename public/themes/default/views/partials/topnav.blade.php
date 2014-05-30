@@ -42,8 +42,7 @@
                 <b class="caret"></b>
               </a>
             <ul class="dropdown-menu">
-                <li><a href="{{ URL::to('buyer') }}" {{ sa('buyer') }} >Buyers</a></li>
-                <li><a href="{{ URL::to('potential') }}" {{ sa('potential') }} >Potential Buyers</a></li>
+                <li><a href="{{ URL::to('buyer') }}" {{ sa('buyer') }} >Contact List</a></li>
                 <li><a href="{{ URL::to('contactgroup') }}" {{ sa('contactgroup') }} >Contact Groups</a></li>
             </ul>
         </li>
@@ -78,6 +77,7 @@
                 <li><a href="{{ URL::to('homeslide') }}" {{ sa('homeslide') }} >Home Page</a></li>
                 <li><a href="{{ URL::to('faq') }}" {{ sa('faq') }} >FAQ Entries</a></li>
                 <li><a href="{{ URL::to('faqcat') }}" {{ sa('faqcat') }} >FAQ Category</a></li>
+                <li><a href="{{ URL::to('glossary') }}" {{ sa('glossary') }} >Glossary Entries</a></li>
             </ul>
         </li>
         <li class="dropdown">

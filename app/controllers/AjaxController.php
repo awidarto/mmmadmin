@@ -690,5 +690,48 @@ class AjaxController extends BaseController {
 
     }
 
+    public function postAssigngroup(){
+        $in = Input::get();
+
+        $user_id = $in['user_id'];
+
+        $prop_ids = $in['prop_ids'];
+
+        foreach($prop_ids as $p){
+            $prop = Buyer::find($p);
+
+            if($prop){
+                $prop->push('assigned_group',$user_id,true);
+                $prop->save();
+            }
+
+        }
+
+        return Response::json(array('result'=>'OK'));
+
+    }
+
+    public function postUnassigngroup(){
+        $in = Input::get();
+
+        $user_id = $in['user_id'];
+
+        $prop_ids = $in['prop_ids'];
+
+        foreach($prop_ids as $p){
+            $prop = Buyer::find($p);
+
+            if($prop){
+                $prop->pull('assigned_group',$user_id);
+                $prop->save();
+            }
+
+        }
+
+        return Response::json(array('result'=>'OK'));
+
+    }
+
+
 }
 
