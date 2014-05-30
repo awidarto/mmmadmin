@@ -69,15 +69,15 @@ class OptionController extends AdminController {
     }
 
     public function getAdd(){
-        Breadcrumb::addBreadcrumb('New Payable', 'add');
-        $this->crumb = Breadcrumb::generate();
+        //Breadcrumb::addBreadcrumb('New Payable', 'add');
+        //$this->crumb = Breadcrumb::generate();
 
         return parent::getAdd();
     }
 
     public function getEdit($id){
-        Breadcrumb::addBreadcrumb('Update Document', 'edit');
-        $this->crumb = Breadcrumb::generate();
+        //Breadcrumb::addBreadcrumb('Update Document', 'edit');
+        //$this->crumb = Breadcrumb::generate();
 
         return parent::getEdit($id);
     }
