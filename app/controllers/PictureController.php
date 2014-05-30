@@ -142,8 +142,8 @@ class PictureController extends AdminController {
 
         $pic_id = $in['id'];
 
-        $width = $in['image']['width'];
-        $height = $in['image']['height'];
+        $width = (int)$in['image']['width'];
+        $height = (int)$in['image']['height'];
 
         $filename = $in['filename'];
 
