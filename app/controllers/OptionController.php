@@ -9,9 +9,9 @@ class OptionController extends AdminController {
         $this->controller_name = str_replace('Controller', '', get_class());
 
         //$this->crumb = new Breadcrumb();
-        Breadcrumb::addBreadcrumb('Home',URL::to('/'));
-        Breadcrumb::addBreadcrumb('Option', URL::to('option'));
-        Breadcrumb::setSeperator('');
+        //Breadcrumb::addBreadcrumb('Home',URL::to('/'));
+        //Breadcrumb::addBreadcrumb('Option', URL::to('option'));
+        //Breadcrumb::setSeperator('');
 
         $this->model = new Option();
         //$this->model = DB::collection('documents');
