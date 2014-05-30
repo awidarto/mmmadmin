@@ -44,7 +44,7 @@ class OptionController extends AdminController {
 
         $this->place_action = 'first';
 
-        $this->can_add = true;
+        $this->can_add = false;
 
         $this->modal_sets = View::make( strtolower( $this->controller_name ).'.modal')->render();
 

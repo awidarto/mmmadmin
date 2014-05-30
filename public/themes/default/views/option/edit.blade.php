@@ -9,8 +9,8 @@
 
 {{ Former::hidden('id')->value($formdata['_id']) }}
 
-<div class="row">
-    <div class="col-md-6">
+<div class="row-fluid">
+    <div class="span6">
         {{ Former::text('value', $formdata['label'] ) }}
 
         {{ Form::submit('Save',array('class'=>'btn primary'))}}&nbsp;&nbsp;
