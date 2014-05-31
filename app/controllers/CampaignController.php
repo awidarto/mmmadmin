@@ -30,11 +30,10 @@ class CampaignController extends AdminController {
 
         $this->heads = array(
             array('Title',array('search'=>false,'sort'=>false)),
-            array('Venue',array('search'=>true,'sort'=>true)),
-            array('Location',array('search'=>true,'sort'=>true)),
+            array('Status',array('search'=>true,'sort'=>true)),
             array('From',array('search'=>true,'sort'=>true)),
             array('To',array('search'=>true,'sort'=>true)),
-            array('Category',array('search'=>true,'sort'=>true)),
+            array('Trigger',array('search'=>true,'sort'=>true)),
             array('Tags',array('search'=>true,'sort'=>true)),
             array('Created',array('search'=>true,'sort'=>true,'date'=>true)),
             array('Last Update',array('search'=>true,'sort'=>true,'date'=>true)),
@@ -53,11 +52,10 @@ class CampaignController extends AdminController {
 
         $this->fields = array(
             array('title',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
-            array('venue',array('kind'=>'text','query'=>'like','pos'=>'both','attr'=>array('class'=>'expander'),'show'=>true)),
-            array('location',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
+            array('status',array('kind'=>'text','query'=>'like','pos'=>'both','attr'=>array('class'=>'expander'),'show'=>true)),
             array('fromDate',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('toDate',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
-            array('category',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
+            array('sendOption',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('tags',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('createdDate',array('kind'=>'date','query'=>'like','pos'=>'both','show'=>true)),
             array('lastUpdate',array('kind'=>'datetime','query'=>'like','pos'=>'both','show'=>true)),
@@ -88,8 +86,6 @@ class CampaignController extends AdminController {
 
         $this->validator = array(
             'title' => 'required',
-            'venue' => 'required',
-            'location' => 'required',
         );
 
         return parent::postAdd($data);
@@ -99,8 +95,6 @@ class CampaignController extends AdminController {
     {
         $this->validator = array(
             'title' => 'required',
-            'venue' => 'required',
-            'location' => 'required',
         );
 
         return parent::postEdit($id,$data);
@@ -110,20 +104,26 @@ class CampaignController extends AdminController {
     {
         //print_r($data);
         //exit();
+        if($data['sendOption'] == 'immediately'){
+            //make queue id
+            $qid = Prefs::makeQueueId();
+            $qdate = new MongoDate();
 
-        for($i = 1;$i < 6;$i++){
+            $cid = $data['_id']->toString();
 
-            if($data['code_'.$i] != ""){
-                $promo = new Promocode();
-                $promo->code = $data['code_'.$i];
-                $promo->value = $data['val_'.$i];
-                $promo->eventName = $data['title'];
-                $promo->eventSlug = $data['slug'];
-                $promo->lastUpdate = new MongoDate();
-                $promo->createdDate = new MongoDate();
-                $promo->expires = $data['expires'];
-                $promo->save();
-            }
+            $cmp = Campaign::find($cid);
+
+            $cmp->push( array('queueId'=>$qid, 'queueInitTime' => $qdate));
+
+            $cmp->save();
+
+            //put into queue
+
+
+
+            //set history
+
+        }else{
 
         }
 
@@ -133,33 +133,6 @@ class CampaignController extends AdminController {
     public function afterUpdate($id,$data = null)
     {
 
-        for($i = 1;$i < 6;$i++){
-
-            if($data['code_'.$i] != ""){
-                $promo = Promocode::where('eventSlug', '=', $data['slug'])->where('code','=',$data['code_'.$i])->first();
-
-                if(is_null($promo)){
-                    $promo = new Promocode();
-                    $promo->code = $data['code_'.$i];
-                    $promo->value = $data['val_'.$i];
-                    $promo->eventName = $data['title'];
-                    $promo->eventSlug = $data['slug'];
-                    $promo->lastUpdate = new MongoDate();
-                    $promo->createdDate = new MongoDate();
-                    $promo->expires = $data['expires'];
-                    $promo->save();
-
-                }else{
-                    $promo->value = $data['val_'.$i];
-                    $promo->lastUpdate = new MongoDate();
-                    $promo->expires = $data['expires'];
-                    $promo->save();
-                }
-
-            }
-
-
-        }
 
         return $id;
     }
@@ -168,7 +141,7 @@ class CampaignController extends AdminController {
     public function makeActions($data)
     {
         $delete = '<span class="del" id="'.$data['_id'].'" ><i class="icon-trash"></i>Delete</span>';
-        $edit = '<a href="'.URL::to('event/edit/'.$data['_id']).'"><i class="icon-edit"></i>Update</a>';
+        $edit = '<a href="'.URL::to('campaign/edit/'.$data['_id']).'"><i class="icon-edit"></i>Update</a>';
 
         $actions = $edit.'<br />'.$delete;
         return $actions;

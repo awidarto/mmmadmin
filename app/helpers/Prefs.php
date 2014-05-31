@@ -7,6 +7,7 @@ class Prefs {
     public static $principal;
     public static $agent;
     public static $contactgroup;
+    public static $newsletter;
 
     public function __construct()
     {
@@ -70,6 +71,35 @@ class Prefs {
         return self::$category;
     }
 
+
+    //newsletter
+    public static function getNewsletter(){
+        $c = Template::where('type','newsletter')->get();
+
+        self::$newsletter = $c;
+        return new self;
+    }
+
+    public function newsletterToSelection($value, $label, $all = true)
+    {
+        if($all){
+            $ret = array(''=>'All');
+        }else{
+            $ret = array();
+        }
+
+        foreach (self::$newsletter as $c) {
+            $ret[$c->{$value}] = $c->{$label};
+        }
+
+
+        return $ret;
+    }
+
+    public function newsletterToArray()
+    {
+        return self::$newsletter;
+    }
 
     public static function getPrincipal(){
         $c = Principal::get();
@@ -182,6 +212,10 @@ class Prefs {
         return self::$faqcategory;
     }
 
+    public static function makeQueueId()
+    {
+        return Str::random(10);
+    }
 
 
     public static function themeAssetsUrl()

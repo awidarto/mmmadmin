@@ -16,6 +16,12 @@ return array(
         'root'=>'Superadmin',
         'admin'=>'Admin',
         'editor'=>'Content Editor'
-        )
+        ),
+    'send_options'=>array(
+            'immediately'=>'Send Now',
+            'atdate'=>'At Specified Date',
+            'onceaweek'=>'Once A Week',
+            'onceamonth'=>'Once A Month'
+        ),
 
     );
