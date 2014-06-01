@@ -23,6 +23,12 @@ Route::controller('posts', 'PostsController');
 Route::controller('category', 'CategoryController');
 Route::controller('menu', 'MenuController');
 
+Route::controller('submission', 'SubmissionController');
+
+Route::controller('productcategory', 'ProductcategoryController');
+
+Route::controller('genre', 'GenreController');
+
 Route::controller('picture','PictureController');
 
 Route::controller('enquiry', 'EnquiryController');
@@ -57,6 +63,7 @@ Route::controller('homeslide', 'HomeslideController');
 
 
 Route::controller('music', 'MusicController');
+Route::controller('video', 'VideoController');
 Route::controller('event', 'EventController');
 
 
@@ -65,7 +72,7 @@ Route::controller('ajax', 'AjaxController');
 
 Route::controller('home', 'HomeController');
 
-Route::get('/', 'PropertyController@getIndex');
+Route::get('/', 'SubmissionController@getIndex');
 
 
 Route::get('content/pages', 'PagesController@getIndex');

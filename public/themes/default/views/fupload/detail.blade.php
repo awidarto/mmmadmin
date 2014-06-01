@@ -1,38 +1,21 @@
-<table class="table" id="par_%s" >
-    <tr>
-        <td rowspan="6"><img style="width:125px;" src="%s"></td>
-        <td><span class="img-title">%s</span></td>
-        <td><span class="file_del icon-trash" id="%s"></td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <label for="defaultpic"><input type="radio" name="defaultpic" value="%s" %s > Default</label>
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="radio" name="brchead" value="%s" %s > Head
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="radio" name="brc1" value="%s" %s > Pic 1
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="radio" name="brc2" value="%s" %s > Pic 2
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <input type="radio" name="brc3" value="%s" %s > Pic 3
-        </td>
-    </tr>
-    <tr>
-        <td style="text-align:right;">Caption</td>
-        <td colspan="2">
-            <input type="text" name="caption[]" value="%s" />
-        </td>
-    </tr>
-</table>
+<li>
+    <table class="table" id="par_%s" >
+        <tr>
+            <td rowspan="3" style="width:100px;"><img style="width:100px;" src="%s"></td>
+            <td ><span class="img-title">%s</span></td>
+            <td style="text-align:right;width:100px;" ><span class="file_del icon-trash" id="%s"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label for="defaultpic" style="width:150px;float:left;"><input type="radio" name="defaultpic" value="%s" %s > Default Picture</label>
+                <label for="defaultmedia"><input type="radio" name="defaultmedia" value="%s" %s > Default Media</label>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label for="caption">Caption</label>
+                <input type="text" name="caption[]" value="%s" />
+            </td>
+        </tr>
+    </table>
+</li>

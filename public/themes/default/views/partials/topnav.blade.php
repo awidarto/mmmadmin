@@ -10,21 +10,25 @@
 <ul class="nav">
     @if(Auth::check())
 
-        <li><a href="{{ URL::to('property') }}" {{ sa('property') }} >Property</a></li>
+        <li><a href="{{ URL::to('submission') }}" {{ sa('submission') }} >Submission</a></li>
 
         @if(Auth::user()->role == 'root' || Auth::user()->role == 'admin')
-        <li><a href="{{ URL::to('agent') }}" {{ sa('agent') }} >Agents</a></li>
-        <li><a href="{{ URL::to('principal') }}" {{ sa('principal') }} >Principal</a></li>
+        <li><a href="{{ URL::to('music') }}" {{ sa('music') }} >Music</a></li>
+        <li><a href="{{ URL::to('video') }}" {{ sa('video') }} >Video</a></li>
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                Incoming
+                Transactions
                 <b class="caret"></b>
               </a>
             <ul class="dropdown-menu">
-                <li><a href="{{ URL::to('order') }}" {{ sa('order') }} >Orders</a></li>
-                <li><a href="{{ URL::to('enquiry') }}" {{ sa('enquiry') }} >Enquiries</a></li>
+                <li><a href="{{ URL::to('download') }}" {{ sa('download') }} >Download</a></li>
+                <li><a href="{{ URL::to('purchase') }}" {{ sa('purchase') }} >Purchase</a></li>
+                <li><a href="{{ URL::to('subscription') }}" {{ sa('subscription') }} >Subscription</a></li>
+                <li><a href="{{ URL::to('payment') }}" {{ sa('payment') }} >Payment</a></li>
             </ul>
         </li>
+        {{--
+
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 Publication
@@ -50,14 +54,24 @@
         <li><a href="{{ URL::to('event') }}" {{ sa('event') }} >Events</a></li>
         <li><a href="{{ URL::to('promocode') }}" {{ sa('promocode') }} >Promo Code</a></li>
 
+        --}}
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                Media Management
+                <b class="caret"></b>
+              </a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ URL::to('genre') }}" {{ sa('genre') }} >Genres</a></li>
+            </ul>
+        </li>
+
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 Reports
                 <b class="caret"></b>
               </a>
             <ul class="dropdown-menu">
-                <li><a href="{{ URL::to('financial') }}" {{ sa('financial') }} >Financial Return</a></li>
-                <li><a href="{{ URL::to('propmanager') }}" {{ sa('propmanager') }} >Property Managements</a></li>
+                <li><a href="{{ URL::to('downloadreport') }}" {{ sa('downloadreport') }} >Download</a></li>
                 <li><a href="{{ URL::to('activity') }}" {{ sa('activity') }} >Activity Log</a></li>
                 <li><a href="{{ URL::to('access') }}" {{ sa('access') }} >Site Access</a></li>
             </ul>

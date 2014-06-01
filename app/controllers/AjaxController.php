@@ -593,6 +593,22 @@ class AjaxController extends BaseController {
 
     }
 
+    public function postMediachangestatus(){
+        $in = Input::get();
+
+        $trx_id = $in['trx_id'];
+
+        $status = $in['status'];
+
+        $media = Media::find($trx_id);
+
+        $media->status = $status;
+        $media->save();
+
+        return Response::json(array('result'=>'OK'));
+
+    }
+
     public function postPropchangestatus(){
         $in = Input::get();
 

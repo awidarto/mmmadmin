@@ -25,12 +25,8 @@ return array(
         ),
     'publishing'=>array(
             'offline'=>'Offline',
-            'prelisted'=>'Prelisted',
-            'available'=>'Available for Sale',
-            'reserved'=>'Reserved',
-            'pending'=>'Pending Sales',
-            'under contract'=>'Under Contract',
-            'sold'=>'Sold'
+            'approved'=>'Approved',
+            'pending'=>'Pending Approval',
         ),
     'search_publishing'=>array(
             ''=>'All',

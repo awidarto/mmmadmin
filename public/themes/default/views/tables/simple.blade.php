@@ -200,7 +200,7 @@
 <div id="prop-chg-modal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Change Property Status</h3>
+    <h3 id="myModalLabel">Change Status</h3>
   </div>
   <div class="modal-body">
   	<h4 id="prop-trx-order"></h4>
@@ -871,7 +871,7 @@
 
 
 		$('#save-chg').on('click',function(){
-            $.post('{{ URL::to('ajax/changestatus')}}',
+            $.post('{{ URL::to('ajax/mediachangestatus')}}',
             {
                 trx_id:$('#trx-chg').val(),
                 status:$('#stat-chg').val()
@@ -888,7 +888,7 @@
 
 
 		$('#prop-save-chg').on('click',function(){
-            $.post('{{ URL::to('ajax/propchangestatus')}}',
+            $.post('{{ URL::to('ajax/mediachangestatus')}}',
             {
                 trx_id:$('#prop-trx-chg').val(),
                 status:$('#prop-stat-chg').val()

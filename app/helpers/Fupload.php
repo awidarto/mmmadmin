@@ -8,6 +8,10 @@ class Fupload {
     public static $url = 'upload';
     public static $multi = true;
 
+    public static $updetail = 'fupload.detail';
+    public static $jsdetail = 'fupload.jsdetail';
+    public static $ajaxdetail = 'fupload.jsajdetail';
+
     public function __construct()
     {
 
@@ -50,6 +54,9 @@ class Fupload {
             ->with('title',self::$title)
             ->with('url',self::$url)
             ->with('multi',self::$multi)
+            ->with('updetail',self::$updetail)
+            ->with('jsdetail',self::$jsdetail)
+            ->with('ajaxdetail',self::$ajaxdetail)
             ->with('element_id', self::$element_id )
             ->with('formdata',$formdata);
     }
