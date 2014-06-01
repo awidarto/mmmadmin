@@ -863,7 +863,7 @@
 				$('#prop-chg-modal').modal();
 				$('#prop-trx-chg').val(_id);
 				$('#prop-stat-chg').val(_status);
-				$('#prop-trx-order').html('Property ID : ' + _rel);
+				$('#prop-trx-order').html('Media ID : ' + _rel);
 
 		   	}
 

@@ -29,7 +29,7 @@
             $fupload = new Fupload();
         ?>
 
-        {{ $fupload->id('mediaupload')->title('Select Images')->label('Upload Media')->make() }}
+        {{ $fupload->id('mediaupload')->title('Select Media')->label('Upload Media')->make() }}
 
 
     </div>
