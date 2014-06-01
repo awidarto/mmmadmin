@@ -7,11 +7,10 @@
 
 {{Former::open_for_files($submit,'POST',array('class'=>''))}}
 
-<div class="row">
+<div class="row-fluid">
     <div class="span6">
 
         {{ Former::text('title','Media Title') }}
-        {{ Former::select('type')->options(Config::get('media.type'))->label('Media Type') }}
         {{ Former::text('artist','Artist') }}
         {{ Former::text('album','Album') }}
         {{ Former::text('genre','Genre')->class('tag_keyword') }}

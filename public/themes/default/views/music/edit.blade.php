@@ -8,12 +8,11 @@
 {{Former::open_for_files($submit,'POST',array('class'=>'custom addAttendeeForm'))}}
 
 {{ Former::hidden('id')->value($formdata['_id']) }}
-<div class="row">
+<div class="row-fluid">
 
     <div class="span6">
 
         {{ Former::text('title','Media Title') }}
-        {{ Former::select('type')->options(Config::get('media.type'))->label('Media Type') }}
         {{ Former::text('artist','Artist') }}
         {{ Former::text('album','Album') }}
         {{ Former::text('genre','Genre')->class('tag_keyword') }}
@@ -37,7 +36,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row-fluid">
     <div class="span12">
         {{ Form::submit('Save',array('class'=>'btn primary'))}}&nbsp;&nbsp;
         {{ HTML::link($back,'Cancel',array('class'=>'btn'))}}

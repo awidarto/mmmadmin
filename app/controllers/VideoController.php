@@ -94,6 +94,7 @@ class VideoController extends AdminController {
         $data['ownerId'] = Auth::user()->_id;
         $data['ownerName'] = Auth::user()->fullname;
         $data['status'] = 'approved';
+        $data['type'] = 'video';
 
         $defaults = array();
         $defaultmedias = array();

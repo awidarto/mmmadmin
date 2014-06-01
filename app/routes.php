@@ -741,6 +741,12 @@ Route::get('logout',function(){
     return Redirect::to('/');
 });
 
+// Route group for API versioning
+Route::group(array('prefix' => 'api/v1'), function()
+{
+    Route::resource('media', 'MediaapiController');
+});
+
 /* Filters */
 
 Route::filter('auth', function()

@@ -7,7 +7,7 @@
 
 {{Former::open_for_files($submit,'POST',array('class'=>''))}}
 
-<div class="row">
+<div class="row-fluid">
     <div class="span6">
 
         {{ Former::text('title','Media Title') }}
