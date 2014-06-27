@@ -9,6 +9,20 @@ class MediaapiController extends \BaseController {
 	 */
 	public function index()
 	{
+        $cr = Input::get();
+
+        $and[] = array();
+
+        if(isset($cr['c'])){
+            if($cr['c'] == 'latest'){
+
+            }
+        }
+
+        if(isset($cr['s'])){
+
+        }
+
 		$media = Media::get(array(
                 '_id',
                 'title',
@@ -42,7 +56,8 @@ class MediaapiController extends \BaseController {
                 'defaultmedias.is_video',
                 'defaultmedias.fileurl',
                 'defaultmedias.file_id',
-                'defaultmedias.caption'
+                'defaultmedias.caption',
+                'lyric'
 
             ));
 
