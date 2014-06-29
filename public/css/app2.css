@@ -64,7 +64,7 @@ blockquote p {
     font-size: 18px;
     font-weight: 200;
     color: #000;
-    text-shadow: 0 1px 0 #ce4213;
+    /*text-shadow: 0 1px 0 #ce4213;*/
 }
 
 select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
@@ -75,7 +75,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 }
 
 select{
-    height: 24px;
+    height: 26px;
 }
 
 option{
@@ -95,10 +95,10 @@ label, input, button, select, textarea {
 label.checkbox{
     line-height: 20px;
 }
-
+/*
 .btn {
     font-size: 11px;
-    line-height: 14px;
+    line-height: 20px;
     padding: 4px 9px;
 }
 
@@ -110,6 +110,7 @@ label.checkbox{
 .btn-small {
     line-height: 14px;
 }
+*/
 
 .btn .caret {
     margin-top: 5px;
@@ -134,11 +135,6 @@ a.btn {
 
 .table th.action {
     min-width: 60px;
-}
-
-div.dataTables_length label {
-    margin-top: 20px;
-    line-height: 24px;
 }
 
 .label, .badge {
@@ -195,43 +191,6 @@ div.dataTables_length label {
     margin-left: 130px;
 }
 
-.input-append .add-on, .input-prepend .add-on{
-    height: 24px;
-    min-height: 24px;
-    min-width: 10px;
-    line-height: 25px;
-}
-
 .row-fluid [class*="span"]{
     min-height: 26px;
-}
-
-.control-group.error input, .control-group.error select, .control-group.error textarea {
-    border-width: 2px;
-    border-color: #dd4b39;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
-}
-
-.control-group.error .control-label, .control-group.error .help-block, .control-group.error .help-inline {
-    color: #dd4b39;
-    font-weight: bold;
-}
-
-.tagitem{
-    background: maroon url('../images/tag-open.png') no-repeat center left;
-
-    background-image: url('../images/tag-open.png'),url('../images/tag-close.png');
-    background-position: center left, center right;
-
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 2px;
-    padding-bottom: 2px;
-    display: inline-block;
-    color: #fff;
-    font-size: 10px;
-    line-height: 14px;
-    margin-right: 4px;
 }

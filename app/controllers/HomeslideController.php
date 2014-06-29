@@ -12,7 +12,7 @@ class HomeslideController extends AdminController {
         //$this->crumb->append('Home','left',true);
         //$this->crumb->append(strtolower($this->controller_name));
 
-        $this->title = $this->controller_name;
+        $this->title = 'Home Slide Show';
 
         $this->model = new Homeslider();
 
@@ -23,14 +23,14 @@ class HomeslideController extends AdminController {
     {
 
         $this->heads = array(
+            array('Widget Location',array('search'=>true,'sort'=>true)),
             array('Sequence / Priority',array('search'=>true,'sort'=>true)),
             array('Image',array('search'=>true,'sort'=>true)),
             array('Youtube URL',array('search'=>true,'sort'=>true)),
+            array('Link To URL',array('search'=>true,'sort'=>true)),
             array('Status',array('search'=>true,'sort'=>true)),
             array('Last Update',array('search'=>true,'sort'=>true,'date'=>true)),
         );
-
-        $this->title = 'Home Page';
 
         return parent::getIndex();
 
@@ -40,14 +40,33 @@ class HomeslideController extends AdminController {
     {
 
         $this->fields = array(
+            array('widgetLocation',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('sequence',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('sequence',array('kind'=>'text','callback'=>'namePic','query'=>'like','pos'=>'both','show'=>true)),
             array('youtubeUrl',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
+            array('linkTo',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('publishing',array('kind'=>'text','query'=>'like','pos'=>'both','show'=>true)),
             array('lastUpdate',array('kind'=>'date','query'=>'like','pos'=>'both','show'=>true)),
         );
 
         return parent::postIndex();
+    }
+
+    public function getLocation(){
+        $q = Input::get('term');
+
+        $qtag = new MongoRegex('/'.$q.'/i');
+
+        $res = Homeslider::where('widgetLocation',$qtag)->distinct('widgetLocation')->get()->toArray();
+
+        $result = array();
+
+        foreach($res as $r){
+            $result[] = array('id'=>$r[0],'label'=>$r[0],'value'=>$r[0]);
+        }
+
+        return Response::json($result);
+
     }
 
     public function postAdd($data = null)

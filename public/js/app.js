@@ -52,16 +52,17 @@
 
     	//base = 'http://localhost/pnu/public/';
 
-        $('textarea.editor').wysihtml5({
-            'html': true,
-            'image':false,
-            'color':false
-        });
-
     	var sharelist = {};
 
+        var dateinputs = $('.datepicker');
 
-        //console.log(dateinputs);
+        // work around for Former form lib for Laravel to create proper markup for date picker element
+        dateinputs.each(function(){
+            $(this).parent().addClass('datepicker');
+            $(this).removeClass('datepicker');
+        })
+
+        console.log(dateinputs);
 
         /*
 	    $('.timepicker').timepicker({
@@ -77,40 +78,15 @@
 		});
 		*/
 
-        $('.datepicker').daterangepicker({
-            singleDatePicker:true,
-                    startDate: moment(),
-                    endDate: moment().add('days',30),
-                    minDate: '01/01/2012'
-            });
+		$('.datetimepicker').datetimepicker({
+			maskInput: false,
+		});
 
-        $('.datepicker').on('show',function(ev,picker){
-            console.log($(this).val());
-            var picked = $(this).val();
-            if ( typeof(picked) !== "undefined" && picked !== null && picked !== '' ) {
-                picker.setStartDate(moment(picked,'MM/DD/YYYY'));
-            }
-        });
-
-        $('.eventdate').daterangepicker({
-                maxDate: moment().add('months',12)
-            },function(start, end){
-                if ( typeof(start) !== "undefined" && start !== null && start !== '' ) {
-                    $('#fromDate').val(start.format('MM/DD/YYYY'));
-                    $('#toDate').val(end.format('MM/DD/YYYY'));
-                }
-            });
-
-        $('.eventdate').on('show',function(ev, picker){
-                var start = $('#fromDate').val();
-                if ( typeof(start) !== "undefined" && start !== null && start !== '' && start !== 'invalid date' ) {
-                    picker.setStartDate(moment( $('#fromDate').val(), 'MM/DD/YYYY' ));
-                    picker.setEndDate(moment( $('#toDate').val(), 'MM/DD/YYYY' ));
-                }else{
-                    picker.setStartDate(moment());
-                    picker.setEndDate(moment().add('days',3));
-                }
-        });
+		$('.datepicker').datetimepicker({
+            format: 'dd-MM-yyyy',
+			maskInput: false,
+			pickTime: false
+		});
 
 		$('.pop').click(function(){
 			var _id = $(this).attr('id');
@@ -253,52 +229,6 @@
 		   'maxChars' : 0, //if not provided there is no limit,
 		   'placeholderColor' : '#666666'
 		});
-
-        $('.tag_state').tagsInput({
-            'autocomplete_url': base + 'ajax/state',
-           'height':'100px',
-           'width':'100%',
-           'interactive':true,
-           'onChange' : function(c){
-
-                },
-           'onAddTag' : function(t){
-                    console.log(t);
-                },
-           'onRemoveTag' : function(t){
-                    console.log(t);
-                },
-           'defaultText':'add state',
-           'removeWithBackspace' : true,
-           'minChars' : 0,
-           'maxChars' : 0, //if not provided there is no limit,
-           'placeholderColor' : '#666666'
-        });
-
-
-        $('.tag_propman').tagsInput({
-            'autocomplete_url': base + 'ajax/propman',
-           'height':'100px',
-           'width':'100%',
-           'interactive':true,
-           'onChange' : function(c){
-
-                },
-           'onAddTag' : function(t){
-                    console.log(t);
-                },
-           'onRemoveTag' : function(t){
-                    console.log(t);
-                },
-           'defaultText':'add manager',
-           'delimiter':';',
-           'removeWithBackspace' : true,
-           'minChars' : 0,
-           'maxChars' : 0, //if not provided there is no limit,
-           'placeholderColor' : '#666666'
-        });
-
-
 
 		$('.tag_project').autocomplete({
 			source: base + 'ajax/project'
@@ -476,6 +406,29 @@
 			change: function( event, ui ) {
 				$('#boothid').val('');
 				$('.auto_booth').val('');
+			}
+		});
+
+
+		$('.auto_booth').bind("focus blur change keyup", function(){
+			hallId = $('#hallid').val();
+
+			$('.auto_booth').autocomplete({
+
+				source: base + 'ajax/booth/'+hallId,
+
+				select: function(event, ui){
+					$('#boothid').val(ui.item.id);
+
+				}
+			});
+		});
+
+		$('.auto_exhibitor').autocomplete({
+			source: base + 'ajax/exhibitor',
+			select: function(event, ui){
+				$('#exhibitorid').val(ui.item.id);
+				hallId = $('#exhibitorid').val();
 			}
 		});
 

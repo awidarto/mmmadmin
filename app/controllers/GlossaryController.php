@@ -9,8 +9,8 @@ class GlossaryController extends AdminController {
         $this->controller_name = str_replace('Controller', '', get_class());
 
         //$this->crumb = new Breadcrumb();
-        //$this->crumb->append('Home','left',true);
-        //$this->crumb->append(strtolower($this->controller_name));
+        $this->crumb->append('Home','left',true);
+        $this->crumb->append(strtolower($this->controller_name));
 
         $this->model = new Glossary();
         //$this->model = DB::collection('documents');
@@ -34,7 +34,7 @@ class GlossaryController extends AdminController {
         $this->heads = array(
             array('Title',array('search'=>true,'sort'=>true)),
             array('Creator',array('search'=>true,'sort'=>false)),
-            array('Category',array('search'=>true,'select'=>Config::get('site.alphanumeric'),'sort'=>true)),
+            array('Category',array('search'=>true,'select'=>$categories,'sort'=>true)),
             array('Tags',array('search'=>true,'sort'=>true)),
             array('Created',array('search'=>true,'sort'=>true,'date'=>true)),
             array('Last Update',array('search'=>true,'sort'=>true,'date'=>true)),

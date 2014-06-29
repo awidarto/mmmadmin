@@ -12,8 +12,24 @@
 
     <!-- Le styles -->
     <!-- Bootplus -->
+    {{--
+    {{ HTML::style('bootflat/css/bootflat.min.css') }}
+
     {{ HTML::style('bootplus/css/bootplus.min.css') }}
+
     {{ HTML::style('bootplus/css/bootplus-responsive.min.css') }}
+
+    --}}
+    {{ HTML::style('css/typography.css') }}
+
+    {{ HTML::style('bootstrap232/css/bootstrap.css') }}
+
+    {{ HTML::style('bootstrap232/css/bootstrap-responsive.css') }}
+
+    {{ HTML::style('aflat/css/aflat.css') }}
+
+    {{ HTML::style('aflat/css/aflat-responsive.css') }}
+
     {{ HTML::style('bootplus/css/font-awesome.min.css') }}
 
     {{ HTML::style('css/dataTables.bootstrap.css') }}
@@ -26,9 +42,13 @@
 
     {{ HTML::style('css/flick/jquery-ui-1.9.2.custom.min.css') }}
 
+    {{ HTML::style('css/pickacolor/pick-a-color-1.1.8.min.css') }}
+
     {{ HTML::style('css/daterangepicker-bs2.css') }}
 
     {{ HTML::style('css/blueimp-gallery.min.css') }}
+
+    {{ HTML::style('css/bootstrap-select.css')}}
 
     {{-- HTML::style('css/style.css') --}}
 
@@ -45,6 +65,7 @@
         padding: 60px;
     }
 
+    {{--
     .navbar .nav>li>a {
         font-size: 12px;
         padding: 16px 0 10px 0;
@@ -53,6 +74,7 @@
     .navbar .nav>li>a.active{
         border-bottom: 2px solid rgb(66, 127, 237);
     }
+    --}}
 
     @media (max-width: 980px) {
     /* Enable use of floated navbar text */
@@ -120,13 +142,13 @@
                 @if(Auth::check())
                     <p class="navbar-text pull-right">
                         Hello {{ Auth::user()->fullname }}&nbsp;&nbsp;
-                        <a href="#" ><i class="icon-cog"></i>&nbsp;Settings</a>
-                        <a href="{{ URL::to('logout')}}" ><i class="icon-logout"></i>&nbsp;Logout</a>
+                        <a class="btn btn-primary" href="#" ><i class="icon-cog"></i>&nbsp;Settings</a>
+                        <a class="btn btn-info" href="{{ URL::to('logout')}}" style="color:white;background-color:maroon;" ><i class="icon-signout"></i>&nbsp;Logout</a>
                     </p>
                 @else
-                    <form class="navbar-form pull-right">
-                        <input class="span2" type="text" placeholder="Email">
-                        <input class="span2" type="password" placeholder="Password">
+                    <form method="POST" action="{{ URL::to('login')}}" class="navbar-form pull-right">
+                        <input name="email" class="span2" type="text" placeholder="Email">
+                        <input name="password" class="span2" type="password" placeholder="Password">
                         <button type="submit" class="btn btn-primary">Sign in</button>
                     </form>
                 @endif
@@ -137,7 +159,7 @@
       </div>
     </div>
 
-    <div class="container-fluid" style="margin-top:25px;">
+    <div class="container-fluid">
       <div class="row-fluid">
         <div class="span12">
             @yield('content')
@@ -183,7 +205,7 @@
 
     {{ HTML::script('js/bootstrap-wysihtml5-0.0.2.min.js') }}
 
-    {{ HTML::script('js/select2.js') }}
+    {{ HTML::script('js/bootstrap-select/bootstrap-select.js') }}
 
     {{ HTML::script('js/jquery-fileupload/vendor/jquery.ui.widget.js') }}
 
@@ -194,6 +216,9 @@
     {{ HTML::script('js/jquery-fileupload/jquery.iframe-transport.js') }}
 
     {{ HTML::script('js/jquery-fileupload/jquery.fileupload.js') }}
+
+    {{ HTML::script('js/tinycolor-0.9.15.min.js')}}
+    {{ HTML::script('js/pickacolor/pick-a-color-1.1.8.min.js') }}
 
     {{ HTML::script('js/jquery-fileupload/jquery.fileupload-process.js') }}
     {{ HTML::script('js/jquery-fileupload/jquery.fileupload-image.js') }}
