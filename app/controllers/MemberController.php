@@ -34,7 +34,7 @@ class MemberController extends AdminController {
             array('Last Update',array('search'=>true,'sort'=>true,'date'=>true)),
         );
 
-        $this->title = 'Agents';
+        $this->title = 'Members';
 
         return parent::getIndex();
 

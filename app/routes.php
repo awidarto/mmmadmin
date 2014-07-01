@@ -41,6 +41,8 @@ Route::controller('newsletter', 'NewsletterController');
 Route::controller('campaign', 'CampaignController');
 Route::controller('contactgroup', 'ContactgroupController');
 
+Route::controller('member', 'MemberController');
+
 Route::controller('brochure', 'BrochureController');
 Route::controller('option', 'OptionController');
 

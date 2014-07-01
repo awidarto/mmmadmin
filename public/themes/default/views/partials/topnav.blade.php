@@ -65,6 +65,8 @@
             </ul>
         </li>
 
+        <li><a href="{{ URL::to('member') }}" {{ sa('member') }} >Members</a></li>
+
         <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                 Reports
