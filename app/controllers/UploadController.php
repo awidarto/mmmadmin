@@ -38,6 +38,13 @@ class UploadController extends Controller {
         $is_image = $this->isImage($filemime);
         $is_audio = $this->isAudio($filemime);
         $is_video = $this->isVideo($filemime);
+        $is_pdf = $this->isPdf($filemime);
+
+        if(!($is_image || $is_audio || $is_video || $is_pdf)){
+            $is_doc = true;
+        }else{
+            $is_doc = false;
+        }
 
         if($is_image){
 
@@ -98,12 +105,15 @@ class UploadController extends Controller {
                     'is_image'=>$is_image,
                     'is_audio'=>$is_audio,
                     'is_video'=>$is_video,
+                    'is_pdf'=>$is_pdf,
+                    'is_doc'=>$is_doc,
                     'name'=> $filename,
                     'type'=> $filemime,
                     'size'=> $filesize,
                     'delete_url'=> URL::to('storage/media/'.$rstring.'/'.$filename),
                     'delete_type'=> 'DELETE'
                 );
+
             foreach($image_size_array as $k=>$v){
                 $item[$k] = $v;
             }
@@ -359,6 +369,10 @@ class UploadController extends Controller {
 
     private function isImage($mime){
         return preg_match('/^image/',$mime);
+    }
+
+    private function isPdf($mime){
+        return preg_match('/pdf/',$mime);
     }
 
 }
