@@ -82,7 +82,10 @@ Route::get('content/posts', 'PostsController@getIndex');
 Route::get('content/category', 'CategoryController@getIndex');
 Route::get('content/menu', 'MenuController@getIndex');
 
-
+Route::get('api/music',function(){
+    $music = Media::get()->toArray();
+    return Response::json($music);
+});
 
 Route::get('regenerate',function(){
     $property = new Property();
