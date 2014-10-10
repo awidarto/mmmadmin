@@ -8,27 +8,12 @@ if(file.is_image == true){
         '    </tr>' +
         '    <tr>' +
         '        <td colspan="2">' +
-        '            <label for="defaultpic"><input type="radio" name="defaultpic" ' + isdefault + ' value="' + file.file_id + '" > Default Picture</label>' +
+        '            <label for="defaultpic" style="width:150px;float:left;"><input type="radio" name="defaultpic" ' + ' value="' + file.file_id + '" > Default Picture</label>' +
         '        </td>' +
         '    </tr>' +
         '    <tr>' +
         '        <td colspan="2">' +
-        '            <input type="radio" name="brchead" ' + isbrchead + ' value="' + file.file_id + '" > Head' +
-        '        </td>' +
-        '    </tr>' +
-        '    <tr>' +
-        '        <td colspan="2">' +
-        '            <input type="radio" name="brc1" ' + isbrc1 + ' value="' + file.file_id + '" > Pic 1' +
-        '        </td>' +
-        '    </tr>' +
-        '    <tr>' +
-        '        <td colspan="2">' +
-        '            <input type="radio" name="brc2" ' + isbrc2 + ' value="' + file.file_id + '" > Pic 2' +
-        '        </td>' +
-        '    </tr>' +
-        '    <tr>' +
-        '        <td colspan="2">' +
-        '            <input type="radio" name="brc3" ' + isbrc3 + ' value="' + file.file_id + '" > Pic 3' +
+        '            <label for="defaultmedia"><input type="radio" name="defaultmedia" ' + ' value="' + file.file_id + '" > Default Media</label>' +
         '        </td>' +
         '    </tr>' +
         '    <tr>' +
