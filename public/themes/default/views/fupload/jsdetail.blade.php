@@ -7,6 +7,10 @@
         '    <tr>' +
         '        <td colspan="2">' +
         '            <label for="defaultpic" style="width:150px;float:left;"><input type="radio" name="defaultpic" ' + ' value="' + file.file_id + '" > Default Picture</label>' +
+        '        </td>' +
+        '    </tr>' +
+        '    <tr>' +
+        '        <td colspan="2">' +
         '            <label for="defaultmedia"><input type="radio" name="defaultmedia" ' + ' value="' + file.file_id + '" > Default Media</label>' +
         '        </td>' +
         '    </tr>' +
