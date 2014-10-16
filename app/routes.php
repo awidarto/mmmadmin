@@ -10,6 +10,17 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+
+Route::get('auth/logout/{key?}','AuthController@logout');
+Route::get('auth/login','AuthController@login');
+Route::resource('auth','AuthController');
+
+Route::resource('feed','FeedController');
+
+Route::resource('comment','CommentController');
+
+Route::resource('like','LikeController');
+
 Route::controller('document', 'DocumentController');
 Route::controller('property', 'PropertyController');
 Route::controller('user', 'UserController');
