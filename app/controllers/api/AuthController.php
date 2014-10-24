@@ -1,7 +1,12 @@
 <?php
+namespace Api;
 
-class AuthController extends \BaseController {
+use Illuminate\Support\Facades\Input;
 
+class AuthController extends \Controller {
+	public function  __construct()
+	{
+	}
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -10,6 +15,7 @@ class AuthController extends \BaseController {
 	public function index()
 	{
 		//
+		echo "Hello world!";
 	}
 
 
@@ -83,6 +89,13 @@ class AuthController extends \BaseController {
 	}
 
     public function login(){
+    	
+    	//var_dump(Input::all());
+    	//echo Input::get('user');
+    	if(Input::has('user') && Input::has('pwd'))
+    	{
+    		echo Input::get('user') . " => " . Input::get('pwd');
+    	}
 
     }
 

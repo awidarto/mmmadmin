@@ -94,6 +94,18 @@ Route::get('content/posts', 'PostsController@getIndex');
 Route::get('content/category', 'CategoryController@getIndex');
 Route::get('content/menu', 'MenuController@getIndex');
 
+/*
+ * @author juntriaji
+ * Route for API
+ */
+Route::group(array('prefix' => 'api/auth'), function (){
+	Route::get('/', 'Api\AuthController@index');
+	Route::post('/login', 'Api\AuthController@login');
+	Route::put('/login', 'Api\AuthController@login');
+	
+});
+/* end API section */
+
 Route::get('api/music',function(){
     $music = Media::get()->toArray();
     return Response::json($music);
