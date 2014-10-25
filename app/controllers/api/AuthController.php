@@ -2,10 +2,12 @@
 namespace Api;
 
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends \Controller {
 	public function  __construct()
 	{
+		//$this->model = "Member";
 	}
 	/**
 	 * Display a listing of the resource.
@@ -90,11 +92,23 @@ class AuthController extends \Controller {
 
     public function login(){
     	
-    	//var_dump(Input::all());
-    	//echo Input::get('user');
     	if(Input::has('user') && Input::has('pwd'))
     	{
-    		echo Input::get('user') . " => " . Input::get('pwd');
+    		$retVal = array("status" => "ERR", "msg" => "Invalid username or password.");
+    		$user = \Member::where('email', '=', Input::get('user'))->firstorFail();
+    		if($user)
+    		{
+    			if(Hash::check(Input::get('pwd'), $user->password))
+    			{
+    				$sessionKey = md5($user->email . $user->_id . "momumu<-Salt?");
+		    		$retVal = array("status" => "OK", "key" => $sessionKey);
+		    		$user->session_key = $sessionKey;
+		    		$user->save();
+		    		
+		    		
+    			}
+    		}
+    		echo json_encode($retVal);
     	}
 
     }

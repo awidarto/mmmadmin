@@ -4,5 +4,6 @@ use Jenssegers\Mongodb\Model as Eloquent;
 class Member extends Eloquent {
 
     protected $collection = 'members';
+    
 
 }
