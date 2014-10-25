@@ -154,14 +154,12 @@ class FeedController extends \BaseController {
 	{
 		$limit = 10;
 		$offset = $page == 1 ? 0 : ($page -1) * $limit;
-		//var_dump($offset);
 		$retVal = array('status' => 'ERR', 'msg' => 'Invalid Session');
 		
 		try {
 			$user = \Member::where('session_key', '=', $key)->exists();
 			if(!$user) return Response::json($retVal);
 			$media = \Media::where('status','approved')->orderBy('createdDate','desc')->skip($offset)->take($limit)->get();
-			//var_dump($media->count());
 			if($media->count() > 0 && $user)
 			{
 				$retVal = array('status' => 'OK', 'media' => $media->toArray());
@@ -170,7 +168,7 @@ class FeedController extends \BaseController {
 			{
 				$retVal = array('status' => 'ERR', 'msg' => 'beyond your imagination :)');
 			}
-			return $retVal;
+			return Response::json($retVal);
 		}
 		catch (ModelNotFoundException $e)
 		{
