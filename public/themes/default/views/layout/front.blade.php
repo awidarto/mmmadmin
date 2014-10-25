@@ -1,231 +1,228 @@
 <!DOCTYPE html>
-<html lang="en">
-   <head>
-      <meta charset="utf-8">
+<html class="no-js">
+
+<head>
+    <!-- Some assets concatenated and minified to improve load speed. Download version includes source css, javascript and less assets -->
+    <!-- meta -->
+    <meta charset="utf-8">
+    <meta name="description" content="Flat, Clean, Responsive, admin template built with bootstrap 3">
+    <meta name="viewport" content="width=device-width, user-scalable=1, initial-scale=1, maximum-scale=1">
+
     <title>{{ Config::get('site.name') }}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
 
-    <!-- Le styles -->
-    <!-- Bootplus -->
-    {{--
-    {{ HTML::style('bootflat/css/bootflat.min.css') }}
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="{{ URL::to('cameo') }}/bootstrap/css/bootstrap.min.css">
+    <!-- /bootstrap -->
 
-    {{ HTML::style('bootplus/css/bootplus.min.css') }}
+    <!-- core styles -->
+    <link rel="stylesheet" href="{{ URL::to('cameo') }}/min/main.min.css">
+    <!-- /core styles -->
 
-    {{ HTML::style('bootplus/css/bootplus-responsive.min.css') }}
-
-    --}}
-    {{ HTML::style('css/typography.css') }}
-
-    {{ HTML::style('bootstrap232/css/bootstrap.css') }}
-
-    {{ HTML::style('bootstrap232/css/bootstrap-responsive.css') }}
-
-    {{ HTML::style('aflat/css/aflat.css') }}
-
-    {{ HTML::style('aflat/css/aflat-responsive.css') }}
-
-    {{ HTML::style('bootplus/css/font-awesome.min.css') }}
-
-    {{ HTML::style('css/dataTables.bootstrap.css') }}
-
-    {{ HTML::style('css/bootstrap-timepicker.css') }}
-
+    <!-- page styles -->
+    <link rel="stylesheet" href="{{ URL::to('cameo') }}/vendor/bootstrap-select/bootstrap-select.css">
+    {{ HTML::style('datatables/css/dataTables.bootstrap.css')}}
+    {{ HTML::style('css/bootstrap-modal-bs3patch.css') }}
     {{ HTML::style('css/bootstrap-modal.css') }}
-
-    {{ HTML::style('css/sm-datepicker/bootstrap-datetimepicker.min.css') }}
-
     {{ HTML::style('css/flick/jquery-ui-1.9.2.custom.min.css') }}
+    @include('layout.css')
+    <!-- /page styles -->
 
-    {{ HTML::style('css/pickacolor/pick-a-color-1.1.8.min.css') }}
-
-    {{ HTML::style('css/daterangepicker-bs2.css') }}
-
-    {{ HTML::style('css/blueimp-gallery.min.css') }}
-
-    {{ HTML::style('css/bootstrap-select.css')}}
-
-    {{-- HTML::style('css/style.css') --}}
-
-
-    <!-- Le styles -->
-
-    <style type="text/css">
-    body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-        background-color: #fff;
-    }
-    .hero-unit {
-        padding: 60px;
-    }
-
-    {{--
-    .navbar .nav>li>a {
-        font-size: 12px;
-        padding: 16px 0 10px 0;
-    }
-
-    .navbar .nav>li>a.active{
-        border-bottom: 2px solid rgb(66, 127, 237);
-    }
-    --}}
-
-    @media (max-width: 980px) {
-    /* Enable use of floated navbar text */
-        .navbar-text.pull-right {
-            float: none;
-            padding-left: 5px;
-            padding-right: 5px;
-        }
-    }
-    </style>
-
-    {{ HTML::style('css/select2.css') }}
-    {{ HTML::style('css/jquery.tagsinput.css') }}
-
-    {{ HTML::style('css/jquery-fileupload/css/jquery.fileupload-ui.css') }}
-
-    {{ HTML::style('css/app2.css') }}
-
-    {{ HTML::style('css/form.css') }}
-
-    {{ HTML::style('css/gridtable.css') }}
-
-    {{ HTML::style('css/bootstrap-wysihtml5-0.0.2.css') }}
-
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="../assets/js/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- Fav and touch icons -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
-
+    <!-- load modernizer -->
+    <script src="{{ URL::to('cameo') }}/vendor/modernizr.js"></script>
 
     {{ HTML::script('js/jquery-1.9.1.js')}}
     {{ HTML::script('js/jquery-ui-1.9.2.custom.min.js')}}
 
-
-    {{-- HTML::script('js/jquery.ui.addresspicker.js') --}}
+    {{ HTML::script('js/blueimp-gallery.min.js') }}
+    {{ HTML::script('js/jquery.blueimp-gallery.min.js') }}
 
     <script type="text/javascript">
         var base = '{{ URL::to('/') }}/';
     </script>
+</head>
 
+<!-- body -->
 
-   </head>
+<body>
+    <div class="app">
 
-   <body>
+        <!-- top header -->
+        <header class="header header-fixed navbar bg-white">
 
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="brand" href="{{ URL::to('/') }}">{{ Config::get('site.name') }}</a>
-          <div class="nav-collapse collapse">
+            <a href="#" class="fa fa-bars navbar-toggle off-left visible-xs" data-toggle="collapse" data-target="#hor-menu"></a>
 
+            <div class="brand bg-white width-auto">
+                <a href="index-2.html" class="navbar-brand text-white">
+                    <i class="fa fa-microphone mg-r-xs"></i>
+                    <span>{{ Config::get('site.name')}} -
+                        <b>admin</b>
+                    </span>
+                    </span>
+                </a>
+            </div>
 
-                @if(Auth::check())
-                    <p class="navbar-text pull-right">
-                        Hello {{ Auth::user()->fullname }}&nbsp;&nbsp;
-                        <a class="btn btn-primary" href="#" ><i class="icon-cog"></i>&nbsp;Settings</a>
-                        <a class="btn btn-info" href="{{ URL::to('logout')}}" style="color:white;background-color:maroon;" ><i class="icon-signout"></i>&nbsp;Logout</a>
-                    </p>
-                @else
-                    <form method="POST" action="{{ URL::to('login')}}" class="navbar-form pull-right">
-                        <input name="email" class="span2" type="text" placeholder="Email">
-                        <input name="password" class="span2" type="password" placeholder="Password">
-                        <button type="submit" class="btn btn-primary">Sign in</button>
-                    </form>
-                @endif
-            @include('partials.topnav')
+            <div class="collapse navbar-collapse pull-left no-padding" id="hor-menu">
+                @include('partials.topnav')
+            </div>
 
-          </div><!--/.nav-collapse -->
-        </div>
-      </div>
+            @include('partials.identity')
+
+            {{--
+
+            <form class="navbar-form navbar-left hidden-xs" role="search">
+                <div class="form-group">
+                    <button class="btn btn-white no-border no-margin bg-none" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                    <input type="text" class="form-control no-border no-padding search" placeholder="Search Workspace">
+                </div>
+            </form>
+
+            <ul class="nav navbar-nav navbar-right hidden-xs">
+                <li class="notifications dropdown">
+                    <a href="#" data-toggle="dropdown">
+                        <i class="fa fa-bell"></i>
+                        <div class="badge badge-top bg-danger animated flash">3</div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right animated slideInRight">
+                        <div class="panel bg-white no-border no-margin">
+                            <div class="panel-heading no-radius">
+                                <small>
+                                    <b>Notifications</b>
+                                </small>
+                                <small class="pull-right">
+                                    <a href="#" class="mg-r-xs">mark as read</a>&#8226;
+                                    <a href="#" class="fa fa-cog mg-l-xs"></a>
+                                </small>
+                            </div>
+
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <a href="#">
+                                        <span class="pull-left mg-t-xs mg-r-md">
+                                            <img src="img/face4.jpg" class="avatar avatar-sm img-circle" alt="">
+                                        </span>
+                                        <div class="m-body show pd-t-xs">
+                                            <span>Dean Winchester</span>
+                                            <span>Posted on to your wall</span>
+                                            <small>2 mins ago</small>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#">
+                                        <span class="pull-left mg-t-xs mg-r-md">
+                                            <span class="fa-stack fa-lg">
+                                                <i class="fa fa-circle fa-stack-2x text-warning"></i>
+                                                <i class="fa fa-download fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </span>
+                                        <div class="m-body show pd-t-xs">
+                                            <span>145 MB download in progress.</span>
+                                            <div class="progress progress-xs mg-t-xs mg-b-xs">
+                                                <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                </div>
+                                            </div>
+                                            <small>Started 23 mins ago</small>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="#">
+                                        <span class="pull-left mg-t-xs mg-r-md">
+                                            <img src="img/face3.jpg" class="avatar avatar-sm img-circle" alt="">
+                                        </span>
+                                        <div class="m-body show pd-t-xs">
+                                            <span>Application</span>
+                                            <span>Where is my workspace widget</span>
+                                            <small>5 days ago</small>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+
+                            <div class="panel-footer no-border">
+                                <a href="#">See all notifications</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="quickmenu mg-r-md">
+                    <a href="#" data-toggle="dropdown">
+                        <img src="img/avatar.jpg" class="avatar pull-left img-circle" alt="user" title="user">
+                        <i class="caret mg-l-xs hidden-xs no-margin"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a href="#">
+                                <div class="pd-t-sm">
+                                    gerald@morris.com
+                                    <br>
+                                    <small class="text-muted">4.2 MB of 51.25 GB used</small>
+                                </div>
+                                <div class="progress progress-xs no-radius no-margin mg-b-sm">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="profile.html">Settings</a>
+                        </li>
+                        <li>
+                            <a href="#">Upgrade</a>
+                        </li>
+                        <li>
+                            <a href="#">Notifications
+                                <div class="badge bg-danger pull-right">3</div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">Help ?</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="signin.html">Logout</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            --}}
+
+        </header>
+        <!-- /top header -->
+
+        <section class="layout">
+            <!-- main content -->
+            <section class="main-content">
+                <!-- content wrapper -->
+                <div class="content-wrap">
+                    @yield('content')
+                </div>
+                <!-- /content wrapper -->
+
+            </section>
+            <!-- /main content -->
+
+        </section>
+
     </div>
 
-    <div class="container-fluid">
-      <div class="row-fluid">
-        <div class="span12">
-            @yield('content')
-        </div><!--/span-->
-      </div><!--/row-->
+    <script src="{{ URL::to('cameo') }}/js/main.js"></script>
 
-      <hr>
+    <!-- page scripts -->
 
-      <footer>
-        <p>&copy; {{ Config::get('site.name')}} {{ date('Y',time()) }}</p>
-      </footer>
+    @include('layout.js')
+    <!-- /page scripts -->
 
-    </div><!--/.fluid-container-->
+</body>
+<!-- /body -->
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-
-    {{ HTML::script('bootplus/js/bootstrap.min.js')}}
-    {{ HTML::script('js/bootstrap-modalmanager.js') }}
-    {{ HTML::script('js/bootstrap-modal.js') }}
-
-    {{ HTML::script('js/jquery.removeWhitespace.min.js')}}
-    {{ HTML::script('js/jquery.collagePlus.min.js')}}
-    {{ HTML::script('js/jquery.collageCaption.js')}}
-    {{ HTML::script('js/jquery-datatables/jquery.datatables.min.js')}}
-    {{ HTML::script('js/jquery-datatables/datatables.bootstrap.js')}}
-
-    {{ HTML::script('js/jquery.tagsinput.js') }}
-
-    {{-- HTML::script('js/bootstrap-timepicker.js') --}}
-    {{ HTML::script('js/sm-datepicker/bootstrap-datetimepicker.min.js') }}
-
-    {{ HTML::script('js/moment.min.js') }}
-    {{ HTML::script('js/daterangepicker.js') }}
-
-    {{ HTML::script('js/app.js') }}
-
-    {{ HTML::script('js/blueimp-gallery.min.js') }}
-    {{ HTML::script('js/jquery.blueimp-gallery.min.js') }}
-
-    {{ HTML::script('js/wysihtml5-0.3.0.min.js') }}
-
-    {{ HTML::script('js/bootstrap-wysihtml5-0.0.2.min.js') }}
-
-    {{ HTML::script('js/bootstrap-select/bootstrap-select.js') }}
-
-    {{ HTML::script('js/jquery-fileupload/vendor/jquery.ui.widget.js') }}
-
-    {{ HTML::script('js/js-load-image/load-image.min.js') }}
-
-    {{ HTML::script('js/js-canvas-to-blob/canvas-to-blob.min.js') }}
-
-    {{ HTML::script('js/jquery-fileupload/jquery.iframe-transport.js') }}
-
-    {{ HTML::script('js/jquery-fileupload/jquery.fileupload.js') }}
-
-    {{ HTML::script('js/tinycolor-0.9.15.min.js')}}
-    {{ HTML::script('js/pickacolor/pick-a-color-1.1.8.min.js') }}
-
-    {{ HTML::script('js/jquery-fileupload/jquery.fileupload-process.js') }}
-    {{ HTML::script('js/jquery-fileupload/jquery.fileupload-image.js') }}
-    {{ HTML::script('js/jquery-fileupload/jquery.fileupload-audio.js') }}
-    {{ HTML::script('js/jquery-fileupload/jquery.fileupload-video.js') }}
-    {{ HTML::script('js/jquery-fileupload/jquery.fileupload-validate.js') }}
-
-
-   </body>
 </html>

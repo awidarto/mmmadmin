@@ -16,7 +16,7 @@ class AdminController extends Controller {
 
 	public $form;
 
-	public $form_framework = 'TwitterBootstrap';
+	public $form_framework = 'TwitterBootstrap3';
 
 	public $form_class = 'form-horizontal';
 
@@ -64,13 +64,27 @@ class AdminController extends Controller {
 
     public $additional_filter = '';
 
+    public $js_additional_param = '';
+
+    public $table_dnd = false;
+
+    public $table_dnd_url = '';
+
+    public $table_dnd_idx = 0;
+
+    public $table_group = false;
+
+    public $table_group_field = '';
+
+    public $table_group_idx = 0;
+
+    public $table_group_collapsible = false;
+
+    public $additional_query = false;
+
     public $modal_sets = '';
 
     public $js_table_event = '';
-
-    public $js_additional_param = '';
-
-    public $additional_query = false;
 
     public $def_order_by = 'lastUpdate';
 
@@ -78,13 +92,17 @@ class AdminController extends Controller {
 
     public $place_action = 'both'; // first, both
 
+    public $show_select = true; // first, both
+
+    public $additional_page_data = array();
+
+    public $table_view = 'tables.simple';
+
 	public function __construct(){
 
 		date_default_timezone_set('Asia/Jakarta');
 
 		Former::framework($this->form_framework);
-
-        //$this->crumb = new \Noherczeg\Breadcrumb\Breadcrumb(URL::to('/'));
 
 		$this->beforeFilter('auth', array('on'=>'get', 'only'=>array('getIndex','getAdd','getEdit') ));
 
@@ -110,6 +128,7 @@ class AdminController extends Controller {
 
     public function getIndex()
     {
+
         return $this->pageGenerator();
     }
 
@@ -136,11 +155,15 @@ class AdminController extends Controller {
 
         $this->newbutton = (is_null($this->newbutton))? Str::singular($this->controller_name): $this->newbutton;
 
-		$select_all = Former::checkbox()->name('Select All')->check(false)->id('select_all');
+		$select_all = Former::checkbox()->name('All')->check(false)->id('select_all');
 
 		// add selector and sequence columns
-        array_unshift($heads, array('Actions',array('sort'=>false,'class'=>'action')));
-		array_unshift($heads, array($select_all,array('sort'=>false)));
+        if($this->place_action == 'both' || $this->place_action == 'first'){
+            array_unshift($heads, array('Actions',array('sort'=>false,'clear'=>true,'class'=>'action')));
+        }
+        if($this->show_select == true){
+            array_unshift($heads, array($select_all,array('sort'=>false)));
+        }
 		array_unshift($heads, array('#',array('sort'=>false)));
 
 		// add action column
@@ -165,7 +188,7 @@ class AdminController extends Controller {
         $this->dlxl = (is_null($this->dlxl))? strtolower($this->controller_name).'/dlxl': $this->dlxl;
 
 
-		return View::make('tables.simple')
+		return View::make($this->table_view)
 			->with('title',$this->title )
 			->with('newbutton', $this->newbutton )
 			->with('disablesort',$disablesort )
@@ -183,7 +206,15 @@ class AdminController extends Controller {
             ->with('additional_filter',$this->additional_filter)
             ->with('js_additional_param', $this->js_additional_param)
             ->with('modal_sets', $this->modal_sets)
+            ->with('table_dnd', $this->table_dnd)
+            ->with('table_dnd_url', $this->table_dnd_url)
+            ->with('table_dnd_idx', $this->table_dnd_idx)
+            ->with('table_group', $this->table_group)
+            ->with('table_group_field', $this->table_group_field)
+            ->with('table_group_idx', $this->table_group_idx)
+            ->with('table_group_collapsible', $this->table_group_collapsible)
             ->with('js_table_event', $this->js_table_event)
+            ->with('additional_page_data',$this->additional_page_data)
 			->with('heads',$heads )
 			->with('row',$this->rowdetail );
 
@@ -203,7 +234,9 @@ class AdminController extends Controller {
 
 		//array_unshift($fields, array('select',array('kind'=>false)));
 		array_unshift($fields, array('seq',array('kind'=>false)));
-        array_unshift($fields, array('action',array('kind'=>false)));
+        if($this->place_action == 'both' || $this->place_action == 'first'){
+            array_unshift($fields, array('action',array('kind'=>false)));
+        }
 
 		$pagestart = Input::get('iDisplayStart');
 		$pagelength = Input::get('iDisplayLength');
@@ -413,16 +446,23 @@ class AdminController extends Controller {
 
 			//$select = Former::checkbox('sel_'.$doc['_id'])->check(false)->id($doc['_id'])->class('selector');
             $actionMaker = $this->makeActions;
+
 			$actions = $this->$actionMaker($doc);
 
 			$row = array();
 
 			$row[] = $counter;
 
-			//$sel = Former::checkbox('sel_'.$doc['_id'])->check(false)->label(false)->id($doc['_id'])->class('selector')->__toString();
-			$sel = '<input type="checkbox" name="sel_'.$doc['_id'].'" id="'.$doc['_id'].'" value="'.$doc['_id'].'" class="selector" />';
-			$row[] = $sel;
-            $row[] = $actions;
+            if($this->show_select == true){
+                //$sel = Former::checkbox('sel_'.$doc['_id'])->check(false)->label(false)->id($doc['_id'])->class('selector')->__toString();
+                $sel = '<input type="checkbox" name="sel_'.$doc['_id'].'" id="'.$doc['_id'].'" value="'.$doc['_id'].'" class="selector" />';
+                $row[] = $sel;
+            }
+
+            if($this->place_action == 'both' || $this->place_action == 'first'){
+                $row[] = $actions;
+            }
+
 
 			foreach($fields as $field){
 				if($field[1]['kind'] != false && $field[1]['show'] == true){
@@ -491,7 +531,9 @@ class AdminController extends Controller {
 				}
 			}
 
-            $row[] = $actions;
+            if($this->place_action == 'both'){
+                $row[] = $actions;
+            }
 
 			$row['extra'] = $extra;
 
@@ -525,13 +567,15 @@ class AdminController extends Controller {
 
 		$form = $this->form;
 
+        $this->title = ($this->title == '')?Str::singular($this->controller_name):Str::singular($this->title);
+
 		return View::make($controller_name.'.'.$this->form_add)
 					->with('back',$controller_name)
                     ->with('auxdata',$data)
 					->with('form',$form)
 					->with('submit',$controller_name.'/add')
 					->with('crumb',$this->crumb)
-					->with('title','New '.Str::singular($this->controller_name));
+					->with('title','New '.$this->title);
 
 	}
 
@@ -612,14 +656,15 @@ class AdminController extends Controller {
 
 		Former::populate($population);
 
+        $this->title = ($this->title == '')?Str::singular($this->controller_name):Str::singular($this->title);
+
 		//$this->crumb->add(strtolower($this->controller_name).'/edit/'.$id,$id,false);
 
 		return View::make(strtolower($this->controller_name).'.'.$this->form_edit)
 					->with('back',$controller_name)
 					->with('formdata',$population)
 					->with('submit',strtolower($this->controller_name).'/edit/'.$id)
-					->with('title','Edit '.Str::singular($this->controller_name));
-
+					->with('title','Edit '.$this->title);
 	}
 
 
@@ -1100,12 +1145,19 @@ class AdminController extends Controller {
             ->sheet('sheet1')
             ->with($sdata)
             ->save('xls',public_path().'/storage/dled');
-        */
 
         Excel::create( $fname )
             ->sheet('sheet1')
             ->with($sdata)
             ->save('xls',public_path().'/storage/dled');
+        */
+
+        $path = Excel::create( $fname, function($excel) use ($sdata){
+                $excel->sheet('sheet1')
+                    ->with($sdata);
+            })->save('xls',public_path().'/storage/dled',true);
+
+        //print_r($path);
 
         $fp = fopen(public_path().'/storage/dled/'.$fname.'.csv', 'w');
 
@@ -1119,7 +1171,7 @@ class AdminController extends Controller {
         $result = array(
             'status'=>'OK',
             'filename'=>$fname,
-            'urlxls'=>URL::to(strtolower($this->controller_name).'/dl/'.$fname.'.xls'),
+            'urlxls'=>URL::to(strtolower($this->controller_name).'/dl/'.$path['file']),
             'urlcsv'=>URL::to(strtolower($this->controller_name).'/csv/'.$fname.'.csv'),
             'q'=>$lastQuery
         );
@@ -1189,78 +1241,165 @@ class AdminController extends Controller {
 
             $xlsfile = realpath('storage/upload').'/'.$rstring.'/'.$filename;
 
-            $imp = Excel::load($xlsfile)->toArray();
+            //$imp = Excel::load($xlsfile)->toArray();
+
+            $imp = array();
+
+            Excel::load($xlsfile,function($reader) use (&$imp){
+                $imp = $reader->toArray();
+            })->get();
 
             $headrow = $imp[$headindex - 1];
+
+            //print_r($headrow);
 
             $firstdata = $firstdata - 1;
 
             $imported = array();
 
-            //print_r($headrow);
+            $sessobj = new Importsession();
+
+            $sessobj->heads = array_values($headrow);
+            $sessobj->isHead = 1;
+            $sessobj->sessId = $rstring;
+            $sessobj->save();
 
             for($i = $firstdata; $i < count($imp);$i++){
 
-                $row = $imp[$i];
-
-                $rowitem = array();
-
-                for($j = 0 ; $j < count($headrow); $j++){
-                    if(isset($headrow[$j])){
-                        $rowitem[$headrow[$j]] = $row[$j];
-                    }
-                }
+                $rowitem = $imp[$i];
 
                 $imported[] = $rowitem;
 
-                if($importkey != '' && !is_null($importkey)){
-                    $obj = $this->model->where($importkey, '=', $rowitem[$importkey])->first();
+                $sessobj = new Importsession();
 
-                    if($obj){
+                $rowtemp = array();
+                foreach($rowitem as $k=>$v){
+                    $sessobj->{ $headrow[$k] } = $v;
+                    $rowtemp[$headrow[$k]] = $v;
+                }
+                $rowitem = $rowtemp;
 
-                        foreach($rowitem as $k=>$v){
-                            if($v != ''){
-                                $obj->{$k} = $v;
-                            }
+                $sessobj->sessId = $rstring;
+                $sessobj->isHead = 0;
+                $sessobj->save();
+
+            }
+
+        }
+
+        $this->backlink = strtolower($this->controller_name);
+
+        $commit_url = $this->backlink.'/commit/'.$rstring;
+
+        return Redirect::to($commit_url);
+
+    }
+
+    public function getCommit($sessid)
+    {
+        $heads = Importsession::where('sessId','=',$sessid)
+            ->where('isHead','=',1)
+            ->first();
+
+        $heads = $heads['heads'];
+
+        $imports = Importsession::where('sessId','=',$sessid)
+            ->where('isHead','=',0)
+            ->get();
+
+        $headselect = array();
+
+        foreach ($heads as $h) {
+            $headselect[$h] = $h;
+        }
+
+        $title = $this->controller_name;
+
+        $submit = strtolower($this->controller_name).'/commit/'.$sessid;
+
+        return View::make('shared.commitselect')
+            ->with('title',$title)
+            ->with('submit',$submit)
+            ->with('headselect',$headselect)
+            ->with('heads',$heads)
+            ->with('imports',$imports);
+    }
+
+    public function postCommit($sessid)
+    {
+        $in = Input::get();
+
+        $importkey = $in['edit_key'];
+
+        $selector = $in['selector'];
+
+        $edit_selector = isset($in['edit_selector'])?$in['edit_selector']:array();
+
+        foreach($selector as $selected){
+            $rowitem = Importsession::find($selected)->toArray();
+
+            $do_edit = in_array($selected, $edit_selector);
+
+            if($importkey != '' && !is_null($importkey) && isset($rowitem[$importkey]) && $do_edit ){
+                $obj = $this->model
+                    ->where($importkey, 'exists', true)
+                    ->where($importkey, '=', $rowitem[$importkey])->first();
+
+                if($obj){
+
+                    foreach($rowitem as $k=>$v){
+                        if($v != ''){
+                            $obj->{$k} = $v;
                         }
-
-                        $obj->save();
-                    }else{
-
-                        $rowitem['createdDate'] = new MongoDate();
-                        $rowitem['lastUpdate'] = new MongoDate();
-
-                        $rowitem = $this->beforeImportCommit($rowitem);
-
-                        $this->model->insert($rowitem);
                     }
 
-
+                    $obj->save();
                 }else{
 
+                    unset($rowitem['_id']);
                     $rowitem['createdDate'] = new MongoDate();
                     $rowitem['lastUpdate'] = new MongoDate();
 
                     $rowitem = $this->beforeImportCommit($rowitem);
 
                     $this->model->insert($rowitem);
-
                 }
+
+
+            }else{
+
+                unset($rowitem['_id']);
+                $rowitem['createdDate'] = new MongoDate();
+                $rowitem['lastUpdate'] = new MongoDate();
+
+                $rowitem = $this->beforeImportCommit($rowitem);
+
+                $this->model->insert($rowitem);
 
             }
 
 
         }
 
+        $this->backlink = strtolower($this->controller_name);
+
         return Redirect::to($this->backlink);
 
     }
 
-    public function beforeImportCommit($rowitem)
+    public function tagToArray($tagstring)
     {
-        return $rowitem;
+        return explode(',',$tagstring);
     }
 
+    public function saveTags($tags)
+    {
+        foreach($tags as $tag){
+            Tag::insert(array('tag'=>$tag));
+        }
+
+        return true;
+    }
 
 
 	public function get_action_sample(){

@@ -7,7 +7,7 @@
         }
     }
 ?>
-<ul class="nav">
+<ul class="nav navbar-nav">
     @if(Auth::check())
 
         <li><a href="{{ URL::to('submission') }}" {{ sa('submission') }} >Submission</a></li>

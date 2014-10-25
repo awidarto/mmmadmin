@@ -50,43 +50,44 @@
 
     $(document).ready(function(){
 
+        accounting.settings = {
+            currency: {
+                symbol : 'IDR',   // default currency symbol is '$'
+                format: '%s %v', // controls output: %s = symbol, %v = value/number (can be object: see below)
+                decimal : ',',  // decimal point separator
+                thousand: '.',  // thousands separator
+                precision : 2   // decimal places
+            },
+            number: {
+                precision : 0,  // default precision on numbers is 0
+                thousand: '.',
+                decimal : ','
+            }
+        }
+
     	//base = 'http://localhost/pnu/public/';
 
     	var sharelist = {};
 
-        var dateinputs = $('.datepicker');
+        $('.eventdate').daterangepicker({
+                maxDate: moment().add('months',12)
+            },function(start, end){
+                if ( typeof(start) !== "undefined" && start !== null && start !== '' ) {
+                    $('#fromDate').val(start.format('DD/MM/YYYY'));
+                    $('#toDate').val(end.format('DD/MM/YYYY'));
+                }
+            });
 
-        // work around for Former form lib for Laravel to create proper markup for date picker element
-        dateinputs.each(function(){
-            $(this).parent().addClass('datepicker');
-            $(this).removeClass('datepicker');
-        })
-
-        console.log(dateinputs);
-
-        /*
-	    $('.timepicker').timepicker({
-	        minuteStep: 10,
-	        showSeconds: false,
-	        showMeridian: false
-	    });
-
-		//$('.date').datetimepicker({
-		$('.date').datepicker({
-			dateFormat: "dd-mm-yy"
-			//pickTime: false
-		});
-		*/
-
-		$('.datetimepicker').datetimepicker({
-			maskInput: false,
-		});
-
-		$('.datepicker').datetimepicker({
-            format: 'dd-MM-yyyy',
-			maskInput: false,
-			pickTime: false
-		});
+        $('.eventdate').on('show',function(ev, picker){
+                var start = $('#fromDate').val();
+                if ( typeof(start) !== "undefined" && start !== null && start !== '' && start !== 'invalid date' ) {
+                    picker.setStartDate(moment( $('#fromDate').val(), 'DD/MM/YYYY' ));
+                    picker.setEndDate(moment( $('#toDate').val(), 'DD/MM/YYYY' ));
+                }else{
+                    picker.setStartDate(moment());
+                    picker.setEndDate(moment().add('days',3));
+                }
+        });
 
 		$('.pop').click(function(){
 			var _id = $(this).attr('id');
@@ -230,13 +231,6 @@
 		   'placeholderColor' : '#666666'
 		});
 
-		$('.tag_project').autocomplete({
-			source: base + 'ajax/project'
-		});
-
-		$('.tag_revision').autocomplete({
-			source: base + 'ajax/rev'
-		});
 
 		$('.auto_user').autocomplete({
 			source: base + 'ajax/email',
@@ -245,80 +239,6 @@
 				$('#user_name').val(ui.item.label);
 			}
 		});
-
-		$('.auto_pm').autocomplete({
-			source: base + 'ajax/user',
-			select: function(event, ui){
-				$('#pm_id').val(ui.item.id);
-				$('#pm_name').val(ui.item.value);
-				$('#pm_email').val(ui.item.email);
-			}
-		});
-
-		$('.auto_client').autocomplete({
-			source: base + 'ajax/email',
-			select: function(event, ui){
-				$('#client_id').val(ui.item.id);
-				$('#client_name').val(ui.item.label);
-			}
-		});
-
-		//project
-
-		$('.auto_project_number').autocomplete({
-			source: base + 'ajax/project',
-			select: function(event, ui){
-				$('#project_id').val(ui.item.id);
-				$('#project_title').val(ui.item.title);
-			}
-		});
-
-
-		$('.auto_project_name').autocomplete({
-			source: base + 'ajax/projectname',
-			select: function(event, ui){
-				$('#project_id').val(ui.item.id);
-				$('#project_number').val(ui.item.number);
-			}
-		});
-
-		//tender
-
-		$('.auto_tender_number').autocomplete({
-			source: base + 'ajax/tender',
-			select: function(event, ui){
-				$('#tender_id').val(ui.item.id);
-				$('#tender_title').val(ui.item.title);
-			}
-		});
-
-
-		$('.auto_tender_name').autocomplete({
-			source: base + 'ajax/tendername',
-			select: function(event, ui){
-				$('#tender_id').val(ui.item.id);
-				$('#tender_number').val(ui.item.number);
-			}
-		});
-
-		//opportunity
-
-		$('.auto_opportunity_number').autocomplete({
-			source: base + 'ajax/opportunity',
-			select: function(event, ui){
-				$('#opportunity_id').val(ui.item.id);
-				$('#opportunity_title').val(ui.item.title);
-			}
-		});
-
-		$('.auto_opportunity_name').autocomplete({
-			source: base + 'ajax/opportunityname',
-			select: function(event, ui){
-				$('#opportunity_id').val(ui.item.id);
-				$('#opportunity_number').val(ui.item.number);
-			}
-		});
-
 
 		$('.auto_userdata').autocomplete({
 			source: base + 'ajax/userdata',
@@ -384,7 +304,6 @@
 				$('#emp_city').val(ui.item.userdata.city);
 				$('#emp_zip').val(ui.item.userdata.zip);
 
-
 			}
 		});
 
@@ -395,43 +314,7 @@
 			}
 		});
 
-		var hallId;
-
-		$('.auto_hall').autocomplete({
-			source: base + 'ajax/hall',
-			select: function(event, ui){
-				$('#hallid').val(ui.item.id);
-				hallId = $('#hallid').val();
-			},
-			change: function( event, ui ) {
-				$('#boothid').val('');
-				$('.auto_booth').val('');
-			}
-		});
-
-
-		$('.auto_booth').bind("focus blur change keyup", function(){
-			hallId = $('#hallid').val();
-
-			$('.auto_booth').autocomplete({
-
-				source: base + 'ajax/booth/'+hallId,
-
-				select: function(event, ui){
-					$('#boothid').val(ui.item.id);
-
-				}
-			});
-		});
-
-		$('.auto_exhibitor').autocomplete({
-			source: base + 'ajax/exhibitor',
-			select: function(event, ui){
-				$('#exhibitorid').val(ui.item.id);
-				hallId = $('#exhibitorid').val();
-			}
-		});
-
+        /*
 		$('.autocomplete_product').autocomplete({
             source: function (request, response) {
                 $.ajax({
@@ -442,7 +325,7 @@
 
                         response($.map(data, function (item) {
                             return {
-                                value: item.label,
+                                value: item.id,
                                 avatar: item.pic,
                                 title: item.label,
                                 description: item.description,
@@ -476,6 +359,7 @@
 	                    .appendTo(ul);
 	        };
 		});
+        */
 
 		$('.autocomplete_product_link').autocomplete({
             source: function (request, response) {
