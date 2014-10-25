@@ -102,6 +102,8 @@ Route::group(array('prefix' => 'api/auth'), function (){
 	Route::get('/', 'Api\AuthController@index');
 	Route::post('/login', 'Api\AuthController@login');
 	Route::put('/login', 'Api\AuthController@login');
+	Route::post('/logout', 'Api\AuthController@logout');
+	Route::put('/logout', 'Api\AuthController@logout');
 	
 });
 /* end API section */

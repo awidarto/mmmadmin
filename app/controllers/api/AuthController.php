@@ -89,6 +89,11 @@ class AuthController extends \Controller {
 	{
 		//
 	}
+	/**
+	 * @param string user
+	 * @param sring pwd
+	 * @method POST
+	 */
 
     public function login(){
     	
@@ -114,7 +119,20 @@ class AuthController extends \Controller {
     }
 
     public function logout($id = null){
-        return 'logged out';
+
+    	if(Input::has('session_key'))
+    	{
+    		$retVal = array("status" => "ERR", "msg" => "Invalid session.");
+    		$user = \Member::where('session_key', '=', Input::get('session_key'))->firstorFail();
+    		if($user)
+    		{
+    				$retVal = array("status" => "OK");
+    				$user->session_key = null;
+    				$user->save();
+    		}
+    		echo json_encode($retVal);
+    	}
+    	 
     }
 
     public function missingMethod($parameters = array())
