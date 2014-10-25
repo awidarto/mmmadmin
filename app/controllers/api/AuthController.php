@@ -4,6 +4,7 @@ namespace Api;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Response;
 
 class AuthController extends \Controller {
 	public function  __construct()
@@ -121,7 +122,8 @@ class AuthController extends \Controller {
     		catch (ModelNotFoundException $e){
     			
     		}
-    		return json_encode($retVal);
+    		
+    		return Response::json($retVal);
     	}
 
     }
@@ -150,7 +152,7 @@ class AuthController extends \Controller {
     		{
     			
     		}
-    		return json_encode($retVal);
+    		return Response::json($retVal);
     	}
     	 
     }

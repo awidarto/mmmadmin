@@ -2,6 +2,7 @@
 namespace Api;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Response;
 
 class CommentController extends \BaseController {
 
@@ -57,7 +58,7 @@ class CommentController extends \BaseController {
 		
 		try {
 			$user = \Member::where('session_key', '=', $key)->exists();
-			if(!$user) return $retVal;
+			if(!$user) return Response::json($retVal);
 			
 			$comment = \Comments::where('_id', '=', $itemId)->get();
 			if($comment->count() > 0)
@@ -75,7 +76,7 @@ class CommentController extends \BaseController {
 				
 		}
 		
-		return json_encode($retVal);
+		return Response::json($retVal);
 	}
 	
 

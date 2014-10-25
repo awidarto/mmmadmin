@@ -1,6 +1,7 @@
 <?php
 namespace Api;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Response;
 
 class FeedController extends \BaseController {
 
@@ -158,7 +159,7 @@ class FeedController extends \BaseController {
 		
 		try {
 			$user = \Member::where('session_key', '=', $key)->exists();
-			if(!$user) return $retVal;
+			if(!$user) return Response::json($retVal);
 			$media = \Media::where('status','approved')->orderBy('createdDate','desc')->skip($offset)->take($limit)->get();
 			//var_dump($media->count());
 			if($media->count() > 0 && $user)
@@ -176,7 +177,7 @@ class FeedController extends \BaseController {
 				
 		}
 		
-		return json_encode($retVal);
+		return Response::json($retVal);
 		
 	}
 
