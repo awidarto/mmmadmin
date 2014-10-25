@@ -107,7 +107,7 @@ class AuthController extends \Controller {
     			{
     				if(Hash::check(Input::get('pwd'), $user->password))
     				{
-    					$sessionKey = md5($user->email . $user->_id . "momumu<-Salt?");
+    					$sessionKey = md5(time() . $user->email . $user->_id . "momumu<-Salt?");
     					$retVal = array("status" => "OK", "key" => $sessionKey);
     					$user->session_key = $sessionKey;
     					$user->save();
