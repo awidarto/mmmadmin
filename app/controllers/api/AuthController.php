@@ -3,6 +3,7 @@ namespace Api;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class AuthController extends \Controller {
 	public function  __construct()
@@ -100,18 +101,22 @@ class AuthController extends \Controller {
     	if(Input::has('user') && Input::has('pwd'))
     	{
     		$retVal = array("status" => "ERR", "msg" => "Invalid username or password.");
-    		$user = \Member::where('email', '=', Input::get('user'))->firstorFail();
-    		if($user)
-    		{
-    			if(Hash::check(Input::get('pwd'), $user->password))
+    		try {
+    			$user = \Member::where('email', '=', Input::get('user'))->firstorFail();
+    			if($user)
     			{
-    				$sessionKey = md5($user->email . $user->_id . "momumu<-Salt?");
-		    		$retVal = array("status" => "OK", "key" => $sessionKey);
-		    		$user->session_key = $sessionKey;
-		    		$user->save();
-		    		
-		    		
+    				if(Hash::check(Input::get('pwd'), $user->password))
+    				{
+    					$sessionKey = md5($user->email . $user->_id . "momumu<-Salt?");
+    					$retVal = array("status" => "OK", "key" => $sessionKey);
+    					$user->session_key = $sessionKey;
+    					$user->save();
+    				}
     			}
+    			 
+    		}
+    		catch (ModelNotFoundException $e){
+    			
     		}
     		echo json_encode($retVal);
     	}
@@ -123,12 +128,18 @@ class AuthController extends \Controller {
     	if(Input::has('session_key'))
     	{
     		$retVal = array("status" => "ERR", "msg" => "Invalid session.");
-    		$user = \Member::where('session_key', '=', Input::get('session_key'))->firstorFail();
-    		if($user)
+    		try {
+	    		$user = \Member::where('session_key', '=', Input::get('session_key'))->firstorFail();
+	    		if($user)
+	    		{
+	    				$retVal = array("status" => "OK");
+	    				$user->session_key = null;
+	    				$user->save();
+	    		}
+    		}
+    		catch (ModelNotFoundException $e)
     		{
-    				$retVal = array("status" => "OK");
-    				$user->session_key = null;
-    				$user->save();
+    			
     		}
     		echo json_encode($retVal);
     	}
