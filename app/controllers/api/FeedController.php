@@ -1,4 +1,6 @@
 <?php
+namespace Api;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class FeedController extends \BaseController {
 
@@ -10,6 +12,7 @@ class FeedController extends \BaseController {
 	public function index()
 	{
 		//
+		
         $media = Media::where('status','approved')->orderBy('createdDate','desc')->get();
 
         for( $i = 0; $i < count($media); $i++ ){
@@ -144,6 +147,37 @@ class FeedController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+	}
+	
+	public function feedGet($page, $key)
+	{
+		$limit = 10;
+		$offset = $page == 1 ? 0 : ($page -1) * $limit;
+		//var_dump($offset);
+		$retVal = array('status' => 'ERR', 'msg' => 'Invalid Session');
+		
+		try {
+			$user = \Member::where('session_key', '=', $key)->exists();
+			if(!$user) return $retVal;
+			$media = \Media::where('status','approved')->orderBy('createdDate','desc')->skip($offset)->take($limit)->get();
+			//var_dump($media->count());
+			if($media->count() > 0 && $user)
+			{
+				$retVal = array('status' => 'OK', 'media' => $media->toArray());
+			}
+			else
+			{
+				$retVal = array('status' => 'ERR', 'msg' => 'beyond your imagination :)');
+			}
+			return $retVal;
+		}
+		catch (ModelNotFoundException $e)
+		{
+				
+		}
+		
+		return json_encode($retVal);
+		
 	}
 
 

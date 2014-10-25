@@ -90,7 +90,10 @@ class AuthController extends \Controller {
 	{
 		//
 	}
+	
+	
 	/**
+	 * @name login()
 	 * @param string user
 	 * @param sring pwd
 	 * @method POST
@@ -118,12 +121,18 @@ class AuthController extends \Controller {
     		catch (ModelNotFoundException $e){
     			
     		}
-    		echo json_encode($retVal);
+    		return json_encode($retVal);
     	}
 
     }
 
-    public function logout($id = null){
+    /**
+     * @name logout()
+     * @param string session_key
+     * @method POST
+     */
+    
+    public function logout(){
 
     	if(Input::has('session_key'))
     	{
@@ -141,7 +150,7 @@ class AuthController extends \Controller {
     		{
     			
     		}
-    		echo json_encode($retVal);
+    		return json_encode($retVal);
     	}
     	 
     }

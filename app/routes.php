@@ -98,12 +98,15 @@ Route::get('content/menu', 'MenuController@getIndex');
  * @author juntriaji
  * Route for API
  */
-Route::group(array('prefix' => 'api/auth'), function (){
-	Route::get('/', 'Api\AuthController@index');
-	Route::post('/login', 'Api\AuthController@login');
-	Route::put('/login', 'Api\AuthController@login');
-	Route::post('/logout', 'Api\AuthController@logout');
-	Route::put('/logout', 'Api\AuthController@logout');
+Route::group(array('prefix' => 'api'), function (){
+	Route::get('/auth', 'Api\AuthController@index');
+	Route::post('/auth/login', 'Api\AuthController@login');
+	Route::put('/auth/login', 'Api\AuthController@login');
+	Route::post('/auth/logout', 'Api\AuthController@logout');
+	Route::put('/auth/logout', 'Api\AuthController@logout');
+	Route::get('/feed/{page}/{key}', 'Api\FeedController@feedGet');
+	Route::get('/comment/{itemId}/{key}', 'Api\CommentController@show');
+	Route::post('/comment', 'Api\CommentController@store');
 	
 });
 /* end API section */
