@@ -10,16 +10,6 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-Route::group(array('prefix' => 'api/v1' ), function()
-{
-    Route::get('auth/logout/{key?}','AuthController@logout');
-    Route::get('auth/login','AuthController@login');
-    Route::resource('auth','AuthController');
-    Route::resource('feed','FeedController');
-    Route::resource('comment','CommentController');
-    Route::resource('like','LikeController');
-});
-
 
 
 Route::controller('document', 'DocumentController');
@@ -98,17 +88,32 @@ Route::get('content/menu', 'MenuController@getIndex');
  * @author juntriaji
  * Route for API
  */
-Route::group(array('prefix' => 'api'), function (){
+
+Route::group(array('prefix' => 'api/v1'), function (){
 	Route::get('/auth', 'Api\AuthController@index');
 	Route::post('/auth/login', 'Api\AuthController@login');
 	Route::put('/auth/login', 'Api\AuthController@login');
 	Route::post('/auth/logout', 'Api\AuthController@logout');
 	Route::put('/auth/logout', 'Api\AuthController@logout');
+    Route::get('/feed', 'Api\FeedController@index');
 	Route::get('/feed/{page}/{key}', 'Api\FeedController@feedGet');
 	Route::get('/comment/{itemId}/{key}', 'Api\CommentController@show');
 	Route::post('/comment', 'Api\CommentController@store');
-	
+
 });
+
+/*
+Route::group(array('prefix' => 'api/v1' ), function()
+{
+    Route::get('auth/logout/{key?}','AuthController@logout');
+    Route::get('auth/login','AuthController@login');
+    Route::resource('auth','AuthController');
+    Route::resource('feed','FeedController');
+    Route::resource('comment','CommentController');
+    Route::resource('like','LikeController');
+});
+*/
+
 /* end API section */
 
 Route::get('api/music',function(){
@@ -279,7 +284,6 @@ Route::get('tofin',function(){
 
 });
 
-
 Route::get('tonumber',function(){
     $property = new Property();
 
@@ -306,8 +310,6 @@ Route::get('tonumber',function(){
     }
 
 });
-
-
 
 Route::get('defpic',function(){
     $property = new Property();
@@ -345,61 +347,6 @@ Route::get('defpic',function(){
 
 
     }
-
-});
-
-Route::get('leasedate',function(){
-    set_time_limit(0);
-
-    $property = new Property();
-
-    $props = $property->get();
-
-    foreach($props as $p){
-        //print $p[0]. "\r\n" ;
-
-        if( $p->leaseStartDate instanceOf MongoDate ){
-            print "already a date\r\n";
-        }else{
-
-            if(strripos( strtolower($p->leaseStartDate) , 'marketing') > 0){
-                print $p->leaseStartDate."-> -\r\n";
-                $p->leaseStartDate = '';
-            }else{
-                if(strtotime($p->leaseStartDate)){
-                    print $p->leaseStartDate."-> valid date\r\n";
-                    $p->leaseStartDate = new MongoDate( strtotime($p->leaseStartDate) );
-                    print_r($p->leaseStartDate);
-                }else{
-                    if($p->leaseStartDate < 40000){
-                        print $p->leaseStartDate."-> too old\r\n";
-                        $p->leaseStartDate = '';
-                    }else{
-                        print $p->leaseStartDate."-> integer";
-
-                        print PHPExcel_Shared_Date::ExcelToPHP($p->leaseStartDate)."->";
-
-                        print date('Y-m-d H:i:s',PHPExcel_Shared_Date::ExcelToPHP($p->leaseStartDate))."\r\n";
-
-                        $p->leaseStartDate = new MongoDate( PHPExcel_Shared_Date::ExcelToPHP($p->leaseStartDate) );
-                        print_r($p->leaseStartDate);
-
-                    }
-                }
-            }
-
-            $p->save();
-
-        }
-
-
-        /*
-        if(strripos( strtolower($p[0]) , '/') > 0 || strripos( strtolower($p[0]) , '-') > 0){
-            print $p[0]."->". str ."\r\n";
-        }
-        */
-    }
-
 
 });
 
@@ -467,81 +414,6 @@ Route::get('regeneratepic',function(){
 
 });
 
-/*
-Route::get('brochure/dl/{id}/{d?}',function($id, $d = null){
-
-    $prop = Property::find($id)->toArray();
-
-    $tmpl = Template::where('type','brochure')->where('status','active')->first();
-
-    print_r($tmpl->toArray());
-
-    die();
-
-    //return View::make('print.brochure')->with('prop',$prop)->render();
-
-    if(!is_null($d)){
-        $content = View::make('print.brochure')->with('prop',$prop)->render();
-
-        return $content;
-    }else{
-        //return PDF::loadView('print.brochure',array('prop'=>$prop))
-        //    ->stream('download.pdf');
-
-        return PDF::loadView('print.brochure', array('prop'=>$prop))
-                    ->setOption('margin-top', '0mm')
-                    ->setOption('margin-left', '0mm')
-                    ->setOption('margin-right', '0mm')
-                    ->setOption('margin-bottom', '0mm')
-                    ->setOption('dpi',200)
-                    ->setPaper('A4')
-                    ->stream($prop['propertyId'].'.pdf');
-
-        //return PDF::html('print.brochure',array('prop' => $prop), 'download.pdf');
-    }
-});
-
-Route::post('brochure/mail/{id}',function($id){
-
-    $prop = Property::find($id)->toArray();
-
-    //$content = View::make('print.brochure')->with('prop',$prop)->render();
-
-    $brochurepdf = PDF::loadView('print.brochure', array('prop'=>$prop))
-                    ->setOption('margin-top', '0mm')
-                    ->setOption('margin-left', '0mm')
-                    ->setOption('margin-right', '0mm')
-                    ->setOption('margin-bottom', '0mm')
-                    ->setOption('dpi',200)
-                    ->setPaper('A4')
-                    ->output();
-
-    file_put_contents(public_path().'/storage/pdf/'.$prop['propertyId'].'.pdf', $brochurepdf);
-
-    //$mailcontent = View::make('emails.brochure')->with('prop',$prop)->render();
-
-    Mail::send('emails.brochure',$prop, function($message) use ($prop, &$prop){
-        $to = Input::get('to');
-        $tos = explode(',', $to);
-        if(is_array($tos) && count($tos) > 1){
-            foreach($tos as $to){
-                $message->to($to, $to);
-            }
-        }else{
-                $message->to($to, $to);
-        }
-
-        $message->subject('Investors Alliance - '.$prop['propertyId']);
-
-        $message->cc('support@propinvestorsalliance.com');
-
-        $message->attach(public_path().'/storage/pdf/'.$prop['propertyId'].'.pdf');
-    });
-
-    print json_encode(array('result'=>'OK'));
-
-});
-*/
 
 Route::get('pr/print/{id}',function($id){
 

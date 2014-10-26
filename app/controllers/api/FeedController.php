@@ -13,8 +13,8 @@ class FeedController extends \BaseController {
 	public function index()
 	{
 		//
-		
-        $media = Media::where('status','approved')->orderBy('createdDate','desc')->get();
+
+        $media = \Media::where('status','approved')->orderBy('createdDate','desc')->get();
 
         for( $i = 0; $i < count($media); $i++ ){
 
@@ -149,20 +149,21 @@ class FeedController extends \BaseController {
 	{
 		//
 	}
-	
-	public function feedGet($page, $key)
+
+	public function feedGet($page = 0, $key = null)
 	{
 		$limit = 10;
 		$offset = $page == 1 ? 0 : ($page -1) * $limit;
 		$retVal = array('status' => 'ERR', 'msg' => 'Invalid Session');
-		
+
 		try {
 			$user = \Member::where('session_key', '=', $key)->exists();
 			if(!$user) return Response::json($retVal);
-			$media = \Media::where('status','approved')->orderBy('createdDate','desc')->skip($offset)->take($limit)->get();
+			$media = \Media::where('status','napproved')->orderBy('createdDate','desc')->skip($offset)->take($limit)->get();
 			if($media->count() > 0 && $user)
 			{
-				$retVal = array('status' => 'OK', 'media' => $media->toArray());
+                $fmedia = $this->flattenMedia($media);
+				$retVal = $fmedia;
 			}
 			else
 			{
@@ -172,12 +173,80 @@ class FeedController extends \BaseController {
 		}
 		catch (ModelNotFoundException $e)
 		{
-				
+
 		}
-		
+
 		return Response::json($retVal);
-		
+
 	}
 
+    /* utility function */
+
+    private function flattenMedia($media)
+    {
+        for( $i = 0; $i < count($media); $i++ ){
+
+            $media[$i]->mongoid = $media[$i]->_id;
+
+            $media[$i]->token = $media[$i]->_token;
+
+            unset($media[$i]->_id);
+            unset($media[$i]->_token);
+
+            unset($media[$i]->thumbnail_url);
+            unset($media[$i]->large_url);
+            unset($media[$i]->medium_url);
+            unset($media[$i]->full_url);
+            unset($media[$i]->delete_type);
+            unset($media[$i]->delete_url);
+            unset($media[$i]->filename);
+            unset($media[$i]->filesize);
+            unset($media[$i]->temp_dir);
+            unset($media[$i]->filetype);
+            unset($media[$i]->is_image);
+            unset($media[$i]->is_audio);
+            unset($media[$i]->is_video);
+            unset($media[$i]->fileurl);
+            unset($media[$i]->file_id);
+            unset($media[$i]->caption);
+
+            // non file related
+            unset($media[$i]->lyric);
+            unset($media[$i]->files);
+
+            $dm = $media[$i]->defaultmedias;
+
+            unset($dm['delete_type']);
+            unset($dm['delete_url']);
+            unset($dm['temp_dir']);
+
+            $media[$i]->defaultmedias = $dm;
+
+            foreach($dm as $k=>$v){
+                $name = 'media'.str_replace(' ', '', ucwords( str_replace('_', ' ', $k) ));
+                $media[$i]->{$name} = $v;
+            }
+            unset($media[$i]->defaultmedias);
+
+            $dp = $media[$i]->defaultpictures;
+
+            unset($dp['delete_type']);
+            unset($dp['delete_url']);
+            unset($dp['temp_dir']);
+
+            foreach($dp as $k=>$v){
+                $name = 'picture'.str_replace(' ', '', ucwords( str_replace('_', ' ', $k) ));
+                $media[$i]->{$name} = $v;
+            }
+            unset($media[$i]->defaultpictures);
+
+            $media[$i]->createdDate = date('Y-m-d H:i:s',$media[$i]->createdDate->sec);
+            $media[$i]->lastUpdate = date('Y-m-d H:i:s',$media[$i]->lastUpdate->sec);
+
+        }
+
+        return $media;
+
+    }
 
 }
