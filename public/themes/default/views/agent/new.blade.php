@@ -8,7 +8,7 @@
 {{Former::open_for_files($submit,'POST',array('class'=>'custom addAttendeeForm'))}}
 
 <div class="row-fluid">
-    <div class="span6">
+    <div class="col-md-6">
 
         {{ Former::select('salutation')->options(Config::get('kickstart.salutation'))->label('Salutation')->class('span2') }}
         {{ Former::text('firstname','First Name')->required() }}
@@ -27,12 +27,12 @@
             {{ Former::select('state')->class('au')->options(Config::get('country.aus_states'))->label('State')->style('display:none;')->id('au_states') }}
         </div>
         <div class="outside">
-            {{ Former::text('state','State / Province')->class('outside span6')->id('other_state')->class('span3') }}
+            {{ Former::text('state','State / Province')->class('outside col-md-6')->id('other_state')->class('span3') }}
         </div>
 
         {{ Former::select('countryOfOrigin')->id('country')->options(Config::get('country.countries'))->label('Country of Origin')->required() }}
     </div>
-    <div class="span6">
+    <div class="col-md-6">
         {{ Former::text('email','Email')->required() }}
 
         {{ Former::password('pass','Password')->required() }}
@@ -83,22 +83,22 @@
         ?>
 
         <div class="row-fluid form-horizontal">
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::select('price_sign', 'Filter by Price')->options($price_sign)->class('span12') }}
             </div>
-            <div class="span8 no-label">
-                {{ Former::text('filter_price','')->class('span6') }}
+            <div class="col-md-8 no-label">
+                {{ Former::text('filter_price','')->class('col-md-6') }}
             </div>
         </div>
 
         {{ Former::select('price_sign2', '')->options($bool)->class('span2')->help('relationship between two price conditions (optional)') }}
 
         <div class="row-fluid form-horizontal">
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::select('price_rel', '')->options($price_sign)->class('span12') }}
             </div>
-            <div class="span8 no-label">
-                {{ Former::text('filter_price2','')->class('span6')->help('second price condition (optional)') }}
+            <div class="col-md-8 no-label">
+                {{ Former::text('filter_price2','')->class('col-md-6')->help('second price condition (optional)') }}
             </div>
         </div>
 
@@ -107,7 +107,7 @@
 </div>
 
 <div class="row-fluid right">
-    <div class="span12">
+    <div class="col-md-12">
         {{ Form::submit('Save',array('class'=>'btn primary'))}}&nbsp;&nbsp;
         {{ HTML::link($back,'Cancel',array('class'=>'btn'))}}
     </div>

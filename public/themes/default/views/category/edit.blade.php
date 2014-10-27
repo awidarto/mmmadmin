@@ -9,14 +9,14 @@
 
 {{ Former::hidden('id')->value($formdata['_id']) }}
 <div class="row-fluid">
-    <div class="span6">
+    <div class="col-md-6">
         {{ Former::text('title','Title') }}
         {{ Former::text('slug','Permalink')->id('permalink') }}
         @include('partials.editortoolbar')
         {{ Former::textarea('description','Description') }}
     </div>
 
-    <div class="span6">
+    <div class="col-md-6">
 
         <div class="control-group">
             <label class="control-label" for="userfile">Upload Images</label>
@@ -104,7 +104,7 @@
 </div>
 
 <div class="row-fluid">
-    <div class="span12">
+    <div class="col-md-12">
         {{ Form::submit('Save',array('class'=>'btn primary'))}}&nbsp;&nbsp;
         {{ HTML::link($back,'Cancel',array('class'=>'btn'))}}
     </div>

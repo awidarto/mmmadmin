@@ -10,7 +10,7 @@
 {{ Former::hidden('id')->value($formdata['_id']) }}
 <div class="row-fluid">
 
-    <div class="span6">
+    <div class="col-md-6">
 
         {{ Former::text('title','Media Title') }}
         {{ Former::select('type')->options(Config::get('media.type'))->label('Media Type') }}
@@ -26,7 +26,7 @@
         {{ Former::textarea('lyric','Lyric') }}
 
     </div>
-    <div class="span6">
+    <div class="col-md-6">
 
         <?php
             $fupload = new Fupload();
@@ -38,7 +38,7 @@
 </div>
 
 <div class="row-fluid">
-    <div class="span12">
+    <div class="col-md-12">
         {{ Form::submit('Save',array('class'=>'btn primary'))}}&nbsp;&nbsp;
         {{ HTML::link($back,'Cancel',array('class'=>'btn'))}}
     </div>

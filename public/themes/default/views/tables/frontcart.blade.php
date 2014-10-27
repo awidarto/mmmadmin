@@ -10,8 +10,8 @@
 		<a class="foundicon-add-doc button right newdoc action clearfix" href="{{URL::to($addurl)}}">&nbsp;&nbsp;<span>{{$newbutton}}</span></a>
 	@endif
 </div>
-<div class="span12">
-	
+<div class="col-md-12">
+
    @if (Session::has('notify_operationalform'))
         <div class="alert alert-error">
              {{Session::get('notify_operationalform')}}
@@ -19,7 +19,7 @@
     @endif
 
     <div class="row-fluid">
-       <div class="span12">
+       <div class="col-md-12">
 
           <table class="table table-condensed dataTable attendeeTable">
 
@@ -28,7 +28,7 @@
 			        <tr>
 			        	@foreach($heads as $head)
 			        		@if(is_array($head))
-			        			<th 
+			        			<th
 			        				@foreach($head[1] as $key=>$val)
 			        					{{ $key }}="{{ $val }}"
 			        				@endforeach
@@ -46,7 +46,7 @@
 			        	<tr>
 			        	@foreach($secondheads as $head)
 			        		@if(is_array($head))
-			        			<th 
+			        			<th
 			        				@foreach($head[1] as $key=>$val)
 			        					@if($key != 'search')
 				        					{{ $key }}="{{ $val }}"
@@ -79,7 +79,7 @@
 				        		<td>&nbsp;</td>
 			    			@endif
 			    		@elseif($in[0] == 'select_all')
-		    				<td>{{ $form->checkbox('select_all','','',false,array('id'=>'select_all')) }}</td>				    		
+		    				<td>{{ $form->checkbox('select_all','','',false,array('id'=>'select_all')) }}</td>
 			    		@elseif($in[0] == '')
 			        		<td>&nbsp;</td>
 			    		@endif
@@ -106,7 +106,7 @@
 	var current_del_id = 0;
 	var current_print_id = 0;
 
-	
+
 
 	function toggle_visibility(id) {
 		$('#' + id).toggle();
@@ -124,12 +124,12 @@
 	    @yield('row')
 
 	    sOut += '</table>';
-	     
+
 	    return sOut;
 	}
 
     $(document).ready(function(){
-    	
+
     	//display tax print
     	$('.payselect').on('change', function() {
   			if(this.value == 'paid'){
@@ -145,24 +145,24 @@
     	$.fn.dataTableExt.oApi.fnStandingRedraw = function(oSettings) {
 		    if(oSettings.oFeatures.bServerSide === false){
 		        var before = oSettings._iDisplayStart;
-		 
+
 		        oSettings.oApi._fnReDraw(oSettings);
-		 
+
 		        // iDisplayStart has been reset to zero - so lets change it back
 		        oSettings._iDisplayStart = before;
 		        oSettings.oApi._fnCalculateEnd(oSettings);
 		    }
-		      
+
 		    // draw the 'current' page
 		    oSettings.oApi._fnDraw(oSettings);
 		};
 
 		$('.activity-list').tooltip();
 
-		
+
 
 		var asInitVals = new Array();
-        
+
         oTable = $('.dataTable').DataTable(
 			{
 				"bProcessing": true,
@@ -180,15 +180,15 @@
 				"oTableTools": {
 					"sSwfPath": "{{ URL::base() }}/swf/copy_csv_xls_pdf.swf"
 				},
-				"aoColumnDefs": [ 
+				"aoColumnDefs": [
 				    { "bSortable": false, "aTargets": [ {{ $disablesort }} ] }
 				 ],
 			    "fnServerData": function ( sSource, aoData, fnCallback ) {
 		            $.ajax( {
-		                "dataType": 'json', 
-		                "type": "POST", 
-		                "url": sSource, 
-		                "data": aoData, 
+		                "dataType": 'json',
+		                "type": "POST",
+		                "url": sSource,
+		                "data": aoData,
 		                "success": fnCallback
 		            } );
 		        }
@@ -210,7 +210,7 @@
 		        //this.src = "../examples_support/details_close.png";
 		        oTable.fnOpen( nTr, fnFormatDetails(nTr), 'details-expand' );
 		    }
-		} );        
+		} );
 
 		$('tfoot input').keyup( function () {
 			/* Filter on the column (the index) of this element */
@@ -218,7 +218,7 @@
 		} );
 
 		/*
-		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in 
+		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
 		 * the footer
 		 */
 		$('tfoot input').each( function (i) {
@@ -260,7 +260,7 @@
 		} );
 
 		/*
-		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in 
+		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
 		 * the footer
 		 */
 		$('thead input').each( function (i) {
@@ -291,7 +291,7 @@
 		} );
 
 		/*
-		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in 
+		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
 		 * the footer
 		 */
 		$('.filter input').each( function (i) {
@@ -332,7 +332,7 @@
 				$('.selector_'+id).attr('checked', false);
 			}
 		});
-		
+
 
 		$('#confirmdelete').click(function(){
 
@@ -340,7 +340,7 @@
 				if(data.status == 'OK'){
 					//redraw table
 
-					
+
 					oTable.fnStandingRedraw();
 
 					$('#delstatusindicator').html('Payment status updated');
@@ -368,7 +368,7 @@
 					$.post('{{ URL::to($ajaxdel) }}',{'id':_id}, function(data) {
 						if(data.status == 'OK'){
 							//redraw table
-							
+
 							oTable.fnStandingRedraw();
 							alert("Item id : " + _id + " deleted");
 						}
@@ -463,64 +463,64 @@
 
 		   	}
 
-		   	
+
 
 		   	if ($(e.target).is('.viewform')) {
-				
+
 				var _id = e.target.id;
 				var _rel = $(e.target).attr('rel');
 				var url = '{{ URL::base() }}' + '/exhibitor/' + _rel + '/' + _id;
-				
+
 
 				//var url = $(this).attr('url');
 			    //var modal_id = $(this).attr('data-controls-modal');
 			    $("#viewformModal .modal-body").load(url);
-				
-				
+
+
 				$('#viewformModal').modal();
 
 		   	}
 
 		   	if ($(e.target).is('.editform')) {
-				
+
 				var _id = e.target.id;
 				var _rel = $(e.target).attr('rel');
 				var url = '{{ URL::base() }}' + '/exhibitor/' + _rel + '/' + _id;
-				
+
 
 				//var url = $(this).attr('url');
 			    //var modal_id = $(this).attr('data-controls-modal');
 			    setTimeout(function() {
 				    $("#editformModal .modal-body").load(url);
 				}, 1000);
-			    
-				
-				
+
+
+
 				$('#editformModal').modal();
 
 		   	}
 
 
 		   	if ($(e.target).is('.fillform')) {
-				
+
 				var _id = e.target.id;
 				var _rel = $(e.target).attr('rel');
 				var url = '{{ URL::base() }}' + '/exhibitor/' + _rel + '/' + _id;
-				
+
 
 				//var url = $(this).attr('url');
 			    //var modal_id = $(this).attr('data-controls-modal');
 			    setTimeout(function() {
 				    $("#editformModal .modal-body").load(url);
 				}, 1000);
-			    
-				
-				
+
+
+
 				$('#editformModal').modal();
 
 		   	}
 
-		   	
+
 
 
 
@@ -556,7 +556,7 @@
 					autosize: true
 				});
 
-		   	}*/	
+		   	}*/
 
 			if ($(e.target).is('.fileview')) {
 				var _id = e.target.id;
@@ -569,7 +569,7 @@
 					autosize: true
 				});
 
-		   	}		   			   	
+		   	}
 
 			if ($(e.target).is('.metaview')) {
 				var doc_id = e.target.id;
@@ -594,7 +594,7 @@
 
 		});
 
-		
+
 
     });
   </script>

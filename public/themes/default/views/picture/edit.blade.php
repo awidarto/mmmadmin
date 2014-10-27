@@ -272,14 +272,14 @@
 {{ Former::hidden('filename')->value($pic_info['filename'])->id('filename') }}
 {{ Former::hidden('original')->value($src_url)->id('original') }}
 <div class="row">
-    <div class="span9" style="border:thin solid #ccc;">
+    <div class="col-md-9" style="border:thin solid #ccc;">
         <div class="img-container" style="position: relative;">
             <img src="{{ URL::to($src_url)}}" >
         </div>
     </div>
 
 
-    <div class="span3 property">
+    <div class="col-md-3 property">
         {{-- print_r($pic_info) --}}
 
         {{ Former::text('data-width','width')->id('data-width')->value($pic_info['width'])->class('span4')}}
@@ -287,7 +287,7 @@
         {{ Former::text('data-ratio','ratio')->id('data-ratio')->value($pic_info['ratio'])->class('span4')}}
 
         <div class="row">
-            <div class="span12">
+            <div class="col-md-12">
                 <div class="img-preview"></div>
             </div>
         </div>
@@ -331,7 +331,7 @@
 
         </div>
         <div class="row action-box">
-            <div class="span12">
+            <div class="col-md-12">
                 <h5>Apply to</h5>
                 <ul style="list-style:none">
                     <li>

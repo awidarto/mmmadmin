@@ -9,7 +9,7 @@
 
 {{ Former::hidden('id')->value($formdata['_id']) }}
 <div class="row-fluid">
-    <div class="span6">
+    <div class="col-md-6">
         {{ Former::text('widgetLocation','Widget Location')->class('wlocautocomplete')->help('Group slides in the same location / position in page') }}
 
         {{ Former::text('linkTo','Link to')->help('Link to URL on click event ( local controller or absolute URL )') }}
@@ -26,7 +26,7 @@
         {{ Former::textarea('content','HTML Content')->class('span10 editor')->rows(8)->help('Use HTML tags to format content') }}
 
     </div>
-    <div class="span6">
+    <div class="col-md-6">
         <h6>Image</h6>
         <?php
             $fupload = new Fupload();
@@ -38,7 +38,7 @@
 </div>
 
 <div class="row-fluid">
-    <div class="span12 pull-right">
+    <div class="col-md-12 pull-right">
 
         {{ Form::submit('Save',array('class'=>'btn primary'))}}&nbsp;&nbsp;
         {{ HTML::link($back,'Cancel',array('class'=>'btn'))}}

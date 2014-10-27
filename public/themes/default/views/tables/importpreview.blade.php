@@ -34,8 +34,8 @@
             @foreach($sheet as $key=>$row)
                 @if(implode($row) != '')
                 <tr id="{{ $sheetcounter.'_'.$key }}">
-                    <td class="span2" style="min-width:40px;">{{ Former::radio('head')->class('head-select')->label('header')->value($sheetcounter.'_'.$key)}}</td>
-                    <td class="span2" style="min-width:40px;">{{ Former::checkbox('')->name('selector')->label('')->value($sheetcounter.'_'.$key)}}</td>
+                    <td class="col-md-2" style="min-width:40px;">{{ Former::radio('head')->class('head-select')->label('header')->value($sheetcounter.'_'.$key)}}</td>
+                    <td class="col-md-2" style="min-width:40px;">{{ Former::checkbox('')->name('selector')->label('')->value($sheetcounter.'_'.$key)}}</td>
                     @foreach($row as $r)
                         <td>
                             {{ $r }}

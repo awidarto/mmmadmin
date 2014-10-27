@@ -12,7 +12,7 @@
 
 
 <div class="row-fluid">
-    <div class="span6">
+    <div class="col-md-6">
 
         {{ Former::select('state')->options(Config::get('country.us_states'))->label('States') }}
         {{ Former::text('number','Street Number')->class('span3')->maxlength(6) }}
@@ -24,55 +24,55 @@
         <?php Former::framework('Nude');?>
 
         <div class="row-fluid lmargin">
-            <div class="span3"></div>
-            <div class="span3">
-                {{ Former::select('type')->options(Config::get('ia.type'))->label('Type')->class('span6') }}
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                {{ Former::select('type')->options(Config::get('ia.type'))->label('Type')->class('col-md-6') }}
             </div>
-            <div class="span3">
-                {{ Former::text('yearBuilt','Year Built')->class('span6')->maxlength(4)  }}
-            </div>
-        </div>
-
-        <div class="row-fluid lmargin">
-            <div class="span3"></div>
-            <div class="span3">
-                {{ Former::text('FMV','FMV')->class('span6') }}
-            </div>
-            <div class="span3">
-                {{ Former::text('listingPrice','Listing Price')->class('span6') }}
+            <div class="col-md-3">
+                {{ Former::text('yearBuilt','Year Built')->class('col-md-6')->maxlength(4)  }}
             </div>
         </div>
 
         <div class="row-fluid lmargin">
-            <div class="span3"></div>
-            <div class="span3">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                {{ Former::text('FMV','FMV')->class('col-md-6') }}
+            </div>
+            <div class="col-md-3">
+                {{ Former::text('listingPrice','Listing Price')->class('col-md-6') }}
+            </div>
+        </div>
+
+        <div class="row-fluid lmargin">
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
                 {{ Former::text('bed','# of Bedroom')->class('number-field') }}
             </div>
-            <div class="span3">
+            <div class="col-md-3">
                 {{ Former::text('bath','# of Bathroom')->class('number-field') }}
             </div>
-            <div class="span3">
+            <div class="col-md-3">
                 {{ Former::text('garage','# of Garage')->class('number-field') }}
             </div>
         </div>
 
         <div class="row-fluid lmargin">
-            <div class="span3"></div>
-            <div class="span3">
-                {{ Former::select('basement')->options(Config::get('ia.boolean'))->label('Basement')->class('span6') }}
+            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                {{ Former::select('basement')->options(Config::get('ia.boolean'))->label('Basement')->class('col-md-6') }}
             </div>
-            <div class="span3">
-                {{ Former::select('pool')->options(Config::get('ia.boolean'))->label('Pool')->class('span6') }}
+            <div class="col-md-3">
+                {{ Former::select('pool')->options(Config::get('ia.boolean'))->label('Pool')->class('col-md-6') }}
             </div>
         </div>
 
         <div class="row-fluid lmargin">
-            <div class="span3"></div>
-            <div class="span4">
-                {{ Former::text('houseSize','House Size (SqFt)')->class('span6') }}
+            <div class="col-md-3"></div>
+            <div class="col-md-4">
+                {{ Former::text('houseSize','House Size (SqFt)')->class('col-md-6') }}
             </div>
-            <div class="span4">
-                {{ Former::text('lotSize','Lot Size (SqFt)')->class('span6') }}
+            <div class="col-md-4">
+                {{ Former::text('lotSize','Lot Size (SqFt)')->class('col-md-6') }}
             </div>
         </div>
 
@@ -101,7 +101,7 @@
             </fieldset>
 
     </div>
-    <div class="span6">
+    <div class="col-md-6">
 
         {{ Former::select('propertyStatus')->options(Config::get('ia.publishing'))->label('Status') }}
 
@@ -116,15 +116,15 @@
         <?php Former::framework('Nude');?>
 
         <div class="row-fluid lmargin">
-            <div class="span3"></div>
-            <div class="span2">
-                {{ Former::text('tax','Tax')->class('span6') }}
+            <div class="col-md-3"></div>
+            <div class="col-md-2">
+                {{ Former::text('tax','Tax')->class('col-md-6') }}
             </div>
-            <div class="span3">
-                {{ Former::text('insurance','Insurance')->class('span6') }}
+            <div class="col-md-3">
+                {{ Former::text('insurance','Insurance')->class('col-md-6') }}
             </div>
-            <div class="span3">
-                {{ Former::text('HOA','HOA')->class('span6') }}
+            <div class="col-md-3">
+                {{ Former::text('HOA','HOA')->class('col-md-6') }}
             </div>
         </div>
 
@@ -144,7 +144,7 @@
 </div>
 
 <div class="row-fluid pull-right">
-    <div class="span4">
+    <div class="col-md-4">
         {{ Form::submit('Save',array('name'=>'submit','class'=>'btn primary'))}}&nbsp;&nbsp;
         {{ HTML::link($back,'Cancel',array('class'=>'btn'))}}
     </div>

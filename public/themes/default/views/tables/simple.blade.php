@@ -984,7 +984,7 @@ select.input-sm {
 		});
 
 		$('#chg-modal').on('hidden', function () {
-			oTable.fnDraw();
+			oTable.draw();
 		})
 
 
@@ -1001,7 +1001,7 @@ select.input-sm {
 		});
 
 		$('#prop-chg-modal').on('hidden', function () {
-			oTable.fnDraw();
+			oTable.draw();
 		});
 
 		function dateFormat(indate) {

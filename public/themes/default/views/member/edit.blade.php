@@ -9,29 +9,29 @@
 
 {{ Former::hidden('id')->value($formdata['_id']) }}
 <div class="row-fluid">
-    <div class="span6">
+    <div class="col-md-6">
 
-        {{ Former::select('salutation')->options(Config::get('kickstart.salutation'))->label('Salutation')->class('span1') }}
+        {{ Former::select('salutation')->options(Config::get('kickstart.salutation'))->label('Salutation')->class('col-md-1 form-control') }}
         {{ Former::text('firstname','First Name') }}
         {{ Former::text('lastname','Last Name') }}
         {{ Former::text('mobile','Mobile') }}
 
         {{ Former::text('address_1','Address') }}
-        {{ Former::text('address_2','') }}
+        {{ Former::text('address_2','&nbsp;')->class('form-control') }}
         {{ Former::text('city','City') }}
         <div class="us" style="display:none;">
-            {{ Former::select('state')->class('us')->options(Config::get('country.us_states'))->label('State')->style('display:none;')->id('us_states') }}
+            {{ Former::select('state')->class('us col-md-3 form-control')->options(Config::get('country.us_states'))->label('State')->style('display:none;')->id('us_states') }}
         </div>
         <div class="au" style="display:none;">
-            {{ Former::select('state')->class('au')->options(Config::get('country.aus_states'))->label('State')->style('display:none;')->id('au_states') }}
+            {{ Former::select('state')->class('au col-md-3 form-control')->options(Config::get('country.aus_states'))->label('State')->style('display:none;')->id('au_states') }}
         </div>
         <div class="outside">
-            {{ Former::text('state','State / Province')->class('outside span3')->id('other_state') }}
+            {{ Former::text('state','State / Province')->class('outside col-md-3 form-control')->id('other_state') }}
         </div>
 
         {{ Former::select('countryOfOrigin')->id('country')->options(Config::get('country.countries'))->label('Country of Origin') }}
     </div>
-    <div class="span6">
+    <div class="col-md-6">
         {{ Former::text('email','Email') }}
 
         {{ Former::password('pass','Password')->help('Leave blank for no changes') }}
@@ -42,7 +42,7 @@
 </div>
 
 <div class="row-fluid right">
-    <div class="span12">
+    <div class="col-md-12">
         {{ Form::submit('Save',array('class'=>'btn primary'))}}&nbsp;&nbsp;
         {{ HTML::link($back,'Cancel',array('class'=>'btn'))}}
     </div>

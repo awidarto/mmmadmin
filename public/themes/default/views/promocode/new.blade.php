@@ -10,74 +10,74 @@
 {{Former::open_for_files($submit,'POST',array('class'=>'custom addAttendeeForm'))}}
 
 <div class="row-fluid">
-    <div class="span6">
+    <div class="col-md-6">
 
         <div class="row-fluid form-vertical">
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::text('number','Street Number')->class('span12')->maxlength(6) }}
             </div>
-            <div class="span8">
+            <div class="col-md-8">
                 {{ Former::text('address','Address')->class('span12') }}
             </div>
         </div>
 
         <div class="row-fluid form-vertical">
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::text('city','City')->class('span12') }}
             </div>
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::select('state')->options(Config::get('country.us_states'))->label('States') }}
             </div>
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::text('zipCode','ZIP')->class('span12')->maxlength(5) }}
             </div>
         </div>
 
         <div class="row-fluid form-vertical">
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::select('type')->options(Config::get('ia.type'))->label('Type') }}
             </div>
-            <div class="span6">
+            <div class="col-md-6">
                 {{ Former::text('yearBuilt','Year Built')->class('span8')->maxlength(4)  }}
             </div>
         </div>
 
         <div class="row-fluid form-vertical">
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::text('FMV','FMV')->class('span12') }}
             </div>
-            <div class="span5">
+            <div class="col-md-5">
                 {{ Former::text('listingPrice','Listing Price')->class('span8') }}
             </div>
         </div>
 
         <div class="row-fluid form-vertical">
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::text('bed','# of Bedroom')->class('span8') }}
             </div>
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::text('bath','# of Bathroom')->class('span8') }}
             </div>
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::text('garage','# of Garage')->class('span8') }}
             </div>
         </div>
 
         <div class="row-fluid form-vertical">
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::select('basement')->options(Config::get('ia.boolean'))->label('Basement')->class('span12') }}
             </div>
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::select('pool')->options(Config::get('ia.boolean'))->label('Pool')->class('span12') }}
             </div>
         </div>
 
         <div class="row-fluid form-vertical">
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::text('houseSize','House Size (SqFt)')->class('span12') }}
             </div>
-            <div class="span6">
-                {{ Former::text('lotSize','Lot Size (SqFt)')->class('span6') }}
+            <div class="col-md-6">
+                {{ Former::text('lotSize','Lot Size (SqFt)')->class('col-md-6') }}
             </div>
         </div>
 
@@ -116,33 +116,33 @@
         {{ HTML::link($back,'Cancel',array('class'=>'btn'))}}
 
     </div>
-    <div class="span6">
+    <div class="col-md-6">
 
 
         <div class="row-fluid form-vertical">
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::select('propertyStatus')->options(Config::get('ia.publishing'))->label('Status') }}
             </div>
-            <div class="span5">
+            <div class="col-md-5">
                 {{ Former::select('category')->options(Config::get('ia.category'))->label('Category') }}
             </div>
         </div>
 
         <div class="row-fluid form-vertical">
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::text('monthlyRental','Monthly Rental')->class('span12') }}
             </div>
-            <div class="span5">
+            <div class="col-md-5">
                 {{ Former::select('section8')->options(Config::get('ia.boolean'))->label('Section 8')->class('span7') }}
             </div>
         </div>
 
 
         <div class="row-fluid form-vertical">
-            <div class="span4">
-                {{ Former::text('leaseTerms','Lease Terms')->append('months')->class('span6')->maxlength(2) }}
+            <div class="col-md-4">
+                {{ Former::text('leaseTerms','Lease Terms')->append('months')->class('col-md-6')->maxlength(2) }}
             </div>
-            <div class="span5">
+            <div class="col-md-5">
                 {{ Former::text('leaseStartDate','Lease Start Date')->class('span12 datepicker')
                     ->data_format('dd-mm-yyyy')
                     ->append('<i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>') }}
@@ -150,13 +150,13 @@
         </div>
 
         <div class="row-fluid form-vertical">
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::text('HOA','HOA')->class('span12') }}
             </div>
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::text('tax','Tax')->class('span12') }}
             </div>
-            <div class="span4">
+            <div class="col-md-4">
                 {{ Former::text('insurance','Insurance')->class('span12') }}
             </div>
         </div>
@@ -175,7 +175,7 @@
 </div>
 
 <div class="row-fluid pull-right">
-    <div class="span4">
+    <div class="col-md-4">
     </div>
 </div>
 {{Former::close()}}

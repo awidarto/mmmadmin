@@ -11,11 +11,11 @@
 	@endif
 </div>
 -->
-<div class="span12">
-   
+<div class="col-md-12">
+
 
     <div class="row-fluid">
-       <div class="span12">
+       <div class="col-md-12">
 
           <table class="table table-condensed dataTable attendeeTable">
 
@@ -28,7 +28,7 @@
 			        		$hid = 0;
 			        	?>
 			        	@foreach($heads as $head)
-			        		<th 
+			        		<th
 			        			@if(isset($colclass[$hid]))
 			        				class="{{$colclass[$hid]}}"
 			        			@endif
@@ -68,7 +68,7 @@
              	<!-- will be replaced by ajax content -->
              </tbody>
 
-             
+
           </table>
 
        </div>
@@ -78,7 +78,7 @@
 <footer class="win-ui-dark win-commandlayout navbar-fixed-bottom">
   <div class="container">
      <div class="row-fluid">
-        <div class="span12 align-left">
+        <div class="col-md-12 align-left">
            <a class="win-command" href="{{ URL::base()}}">
               <span class="win-commandimage win-commandring">!</span>
               <span class="win-label">Home</span>
@@ -107,10 +107,10 @@
 				</a>
 			@endif
 
-		   
+
 
         </div>
-        
+
      </div>
   </div>
 </footer>
@@ -144,7 +144,7 @@
 	<div class="modal-body">
 
 		{{ Form::select('formstatus', Config::get('eventreg.formstatus'),null,array('id'=>'formstatusselect'))}}
-		
+
 
 	</div>
 	<div class="modal-footer">
@@ -212,32 +212,32 @@
 
 
 <div id="viewformModal" class="modal message hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	
+
 	<div class="modal-header">
 		<button type="button" id="removeviewform" class="close" data-dismiss="modal" aria-hidden="true"></button>
 		<h3 id="myModalLabel">Form Submission</h3>
-		
+
 	</div>
 	<div class="modal-body" id="loaddata">
-		
+
 	</div>
-	
-	
+
+
 
 </div>
 
 <div id="editformModal" class="modal message hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	
+
 	<div class="modal-header">
 		<button type="button" id="removeviewform" class="close" data-dismiss="modal" aria-hidden="true"></button>
 		<h3 id="myModalLabel">Edit Form</h3>
-		
+
 	</div>
 	<div class="modal-body" id="loaddata">
-		
+
 	</div>
-	
-	
+
+
 
 </div>
 
@@ -288,7 +288,7 @@
 		<h3 id="myModalLabel">Print Badge</h3>
 	</div>
 	<div class="modal-body">
-		<iframe src="{{ URL::base().'/print/badge' }}" id="print_frame" class="span12"></iframe>
+		<iframe src="{{ URL::base().'/print/badge' }}" id="print_frame" class="col-md-12"></iframe>
 	</div>
 	<div class="modal-footer">
 		<button class="btn btn-primary" id="printstart">Print</button>
@@ -318,7 +318,7 @@
 		<p id="statusdata" ></p>
 	</div>
 	<div class="modal-footer">
-		
+
 	</div>
 </div>
 
@@ -330,7 +330,7 @@
 	var current_del_id = 0;
 	var current_print_id = 0;
 
-	
+
 
 	function toggle_visibility(id) {
 		$('#' + id).toggle();
@@ -348,12 +348,12 @@
 	    @yield('row')
 
 	    sOut += '</table>';
-	     
+
 	    return sOut;
 	}
 
     $(document).ready(function(){
-    	
+
     	//display tax print
     	$('.payselect').on('change', function() {
   			if(this.value == 'paid'){
@@ -369,24 +369,24 @@
     	$.fn.dataTableExt.oApi.fnStandingRedraw = function(oSettings) {
 		    if(oSettings.oFeatures.bServerSide === false){
 		        var before = oSettings._iDisplayStart;
-		 
+
 		        oSettings.oApi._fnReDraw(oSettings);
-		 
+
 		        // iDisplayStart has been reset to zero - so lets change it back
 		        oSettings._iDisplayStart = before;
 		        oSettings.oApi._fnCalculateEnd(oSettings);
 		    }
-		      
+
 		    // draw the 'current' page
 		    oSettings.oApi._fnDraw(oSettings);
 		};
 
 		$('.activity-list').tooltip();
 
-		
+
 
 		var asInitVals = new Array();
-        
+
         oTable = $('.dataTable').DataTable(
 			{
 				"bProcessing": true,
@@ -403,22 +403,22 @@
 				"oTableTools": {
 					"sSwfPath": "{{ URL::base() }}/swf/copy_csv_xls_pdf.swf"
 				},
-				"aoColumnDefs": [ 
+				"aoColumnDefs": [
 				    { "bSortable": false, "aTargets": [ {{ $disablesort }} ] }
 				 ],
 			    "fnServerData": function ( sSource, aoData, fnCallback ) {
 		            $.ajax( {
-		                "dataType": 'json', 
-		                "type": "POST", 
-		                "url": sSource, 
-		                "data": aoData, 
+		                "dataType": 'json',
+		                "type": "POST",
+		                "url": sSource,
+		                "data": aoData,
 		                "success": fnCallback
 		            } );
 		        }
 			}
         );
 
-		      
+
 
 		$('tfoot input').keyup( function () {
 			/* Filter on the column (the index) of this element */
@@ -426,7 +426,7 @@
 		} );
 
 		/*
-		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in 
+		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
 		 * the footer
 		 */
 		$('tfoot input').each( function (i) {
@@ -459,7 +459,7 @@
 		} );
 
 		/*
-		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in 
+		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
 		 * the footer
 		 */
 		$('thead input').each( function (i) {
@@ -491,7 +491,7 @@
 		} );
 
 		/*
-		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in 
+		 * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
 		 * the footer
 		 */
 		$('.filter input').each( function (i) {
@@ -514,11 +514,11 @@
 			}
 		} );
 
-		
+
 		$('#do_action').click( function(){
 			var idtoprocess = [];
 			var totalSelected = 0;
-			var totalSuccess = 0;	
+			var totalSuccess = 0;
 			var dothat = 0;
 			var totalFailure = 0;
 			var value = $("#field_action").val();
@@ -540,7 +540,7 @@
 				  	element = idtoprocess[i];
 				  	// Do something with element i.
 				  	dothat++;
-				  	
+
 					$.post('{{ URL::to($ajaxsendmailexhibitor) }}',{'id':element,'type': value}, function(data) {
 						if(data.status == 'OK'){
 
@@ -559,12 +559,12 @@
 				alert(datainfo);
 				oTable.fnStandingRedraw();
 				$("#field_action").val('none');
-			
+
 			}else{
 				alert(value);
 			}
-			
-			
+
+
 
 		});
 
@@ -584,15 +584,15 @@
 				$('.selector_'+id).attr('checked', false);
 			}
 		});
-		
 
-		
+
+
 
 		$('#savepaystatus').click(function(){
 			var paystat = $('#paystatusselect').val();
 			var taxdisplaystatus = $('#taxdisplaystatusConv').val();
 			$('#savepaystatus').text('Processing..');
-			$('#savepaystatus').attr("disabled", true);	
+			$('#savepaystatus').attr("disabled", true);
 
 			<?php
 
@@ -603,11 +603,11 @@
 				if(data.status == 'OK'){
 					//redraw table
 					oTable.fnStandingRedraw();
-					
+
 					$('#paystatusindicator').html('Payment status updated');
 					$('#savepaystatus').text('Save');
-					$('#savepaystatus').attr("disabled", false);	
-					
+					$('#savepaystatus').attr("disabled", false);
+
 					$('#paystatusselect').val('unpaid');
 					$('.taxdisplaystatus').hide();
 					$('.taxdisplaystatus').val('dontprinttax');
@@ -622,7 +622,7 @@
 		$('#saveformstatus').click(function(){
 			var paystat = $('#formstatusselect').val();
 			$('#saveformstatus').text('Processing..');
-			$('#saveformstatus').attr("disabled", true);	
+			$('#saveformstatus').attr("disabled", true);
 
 			<?php
 
@@ -633,11 +633,11 @@
 				if(data.status == 'OK'){
 					//redraw table
 					oTable.fnStandingRedraw();
-					
+
 					//$('#paystatusindicator').html('Payment status updated');
 					$('#saveformstatus').text('Save');
-					$('#saveformstatus').attr("disabled", false);	
-					
+					$('#saveformstatus').attr("disabled", false);
+
 					$('#formstatusselect').val('open');
 
 					$('#updateFormStatus').modal('toggle');
@@ -650,7 +650,7 @@
 			var paystat = $('#paystatusselectgolf').val();
 			var taxdisplaystatus = $('#taxdisplaystatusGolf').val();
 			$('#savepaystatusGolf').text('Processing..');
-			$('#savepaystatusGolf').attr("disabled", true);	
+			$('#savepaystatusGolf').attr("disabled", true);
 
 			<?php
 
@@ -664,7 +664,7 @@
 					oTable.fnStandingRedraw();
 					$('#paystatusindicator').html('Payment status updated');
 					$('#savepaystatusGolf').text('Save');
-					$('#savepaystatusGolf').attr("disabled", false);	
+					$('#savepaystatusGolf').attr("disabled", false);
 
 					$('#paystatusselectgolf').val('unpaid');
 					$('.taxdisplaystatus').hide();
@@ -680,7 +680,7 @@
 			var paystat = $('#paystatusselectgolfconvention').val();
 			var taxdisplaystatus = $('#taxdisplaystatusAll').val();
 			$('#savepaystatusGolfConvention').text('Processing..');
-			$('#savepaystatusGolfConvention').attr("disabled", true);	
+			$('#savepaystatusGolfConvention').attr("disabled", true);
 
 			<?php
 
@@ -694,7 +694,7 @@
 					oTable.fnStandingRedraw();
 					$('#paystatusindicator').html('Payment status updated');
 					$('#savepaystatusGolfConvention').text('Save');
-					$('#savepaystatusGolfConvention').attr("disabled", false);	
+					$('#savepaystatusGolfConvention').attr("disabled", false);
 
 					$('#paystatusselectgolfconvention').val('unpaid');
 					$('.taxdisplaystatus').hide();
@@ -710,7 +710,7 @@
 		$('#submitresend').click(function(){
 			var emailtype = $('#resendemailtype').val();
 			$('#submitresend').text('Processing..');
-			$('#submitresend').attr("disabled", true);	
+			$('#submitresend').attr("disabled", true);
 
 			<?php
 
@@ -721,31 +721,31 @@
 				if(data.status == 'OK'){
 					//redraw table
 
-					
+
 					oTable.fnStandingRedraw();
 
 					//$('#paystatusindicator').html('Payment status updated');
 					$('#submitresend').text('Sumbit');
-					$('#submitresend').attr("disabled", false);	
+					$('#submitresend').attr("disabled", false);
 
 					$('#resendemailtype').val('email.regsuccess');
 					$('#errormessagemodal').text('');
 					$('#successmessagemodal').text(data.message);
-					
+
 					setTimeout(function() {
 					      $('#updateResendmail').modal('toggle');
 					}, 2000);
-					
+
 
 				}else if(data.status == 'NOTFOUND'){
 
 					//$('#paystatusindicator').html('Payment status updated');
 					$('#submitresend').text('Sumbit');
-					$('#submitresend').attr("disabled", false);	
+					$('#submitresend').attr("disabled", false);
 					$('#errormessagemodal').text(data.message);
 					$('#resendemailtype').val('email.regsuccess');
 
-					
+
 				}
 			},'json');
 		});
@@ -754,7 +754,7 @@
 		$('#submitemailexhibitor').click(function(){
 			var emailtype = $('#sendemailtypeexhibitor').val();
 			$('#submitemailexhibitor').text('Processing..');
-			$('#submitemailexhibitor').attr("disabled", true);	
+			$('#submitemailexhibitor').attr("disabled", true);
 
 			<?php
 
@@ -764,33 +764,33 @@
 			$.post('{{ URL::to($ajaxsendmailexhibitor) }}',{'id':current_pay_id,'type': emailtype}, function(data) {
 				if(data.status == 'OK'){
 					//redraw table
-					
+
 					oTable.fnStandingRedraw();
 
 					//$('#paystatusindicator').html('Payment status updated');
 					$('#submitemailexhibitor').text('Success');
-					
+
 
 					$('#sendemailtypeexhibitor').val('exhibitor.regsuccess');
 					$('#exhbitor_errormessagemodal').text('');
 					$('#exhbitor_successmessagemodal').text(data.message);
-					
+
 					setTimeout(function() {
 					    $('#exhibitorResendmail').modal('toggle');
 					    $('#submitemailexhibitor').text('Sumbit');
-						$('#submitemailexhibitor').attr("disabled", false);	
+						$('#submitemailexhibitor').attr("disabled", false);
 					}, 2000);
-					
+
 
 				}else if(data.status == 'NOTFOUND'){
 
 					//$('#paystatusindicator').html('Payment status updated');
 					$('#submitemailexhibitor').text('Sumbit');
-					$('#submitemailexhibitor').attr("disabled", false);	
+					$('#submitemailexhibitor').attr("disabled", false);
 					$('#exhbitor_errormessagemodal').text(data.message);
 					$('#sendemailtypeexhibitor').val('exhibitor.regsuccess');
 
-					
+
 				}
 			},'json');
 		});
@@ -802,7 +802,7 @@
 				if(data.status == 'OK'){
 					//redraw table
 
-					
+
 					oTable.fnStandingRedraw();
 
 					$('#delstatusindicator').html('Payment status updated');
@@ -836,7 +836,7 @@
 					$.post('{{ URL::to($ajaxdel) }}',{'id':_id}, function(data) {
 						if(data.status == 'OK'){
 							//redraw table
-							
+
 							oTable.fnStandingRedraw();
 							alert("Item id : " + _id + " deleted");
 						}
@@ -922,44 +922,44 @@
 
 		   	}
 
-		   	
+
 
 		   	if ($(e.target).is('.viewform')) {
-				
+
 				var _id = e.target.id;
 				var _rel = $(e.target).attr('rel');
 				var url = '{{ URL::base() }}' + '/exhibitor/' + _rel + '/' + _id;
-				
+
 
 				//var url = $(this).attr('url');
 			    //var modal_id = $(this).attr('data-controls-modal');
 			    $("#viewformModal .modal-body").load(url);
-				
-				
+
+
 				$('#viewformModal').modal();
 
 		   	}
 
 		   	if ($(e.target).is('.editform')) {
-				
+
 				var _id = e.target.id;
 				var _rel = $(e.target).attr('rel');
 				var url = '{{ URL::base() }}' + '/exhibitor/' + _rel + '/' + _id;
-				
+
 
 				//var url = $(this).attr('url');
 			    //var modal_id = $(this).attr('data-controls-modal');
 			    setTimeout(function() {
 				    $("#editformModal .modal-body").load(url);
 				}, 1000);
-			    
-				
-				
+
+
+
 				$('#editformModal').modal();
 
 		   	}
 
-		   	
+
 
 
 
@@ -995,7 +995,7 @@
 					autosize: true
 				});
 
-		   	}*/	
+		   	}*/
 
 			if ($(e.target).is('.fileview')) {
 				var _id = e.target.id;
@@ -1008,7 +1008,7 @@
 					autosize: true
 				});
 
-		   	}		   			   	
+		   	}
 
 			if ($(e.target).is('.metaview')) {
 				var doc_id = e.target.id;
@@ -1033,7 +1033,7 @@
 
 		});
 
-		
+
 
     });
   </script>

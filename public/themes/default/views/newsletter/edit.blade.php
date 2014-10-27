@@ -12,10 +12,10 @@
 {{ Former::hidden('template')->value($formdata['template']) }}
 
 <div class="row-fluid">
-    <div class="span9">
+    <div class="col-md-9">
         {{ Former::textarea('body','Body')->name('body')->class('code')->id('body')->style('min-height:600px;') }}
     </div>
-    <div class="span3">
+    <div class="col-md-3">
         <a href="{{ URL::to('brochure/preview/'.$formdata['template'].'/pdf')}}" class="btn" target="blank">PDF Preview</a>
         {{ Former::select('status')->options(array('inactive'=>'Inactive','active'=>'Active'))->label('Status') }}
         {{ Former::text('title','Title') }}
@@ -32,7 +32,7 @@
 </div>
 
 <div class="row-fluid">
-    <div class="span12">
+    <div class="col-md-12">
         {{ Form::submit('Save',array('class'=>'btn primary'))}}&nbsp;&nbsp;
         {{ HTML::link($back,'Cancel',array('class'=>'btn'))}}
     </div>

@@ -583,7 +583,7 @@ Route::get('media',function(){
 });
 
 Route::get('login',function(){
-    return View::make('login');
+    return View::make('login')->with('title','Login');
 });
 
 Route::post('login',function(){

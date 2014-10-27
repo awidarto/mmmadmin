@@ -8,7 +8,7 @@
 {{Former::open_for_files($submit,'POST',array('class'=>'custom addAttendeeForm'))}}
 
 <div class="row-fluid">
-    <div class="span6">
+    <div class="col-md-6">
 
         {{ Former::text('brandName','Brand Name') }}
         {{ Former::text('shopCategory','Shop Category') }}
@@ -109,7 +109,7 @@
         </div>
 
     </div>
-    <div class="span6">
+    <div class="col-md-6">
         {{ Former::text('productName','Product Name') }}
         {{ Former::textarea('productProperties','Properties') }}
 
@@ -134,7 +134,7 @@
 </div>
 
 <div class="row-fluid right">
-    <div class="span12">
+    <div class="col-md-12">
         {{ Form::submit('Save',array('class'=>'btn primary'))}}&nbsp;&nbsp;
         {{ HTML::link($back,'Cancel',array('class'=>'btn'))}}
     </div>

@@ -8,7 +8,7 @@
 {{Former::open_for_files($submit,'POST',array('class'=>''))}}
 
 <div class="row-fluid">
-    <div class="span6">
+    <div class="col-md-6">
         {{ Former::text('title','Event Title') }}
         {{ Former::text('slug','Permalink')->id('permalink') }}
         {{ Former::text('venue','Venue') }}
@@ -27,14 +27,14 @@
         {{ Former::textarea('description','Description')->class('editor') }}
         {{ Former::text('tags','Tags')->class('tag_keyword') }}
     </div>
-    <div class="span6">
+    <div class="col-md-6">
         @for($i = 1;$i < 6;$i++)
             <div class="row form-horizontal">
-                <div class="span4">
+                <div class="col-md-4">
                     {{ Former::text('code_'.$i,'Code '.$i)->id('code_'.$i)->class('span12')->maxlength('6') }}
 
                 </div>
-                <div class="span4">
+                <div class="col-md-4">
                     {{ Former::text('val_'.$i,'Value '.$i)->id('val_'.$i)->class('span12')->maxlength('6') }}
                 </div>
             </div>
@@ -46,7 +46,7 @@
 </div>
 
 <div class="row-fluid">
-    <div class="span12 pull-right">
+    <div class="col-md-12 pull-right">
         {{ Form::submit('Save',array('class'=>'btn primary'))}}&nbsp;&nbsp;
         {{ HTML::link($back,'Cancel',array('class'=>'btn'))}}
     </div>
