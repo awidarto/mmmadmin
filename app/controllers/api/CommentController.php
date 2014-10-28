@@ -3,6 +3,7 @@ namespace Api;
 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Input;
 
 class CommentController extends \BaseController {
 
@@ -40,7 +41,40 @@ class CommentController extends \BaseController {
 	 */
 	public function store()
 	{
-		//
+		$itemid = Input::get('itemid'); 
+		$itemtype = Input::get('itemtype'); 
+		$userid = Input::get('userid'); 
+		$usercomment = Input::get('comment'); 
+		$key = Input::get('key'); 
+		
+		$retVal = array('status' => 'ERR', 'msg' => 'Invalid Session');
+
+		try {
+			$user = \Member::where('session_key', '=', $key)->exists();
+			if(!$user){
+				return Response::json($retVal);
+			}
+			$media = \Media::where('_id', '=', $itemid)->exists();
+			//var_dump($media);
+			if(!$media){
+				$retVal = array('status' => 'ERR', 'msg' => 'Invalid item.');
+				return Response::json($retVal);
+			}
+			
+			$comment = new \Comments();
+			$comment->itemid = $itemid;
+			$comment->itemtype = $itemtype;
+			$comment->userid = $userid;
+			$comment->comment= $usercomment;
+			$comment->save();
+			$retVal = array('status' => 'OK');
+			return Response::json($retVal);
+			
+		}
+		catch (ModelNotFoundException $e)
+		{
+		}
+		
 	}
 
 
@@ -60,7 +94,7 @@ class CommentController extends \BaseController {
 			$user = \Member::where('session_key', '=', $key)->exists();
 			if(!$user) return Response::json($retVal);
 			
-			$comment = \Comments::where('_id', '=', $itemId)->get();
+			$comment = \Comments::where('itemid', '=', $itemId)->get();
 			if($comment->count() > 0)
 			{
 				$retVal = array('status' => 'OK', 'comments' => $comment->toArray());
@@ -69,14 +103,12 @@ class CommentController extends \BaseController {
 			{
 				$retVal = array('status' => 'ERR', 'msg' => 'beyond your imagination :)');
 			}
-			return $retVal;
+			return Response::json($retVal);
 		}
 		catch (ModelNotFoundException $e)
 		{
 				
 		}
-		
-		return Response::json($retVal);
 	}
 	
 

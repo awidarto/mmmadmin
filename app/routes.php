@@ -99,7 +99,9 @@ Route::group(array('prefix' => 'api/v1'), function (){
 	Route::get('/feed/{page}/{key}', 'Api\FeedController@feedGet');
 	Route::get('/comment/{itemId}/{key}', 'Api\CommentController@show');
 	Route::post('/comment', 'Api\CommentController@store');
-
+	Route::get('/like/{itemId}/{key}', 'Api\LikeController@show');
+	Route::post('/like', 'Api\LikeController@store');
+	
 });
 
 /*

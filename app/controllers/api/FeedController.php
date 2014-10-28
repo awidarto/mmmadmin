@@ -159,7 +159,7 @@ class FeedController extends \BaseController {
 		try {
 			$user = \Member::where('session_key', '=', $key)->exists();
 			if(!$user) return Response::json($retVal);
-			$media = \Media::where('status','napproved')->orderBy('createdDate','desc')->skip($offset)->take($limit)->get();
+			$media = \Media::where('status','approved')->orderBy('createdDate','desc')->skip($offset)->take($limit)->get();
 			if($media->count() > 0 && $user)
 			{
                 $fmedia = $this->flattenMedia($media);
@@ -176,7 +176,7 @@ class FeedController extends \BaseController {
 
 		}
 
-		return Response::json($retVal);
+		//return Response::json($retVal);
 
 	}
 
