@@ -113,13 +113,16 @@ class AuthController extends \Controller {
     				{
     					$sessionKey = md5(time() . $user->email . $user->_id . "momumu<-Salt?");
 
-                        $retVal = $user;
-
-                        $retVal->status = 'OK';
-                        $retVal->key = $sessionKey;
-
     					$user->session_key = $sessionKey;
     					$user->save();
+
+                        $userarray = $user->toArray();
+                        $userarray['createdDate'] = date('Y-m-d H:i:s',$userarray['createdDate']->sec);
+                        $userarray['lastUpdate'] = date('Y-m-d H:i:s',$userarray['lastUpdate']->sec);
+                        unset($userarray['password']);
+
+                        $retVal = array_merge(array("status" => "OK", "key" => $sessionKey), $userarray) ;
+
     				}
     			}
 
