@@ -91,8 +91,8 @@ class AuthController extends \Controller {
 	{
 		//
 	}
-	
-	
+
+
 	/**
 	 * @name login()
 	 * @param string user
@@ -101,7 +101,7 @@ class AuthController extends \Controller {
 	 */
 
     public function login(){
-    	
+
     	if(Input::has('user') && Input::has('pwd'))
     	{
     		$retVal = array("status" => "ERR", "msg" => "Invalid username or password.");
@@ -112,17 +112,22 @@ class AuthController extends \Controller {
     				if(Hash::check(Input::get('pwd'), $user->password))
     				{
     					$sessionKey = md5(time() . $user->email . $user->_id . "momumu<-Salt?");
-    					$retVal = array("status" => "OK", "key" => $sessionKey);
+
+                        $retVal = $user;
+
+                        $retVal->status = 'OK';
+                        $retVal->key = $sessionKey;
+
     					$user->session_key = $sessionKey;
     					$user->save();
     				}
     			}
-    			 
+
     		}
     		catch (ModelNotFoundException $e){
-    			
+
     		}
-    		
+
     		return Response::json($retVal);
     	}
 
@@ -133,7 +138,7 @@ class AuthController extends \Controller {
      * @param string session_key
      * @method POST
      */
-    
+
     public function logout(){
 
     	if(Input::has('session_key'))
@@ -150,11 +155,11 @@ class AuthController extends \Controller {
     		}
     		catch (ModelNotFoundException $e)
     		{
-    			
+
     		}
     		return Response::json($retVal);
     	}
-    	 
+
     }
 
     public function missingMethod($parameters = array())
