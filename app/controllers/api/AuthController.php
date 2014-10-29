@@ -123,6 +123,7 @@ class AuthController extends \Controller {
                         unset($userarray['password']);
                         unset($userarray['_id']);
                         unset($userarray['_token']);
+                        unset($userarray['session_key']);
 
 
                         $retVal = array_merge(array("status" => "OK", "msg" => "Login Success.", "key" => $sessionKey), $userarray) ;
