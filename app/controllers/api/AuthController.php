@@ -113,7 +113,7 @@ class AuthController extends \Controller {
     				{
     					$sessionKey = md5(time() . $user->email . $user->_id . "momumu<-Salt?");
 
-    					$user->session_key = $sessionKey;
+    					$user->sessionKey = $sessionKey;
     					$user->save();
 
                         $userarray = $user->toArray();
