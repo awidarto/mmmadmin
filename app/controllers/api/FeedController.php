@@ -150,16 +150,18 @@ class FeedController extends \BaseController {
 		//
 	}
 
-	public function feedGet($page = 0, $key = null)
+	public function feedGet($last = 0, $key = null)
 	{
-		$limit = 10;
+		$limit = 20;
 		$offset = $page == 1 ? 0 : ($page -1) * $limit;
 		$retVal = array('status' => 'ERR', 'msg' => 'Invalid Session');
 
 		try {
 			$user = \Member::where('session_key', '=', $key)->exists();
 			if(!$user) return Response::json($retVal);
-			$media = \Media::where('status','approved')->orderBy('createdDate','desc')->skip($offset)->take($limit)->get();
+			$media = \Media::where('status','approved')
+                        ->where('createdDate','>', new DateTime() )
+                        ->orderBy('createdDate','desc')->take($limit)->get();
 			if($media->count() > 0 && $user)
 			{
                 $fmedia = $this->flattenMedia($media);

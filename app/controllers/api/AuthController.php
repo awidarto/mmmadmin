@@ -119,9 +119,13 @@ class AuthController extends \Controller {
                         $userarray = $user->toArray();
                         $userarray['createdDate'] = date('Y-m-d H:i:s',$userarray['createdDate']->sec);
                         $userarray['lastUpdate'] = date('Y-m-d H:i:s',$userarray['lastUpdate']->sec);
+                        $userarray['mongoid'] = $userarray['_id'];
                         unset($userarray['password']);
+                        unset($userarray['_id']);
+                        unset($userarray['_token']);
 
-                        $retVal = array_merge(array("status" => "OK", "key" => $sessionKey), $userarray) ;
+
+                        $retVal = array_merge(array("status" => "OK", "msg" => "Login Success.", "key" => $sessionKey), $userarray) ;
 
     				}
     			}
