@@ -239,7 +239,7 @@ select.input-sm {
 <div id="prop-chg-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h3 id="myModalLabel">Change Property Status</h3>
+    <h3 id="myModalLabel">Change Submission Status</h3>
   </div>
   <div class="modal-body">
   	<h4 id="prop-trx-order"></h4>
@@ -989,6 +989,8 @@ select.input-sm {
 
 
 		$('#prop-save-chg').on('click',function(){
+            console.log('change status');
+
             $.post('{{ URL::to('ajax/propchangestatus')}}',
             {
                 trx_id:$('#prop-trx-chg').val(),

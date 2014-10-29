@@ -150,20 +150,24 @@ class FeedController extends \BaseController {
 		//
 	}
 
-	public function feedGet($last = 0, $key = null)
+	public function feedGet($page = 0, $key = null)
 	{
 		$limit = 20;
 		$offset = $page == 1 ? 0 : ($page -1) * $limit;
 		$retVal = array('status' => 'ERR', 'msg' => 'Invalid Session');
 
 		try {
-			$user = \Member::where('session_key', '=', $key)->exists();
+			$user = \Member::where('sessionKey', '=', $key)->exists();
+
 			if(!$user) return Response::json($retVal);
-			$media = \Media::where('status','approved')
-                        ->where('createdDate','>', new DateTime() )
-                        ->orderBy('createdDate','desc')->take($limit)->get();
+
+			//$media = \Media::where('status','approved')
+                        //->where('createdDate','>', new DateTime() )
+            $media = \Media::orderBy('createdDate','desc')->take($limit)->get();
+
 			if($media->count() > 0 && $user)
 			{
+                //print_r($media);
                 $fmedia = $this->flattenMedia($media);
 				$retVal = $fmedia;
 			}
@@ -216,21 +220,21 @@ class FeedController extends \BaseController {
             unset($media[$i]->lyric);
             unset($media[$i]->files);
 
-            $dm = $media[$i]->defaultmedias;
+            $dm = $media[$i]->defaultmedia;
 
             unset($dm['delete_type']);
             unset($dm['delete_url']);
             unset($dm['temp_dir']);
 
-            $media[$i]->defaultmedias = $dm;
+            $media[$i]->defaultmedia = $dm;
 
             foreach($dm as $k=>$v){
                 $name = 'media'.str_replace(' ', '', ucwords( str_replace('_', ' ', $k) ));
                 $media[$i]->{$name} = $v;
             }
-            unset($media[$i]->defaultmedias);
+            unset($media[$i]->defaultmedia);
 
-            $dp = $media[$i]->defaultpictures;
+            $dp = $media[$i]->defaultpic;
 
             unset($dp['delete_type']);
             unset($dp['delete_url']);
@@ -240,7 +244,7 @@ class FeedController extends \BaseController {
                 $name = 'picture'.str_replace(' ', '', ucwords( str_replace('_', ' ', $k) ));
                 $media[$i]->{$name} = $v;
             }
-            unset($media[$i]->defaultpictures);
+            unset($media[$i]->defaultpic);
 
             $media[$i]->createdDate = date('Y-m-d H:i:s',$media[$i]->createdDate->sec);
             $media[$i]->lastUpdate = date('Y-m-d H:i:s',$media[$i]->lastUpdate->sec);
